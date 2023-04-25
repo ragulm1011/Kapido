@@ -1,0 +1,159 @@
+<h2>Sign up</h2>
+
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+  <%= render "devise/shared/error_messages", resource: resource %>
+
+  <fieldset>
+  <legend><b>Credentials</b></legend>
+  <div class="field">
+    <%= f.label :email %><br />
+    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :password %>
+    <% if @minimum_password_length %>
+    <em>(<%= @minimum_password_length %> characters minimum)</em>
+    <% end %><br />
+    <%= f.password_field :password, autocomplete: "new-password" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :password_confirmation %><br />
+    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+  </div>
+
+  <div class="field">
+    <%= f.label :role %><br />
+    <%= f.select :role ,[['Driver','Driver'],['Rider','Rider']] %>
+  </div>
+  </fieldset>
+
+  <br>
+  <br>
+
+
+  <!--Personal Details-->
+  <fieldset>
+  <legend><b>Personal Details</b></legend>
+  <%= fields_for :details do |d| %>
+  <div class="field">
+    <%= d.label :name %><br />
+    <%= d.text_field :name, autocomplete: "name" %>
+  </div>
+
+  <div class = "field">
+    <%= d.label :age %><br />
+    <%= d.number_field :age, autocomplete: "email" %>
+  </div>
+
+  <div class = "field">
+    <%= d.label :mobile_no %><br />
+    <%= d.text_field :mobile_no, autocomplete: "email" %>
+  </div>
+
+  <%end%>
+  </fieldset>
+
+  <br><br>
+
+
+  <!--Address Details-->
+  <fieldset>
+  <legend><b>Address</b></legend>
+  <%= fields_for :address do |a| %>
+      
+      <%=a.label :door_no %><br>
+      <%=a.text_field :door_no  %>
+      <br>
+
+
+      <%=a.label :street %><br>
+      <%=a.text_field :street %>
+      <br>
+
+      <%=a.label :city %><br>
+      <%=a.text_field :city %>
+      <br>
+
+
+      <%=a.label :district %><br>
+      <%=a.text_field :district %>
+      <br>
+
+      <%=a.label :state %><br>
+      <%=a.text_field :state %>
+      <br>
+
+      <%=a.label :pincode %><br>
+      <%=a.number_field :pincode %>
+      <br>
+
+  <%end%>
+  </fieldset>
+
+  <br><br>
+
+
+  <!--Vehicle Details With Liscense Number-->
+  <fieldset>
+  <legend><b>Driver Details</b>(Only if you are a driver)</legend>
+  <%= fields_for :driver_details do |dd|%>
+    <%=dd.label :liscense_no%><br>
+    <%=dd.text_field :liscense_no%>
+    <br>
+
+  <%end%>
+
+  </fieldset>
+
+  <br> <br>
+
+    <fieldset>
+  <legend><b>Rider Details</b>(Only if you are a rider)</legend>
+  <%=fields_for :rider_details do |rd|%>
+    <%=rd.label :gender%><br>
+    <%=rd.text_field :gender%>
+    <br>
+
+    <%=rd.label :aadhar_no%><br>
+    <%=rd.text_field :aadhar_no%>
+    <br>
+
+
+  <%end%>
+  </fieldset>
+
+  <br><br>
+
+
+  <fieldset>
+  <legend><b>Vehicle Details</b>(Only if you are a driver)</legend>
+
+
+  <%=fields_for :vehicle_details do |vd|%>
+  <%=vd.label :vehicle_name%><br>
+  <%=vd.text_field :vehicle_name%>
+  <br>
+
+  <%=vd.label :vehicle_type%><br>
+  <%=vd.text_field :vehicle_type%>
+  <br>
+
+  <%=vd.label :no_of_seats%><br>
+  <%=vd.number_field :no_of_seats%>
+  <br>
+
+  <%end%>
+  </fieldset>
+
+  <br>
+  <br>
+
+  <div class="actions">
+    <%= f.submit "Sign up" %>
+  </div>
+
+<% end %>
+
+<%= render "devise/shared/links" %>

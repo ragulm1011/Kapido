@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  liscense_no: MyString
+  driver_rating: 1.5
+  standby_city: MyString
+
+two:
+  liscense_no: MyString
+  driver_rating: 1.5
+  standby_city: MyString
