@@ -1,0 +1,5 @@
+<h1> WELCOME TO WAITING PAGE OF RIDE </h1>
+<h1> Please wait... </h1>
+
+
+<%= link_to "Cancel the ride",  booking_requests_destroy_path(bid: @bookingId) , data: {turbo_method: :delete , confirm: "Are you sure"}%>

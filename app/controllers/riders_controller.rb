@@ -23,4 +23,5 @@ class RidersController < ApplicationController
   def dash
     
   end
+
 end

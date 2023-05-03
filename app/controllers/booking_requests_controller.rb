@@ -34,6 +34,10 @@ class BookingRequestsController < ApplicationController
   end
 
   def destroy
+    
+    BookingRequest.find(params[:bid]).destroy
+    flash[:notice] = "Your ride cancelled successfully"
+    redirect_to rider_dash_path
   end
 
   private

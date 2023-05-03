@@ -1,2 +1,9 @@
-<h1>Rides#new</h1>
-<p>Find me in app/views/rides/new.html.erb</p>
+<h1> Welcome to your ride </h1>
+<h1> Fasten your seat belts</h1>
+<fieldset>
+    <p>From Location : <%=@booking.from_location_name%><p>
+    <p>To Location : <%=@booking.to_location_name%>   </p>
+    <%if current_user.role == 'Driver'%>
+        <<%= link_to "End_Ride", driver_dash_path %>>
+    <%end%>
+<fieldset>
