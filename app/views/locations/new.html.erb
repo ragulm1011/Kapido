@@ -1,2 +1,30 @@
-<h1>Locations#new</h1>
-<p>Find me in app/views/locations/new.html.erb</p>
+<h1>NEW LOCATION</h1>
+
+<fieldset>
+<legend><b>NEW LOCATION</b></legend>
+<%= form_for @location , action: :create do |f|%>
+
+    <%=f.label :location_name , "Enter the location name"%>
+    <%=f.text_field :location_name%>
+
+    <br>
+
+    <%=f.label :landmark , "Enter the landmark for that location"%>
+    <%=f.text_field :landmark%>
+
+    <br>
+
+    <%=f.label :city , "Enter the city of the location"%>
+    <%=f.text_field :city%>
+
+    <br>
+
+    <%=f.label :pincode , "Enter the pincode"%>
+    <%=f.text_field :pincode%>
+
+    <br>
+
+    <%=f.submit "Submit"%>
+</fieldset>
+    
+<%end%>

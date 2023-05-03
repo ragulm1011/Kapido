@@ -19,4 +19,8 @@ class RidersController < ApplicationController
 
   def destroy
   end
+
+  def dash
+    
+  end
 end

@@ -1,2 +1,61 @@
-<h1>BookingRequests#new</h1>
-<p>Find me in app/views/booking_requests/new.html.erb</p>
+
+ <h1>New Booking Request</h1>
+
+ <fieldset>
+<legend> <b> NEW BOOKING REQUEST</b>  </legend>
+<%= form_for @booking ,url: { action: :create } do |f|%>
+
+
+   
+ <% location_array = Location.all.map { |location| [location.location_name] } %> 
+
+
+    <%if location_array.length != 0%>
+    <%=f.label :from_location_name, "Please select your from Location"%>
+    <%=f.select :from_location_name , location_array%>
+    <%end%>
+
+
+    <br>
+
+    <%="Click the button to add a from location manually"%>
+    <%= link_to "Add a location",  new_location_path%>
+
+    <br>
+
+    <%=f.label :city , "Please enter the current city of your from location"%>
+    <%=f.text_field :city%>
+
+    <br>
+
+    
+ <% location_array = Location.all.map { |location| [location.location_name]}%> 
+
+
+    <%if location_array.length != 0%>
+    <%=f.label :to_location_name , "Please select your to location"%>
+    <%=f.select :to_location_name , location_array%>
+    <%end%>
+
+    <br>
+
+    <%="Click the button to add a to location manually"%>
+    <%= link_to "Add a location", new_location_path%>
+
+    <br>
+
+    <%=f.label :vehicle_type , "Please select your preffered vehicle type"%>
+    <%vehicle_type_array = ["Bike" ,"Auto" ,  "Mini-Car" , "Sedan-Car" , "SUV-Car"]%>
+    <%=f.select :vehicle_type , vehicle_type_array%>
+
+    <br>
+
+    <%=f.submit "Submit"%>
+</fieldset>
+    
+
+
+
+<%end%>
+ 
+

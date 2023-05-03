@@ -1,5 +1,12 @@
+<% unless user_signed_in? %>
 <h1>
     Welcome to Kapido
 </h1>
+<%= link_to "Click here to login/signup", new_user_session_path %>
+<%end%>
 
-<%= link_to "Click me to signout", destroy_user_session_path , method: :delete %>
+
+
+<% if user_signed_in? %>
+
+<% end %>

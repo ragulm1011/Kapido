@@ -11,4 +11,10 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "articles#index"
   root controller: :homes , action: :index , as: :home
+  get "/drivers/dashboard" , controller: :drivers , action: :dash , as: :driver_dash
+  get "/riders/dashboard" , controller: :riders , action: :dash , as: :rider_dash
+  resources :drivers 
+  resources :riders
+  resources :booking_requests
+  resources :locations
 end

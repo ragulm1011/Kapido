@@ -19,4 +19,8 @@ class DriversController < ApplicationController
 
   def destroy
   end
+
+  def dash
+    
+  end
 end
