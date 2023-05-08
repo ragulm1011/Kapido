@@ -1,0 +1,17 @@
+<h1>Available_rides</h1>
+<%if @available%>
+    <%@available.each do |i|%>
+        <div>
+            <%="From location: #{i.from_location_name}"%>
+                <br>
+             <%="To location: #{i.to_location_name}"%>
+              <br>
+                
+
+ <%= link_to "Accept this Ride", new_ride_path(id: i.id) %>               
+
+        </div>
+    <%end%>
+<%else%>
+  <h1>Currently no rides available for you at the moment</h1>
+<%end%>

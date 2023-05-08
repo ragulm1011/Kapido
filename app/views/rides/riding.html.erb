@@ -1,0 +1,9 @@
+<h1> Welcome to riding page </h1>
+
+<% if current_user.driver?%>
+    <!--Driver Riding Page-->
+    <h3>Driver slow and consiously</h3>
+<%else%>
+    <!--Rider Riding Page-->
+    <h3>Fasten your seatbelts</h3>
+<%end%>

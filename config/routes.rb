@@ -15,6 +15,12 @@ Rails.application.routes.draw do
   get "/riders/dashboard" , controller: :riders , action: :dash , as: :rider_dash
   get "/rides/waiting" , controller: :rides , action: :waiting , as: :waiting
   get "/booking_requests/destroy" , controller: :booking_requests , action: :destroy , as: :booking_requests_destroy
+  get "/drivers/available_ride" , controller: :drivers , action: :available_ride , as: :available_ride
+  get "drivers/edit_standby_city" , controller: :drivers , action: :edit_standby_city , as: :edit_standby_city
+  get "/drivers/city_change" , controller: :drivers , action: :city_change , as: :city_change
+  get "/rides/riding" , controller: :rides , action: :riding , as: :riding
+  get "/rides/finish_waiting" , controller: :rides , action: :finish_waiting , as: :finish_waiting
+
   resources :drivers 
   resources :riders
   resources :booking_requests
