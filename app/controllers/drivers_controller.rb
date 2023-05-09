@@ -39,6 +39,15 @@ class DriversController < ApplicationController
     @driver = Driver.find(current_user.userable.id)
   end
   
+  def rating_change
+    @paymentId = params[:driver][:id]
+    @payment = Payment.find(@paymentId)
+    @driver = Driver.find(@payment.driver_id)
+    @oldRating = @driver.driver_rating
+    @newRating = (@oldRating + params[:driver][:driver_rating].to_i)/2
+    @driver.update(driver_rating: @newRating)
+    redirect_to rider_dash_path
+  end
   
 
   def available_ride

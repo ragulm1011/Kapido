@@ -22,6 +22,8 @@ Rails.application.routes.draw do
   get "/rides/finish_waiting" , controller: :rides , action: :finish_waiting , as: :finish_waiting
   get "/payments/waiting_payment" , controller: :payments , action: :waiting_payment , as: :waiting_payment
   get "/payments/successful" , controller: :payments , action: :successful , as: :successful
+  post "/drivers/rating_change" , controller: :drivers , action: :rating_change , as: :rating_change
+  
 
   resources :drivers 
   resources :riders

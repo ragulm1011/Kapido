@@ -1,6 +1,18 @@
 <%if current_user.rider?%>
 <h1> Payment Successfully sent</h1>
-<%= link_to "Redirect to dashboard", rider_dash_path %>
+<fieldset>
+<legend><b>Give rating for driver</b></legend>
+<%= form_for @driver , url: "/drivers/rating_change" do |f|%>
+
+    <%=f.label :driver_rating , "Enter the rating out of 5"%>
+    <%=f.number_field :driver_rating%>
+
+   <%= f.hidden_field :id , value: @paymentId %>
+
+    <%=f.submit "Submit"%>
+</fieldset>
+    
+<%end%>
 <%else%>
 <h1>Payment Successfully Recieved</h1>
 <%= link_to "Redirect to dashboard", driver_dash_path %>

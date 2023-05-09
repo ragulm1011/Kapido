@@ -16,7 +16,7 @@ class PaymentsController < ApplicationController
     @payment = Payment.new(create_params)
     @payment.payment_date = Date.today()
     if @payment.save
-        redirect_to successful_path
+        redirect_to successful_path(paymentId: @payment.id)
     else
       render :new
     end
@@ -39,7 +39,10 @@ class PaymentsController < ApplicationController
   end
 
   def successful
-
+    if current_user.rider?
+      @driver = Driver.new
+      @paymentId = params[:paymentId]
+    end
   end
 
   private
