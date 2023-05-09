@@ -1,2 +1,36 @@
 <h1>Payments#new</h1>
-<p>Find me in app/views/payments/new.html.erb</p>
+
+
+<fieldset>
+<legend><b>NEW PAYMENT</b></legend>
+
+<%= form_for @payment , action: :create do |f|%>
+
+    <%=f.label :amount , "The amount for your ride"%>
+    <%=f.number_field :amount , value: @bill.bill_amount , readonly: true%>
+
+    <br>
+
+    <%=f.label :mode_of_payment , "Enter the mode of payment"%>
+    <%=f.text_field :mode_of_payment%>
+
+    <br>
+
+    <%=f.label :credentials , "Enter the credentials of your payment"%>
+    <%=f.text_field :credentials%>
+
+    <br>
+
+    <%=f.label :remarks , "Enter the remarks for payment"%>
+    <%=f.text_field :remarks%>
+
+    <br>
+
+    <%=f.hidden_field :rider_id , value: @ride.rider_id%>
+    <%=f.hidden_field :driver_id , value: @ride.driver_id%>
+    <%=f.hidden_field :bill_no , value: @bill.id%>
+
+    <%=f.submit "Submit"%>
+</fieldset>
+    
+<%end%>

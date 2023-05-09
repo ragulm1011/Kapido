@@ -1,0 +1,7 @@
+<%if current_user.rider?%>
+<h1> Payment Successfully sent</h1>
+<%= link_to "Redirect to dashboard", rider_dash_path %>
+<%else%>
+<h1>Payment Successfully Recieved</h1>
+<%= link_to "Redirect to dashboard", driver_dash_path %>
+<%end%>

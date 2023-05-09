@@ -60,6 +60,12 @@ class RidesController < ApplicationController
 
   def riding
     @rideId = params[:id]
+    if current_user.rider?
+      bill = Bill.find_by(ride_id: @rideId)
+      if bill
+        redirect_to new_payment_path(rideId: @rideId)
+      end
+    end
   end
 
   

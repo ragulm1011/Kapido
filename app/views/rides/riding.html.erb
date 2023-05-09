@@ -3,6 +3,8 @@
 <% if current_user.driver?%>
     <!--Driver Riding Page-->
     <h3>Driver slow and consiously</h3>
+    <%= link_to "End Ride", new_bill_path(rideId: @rideId) %>
+    
 <%else%>
     <!--Rider Riding Page-->
     <h3>Fasten your seatbelts</h3>

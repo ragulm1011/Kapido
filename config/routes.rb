@@ -20,10 +20,14 @@ Rails.application.routes.draw do
   get "/drivers/city_change" , controller: :drivers , action: :city_change , as: :city_change
   get "/rides/riding" , controller: :rides , action: :riding , as: :riding
   get "/rides/finish_waiting" , controller: :rides , action: :finish_waiting , as: :finish_waiting
+  get "/payments/waiting_payment" , controller: :payments , action: :waiting_payment , as: :waiting_payment
+  get "/payments/successful" , controller: :payments , action: :successful , as: :successful
 
   resources :drivers 
   resources :riders
   resources :booking_requests
   resources :locations
   resources :rides
+  resources :bills
+  resources :payments
 end
