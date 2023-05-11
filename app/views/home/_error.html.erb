@@ -1,0 +1,14 @@
+<%if model.errors.any? %>
+<div class="alert alert-danger alert-dismissible fade show" role="alert" style="margin-left: 400px; margin-right: 400px">
+    <div class="header" style="font-style: italic ; font-size: 1.5em">
+      There were some errors with your submission
+    </div>
+      <br>
+  <%model.errors.each do |error| %>
+    <ul class="list">
+      <li><%=error.full_message %></li>
+    </ul>
+    <%end %>
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+<%end %>

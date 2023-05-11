@@ -1,13 +1,21 @@
+
+
+
+
+<div style="float:right;margin-right:200px;" >
 <h2>Sign up</h2>
+
+<br>
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
   <%= render "devise/shared/error_messages", resource: resource %>
 
+  
   <fieldset>
   <legend><b>Credentials</b></legend>
   <div class="field">
     <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+    <%= f.email_field :email, autofocus: true, autocomplete: "email" , class: "form-control" %>
   </div>
 
   <div class="field">
@@ -15,17 +23,17 @@
     <% if @minimum_password_length %>
     <em>(<%= @minimum_password_length %> characters minimum)</em>
     <% end %><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
+    <%= f.password_field :password, autocomplete: "new-password" , class: "form-control" %>
   </div>
 
   <div class="field">
     <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+    <%= f.password_field :password_confirmation, autocomplete: "new-password" , class: "form-control" %>
   </div>
 
   <div class="field">
     <%= f.label :role %><br />
-    <%= f.select :role ,[['Driver','Driver'],['Rider','Rider']] %>
+    <%= f.select :role ,[['Driver','Driver'],['Rider','Rider']] , class: "form-control"%>
   </div>
   </fieldset>
 
@@ -39,17 +47,17 @@
   <%= fields_for :details do |d| %>
   <div class="field">
     <%= d.label :name %><br />
-    <%= d.text_field :name, autocomplete: "name" %>
+    <%= d.text_field :name, autocomplete: "name" , class: "form-control"%>
   </div>
 
   <div class = "field">
     <%= d.label :age %><br />
-    <%= d.number_field :age, autocomplete: "email" %>
+    <%= d.number_field :age, autocomplete: "email" , class: "form-control" %>
   </div>
 
   <div class = "field">
     <%= d.label :mobile_no %><br />
-    <%= d.text_field :mobile_no, autocomplete: "email" %>
+    <%= d.text_field :mobile_no, autocomplete: "email" , class: "form-control" %>
   </div>
 
   <%end%>
@@ -64,29 +72,29 @@
   <%= fields_for :address do |a| %>
       
       <%=a.label :door_no %><br>
-      <%=a.text_field :door_no  %>
+      <%=a.text_field :door_no , class: "form-control" %>
       <br>
 
 
       <%=a.label :street %><br>
-      <%=a.text_field :street %>
+      <%=a.text_field :street,  class: "form-control"  %>
       <br>
 
       <%=a.label :city %><br>
-      <%=a.text_field :city %>
+      <%=a.text_field :city ,  class: "form-control"  %>
       <br>
 
 
       <%=a.label :district %><br>
-      <%=a.text_field :district %>
+      <%=a.text_field :district  ,  class: "form-control" %>
       <br>
 
       <%=a.label :state %><br>
-      <%=a.text_field :state %>
+      <%=a.text_field :state  ,  class: "form-control" %>
       <br>
 
       <%=a.label :pincode %><br>
-      <%=a.number_field :pincode %>
+      <%=a.number_field :pincode ,  class: "form-control" %>
       <br>
 
   <%end%>
@@ -100,7 +108,7 @@
   <legend><b>Driver Details</b>(Only if you are a driver)</legend>
   <%= fields_for :driver_details do |dd|%>
     <%=dd.label :liscense_no%><br>
-    <%=dd.text_field :liscense_no%>
+    <%=dd.text_field :liscense_no ,  class: "form-control" %>
     <br>
 
   <%end%>
@@ -113,11 +121,11 @@
   <legend><b>Rider Details</b>(Only if you are a rider)</legend>
   <%=fields_for :rider_details do |rd|%>
     <%=rd.label :gender%><br>
-    <%=rd.text_field :gender%>
+    <%=rd.text_field :gender ,  class: "form-control" %>
     <br>
 
     <%=rd.label :aadhar_no%><br>
-    <%=rd.text_field :aadhar_no%>
+    <%=rd.text_field :aadhar_no ,  class: "form-control" %>
     <br>
 
 
@@ -133,15 +141,15 @@
 
   <%=fields_for :vehicle_details do |vd|%>
   <%=vd.label :vehicle_name%><br>
-  <%=vd.text_field :vehicle_name%>
+  <%=vd.text_field :vehicle_name ,  class: "form-control" %>
   <br>
 
   <%=vd.label :vehicle_type%><br>
-  <%=vd.text_field :vehicle_type%>
+  <%=vd.text_field :vehicle_type ,  class: "form-control" %>
   <br>
 
   <%=vd.label :no_of_seats%><br>
-  <%=vd.number_field :no_of_seats%>
+  <%=vd.number_field :no_of_seats ,  class: "form-control" %>
   <br>
 
   <%end%>
@@ -151,9 +159,17 @@
   <br>
 
   <div class="actions">
-    <%= f.submit "Sign up" %>
+    <%= f.submit "Sign up" , class: "btn btn-primary"%>
   </div>
+
+  
 
 <% end %>
 
-<%= render "devise/shared/links" %>
+<%
+=begin%>
+ <%= render "devise/shared/links" %> 
+<%
+=end%>
+
+</div>
