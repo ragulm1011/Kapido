@@ -32,6 +32,15 @@ class DriversController < ApplicationController
   end
 
   def dash
+    @rides = Ride.where(driver_id: current_user.userable.id)
+    @payments = Payment.where(driver_id: current_user.userable.id)
+    @earnings = 0
+    @payments.each do |payment|
+      if payment.amount
+        @earnings = @earnings + payment.amount
+      end
+    end
+    @rating = current_user.userable.driver_rating
     
   end
 

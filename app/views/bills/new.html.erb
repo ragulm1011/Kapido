@@ -1,11 +1,13 @@
-<h1>Bills#new</h1>
-<p>Find me in app/views/bills/new.html.erb</p>
+<div style = "float:right ; margin-right : 300px">
+<h2>Bill for your ride</h2>
+<br>
+
 <fieldset>
-<legend><b>New Payment</b></legend>
+<legend><b>Billing Details</b></legend>
 <%= form_for @bill , action: :create do |f|%>
 
-    <%=f.label :bill_amount , "Enter the amount"%>
-    <%=f.number_field :bill_amount%>
+    <%=f.label :bill_amount , "Amount for ride : "%>
+    <%=f.number_field :bill_amount , class: "form-control" , required: true%>
 
     <%= f.hidden_field :ride_id , value: @rideId %>
     
@@ -14,7 +16,8 @@
 
     
 
-    <%=f.submit "Submit"%>
+    <%=f.submit "Submit" , class: "btn btn-primary btn-sm"%>
 </fieldset>
     
 <%end%>
+</div>

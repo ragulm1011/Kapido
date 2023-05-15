@@ -1,8 +1,8 @@
-
- <h1>New Booking Request</h1>
+<div style = "float:right; margin-right:250px">
+ <h1>Book your ride here !!</h1>
 
  <fieldset>
-<legend> <b> NEW BOOKING REQUEST</b>  </legend>
+<legend> <b> Booking Details </b>  </legend>
 <%= form_for @booking ,url: { action: :create } do |f|%>
 
 
@@ -11,20 +11,19 @@
 
 
     <%if location_array.length != 0%>
-    <%=f.label :from_location_name, "Please select your from Location"%>
-    <%=f.select :from_location_name , location_array%>
+    <%=f.label :from_location_name, "From : "%>
+    <br>
+    <%=f.select :from_location_name , location_array , class: "form-control" , required: true%>
     <%end%>
 
 
-    <br>
+    <br> 
 
-    <%="Click the button to add a from location manually"%>
-    <%= link_to "Add a location",  new_location_path%>
+    <p> If your location is not there yet , then add it manually here <%= link_to "Add a location",  new_location_path , class: "btn btn-secondary btn-sm"%></p>
 
-    <br>
 
-    <%=f.label :city , "Please enter the current city of your from location"%>
-    <%=f.text_field :city%>
+    <%=f.label :city , "City : "%>
+    <%=f.text_field :city , class: "form-control" , required: true%>
 
     <br>
 
@@ -33,29 +32,27 @@
 
 
     <%if location_array.length != 0%>
-    <%=f.label :to_location_name , "Please select your to location"%>
-    <%=f.select :to_location_name , location_array%>
+    <%=f.label :to_location_name , "To : "%>
+    <br>
+    <%=f.select :to_location_name , location_array , class: "form-control" , required: true%>
     <%end%>
 
     <br>
-
-    <%="Click the button to add a to location manually"%>
-    <%= link_to "Add a location", new_location_path%>
-
+   
+   <p> If your location is not there yet , then add it manually here <%= link_to "Add a location",  new_location_path , class: "btn btn-secondary btn-sm"%></p>
+    
     <br>
 
-    <%=f.label :vehicle_type , "Please select your preffered vehicle type"%>
+    <%=f.label :vehicle_type , "Vehicle : "%>
     <%vehicle_type_array = ["Bike" ,"Auto" ,  "Mini-Car" , "Sedan-Car" , "SUV-Car"]%>
-    <%=f.select :vehicle_type , vehicle_type_array%>
+    <%=f.select :vehicle_type , vehicle_type_array , class: "form-control" , required: true%>
 
-    <br>
+    <br> <br>
 
-    <%=f.submit "Submit"%>
+    <%=f.submit "Submit" , class: "btn btn-primary btn-sm"%>
 </fieldset>
     
-
-
-
 <%end%>
+</div>
  
 

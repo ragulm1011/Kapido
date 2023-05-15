@@ -1,4 +1,34 @@
+<div style = "float:right;margin-right:300px;">
 <h1> Welcome to riders dashboard </h1>
-<%= link_to "Book ride", new_booking_request_path %>
 <br>
-<%= link_to "Click me to signout", destroy_user_session_path ,data: { turbo_method: :delete } %>
+    <div style = "display : flex ; justify-content : space-around;">
+    <div class="card  bg-light mb-3" style="max-width: 10rem;">
+  <div class="card-header"><b>Total Rides</b></div>
+  <div class="card-body">
+    <h5 class="card-title"><%= @rides.length %></h5>
+    <%
+=begin%>
+ <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> 
+<%
+=end%>
+  </div>
+</div>
+
+
+
+<div class="card  bg-light mb-3" style="max-width: 10rem;">
+  <div class="card-header"><b>Total Expenses</b></div>
+  <div class="card-body">
+    <h5 class="card-title"><%= @expenses %></h5>
+    <%
+=begin%>
+ <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> 
+<%
+=end%>
+  </div>
+</div>
+</div>
+
+
+</div>
+

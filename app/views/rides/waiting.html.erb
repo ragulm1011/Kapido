@@ -1,5 +1,9 @@
-<h1> WELCOME TO WAITING PAGE OF RIDE </h1>
+<div style = "float:right ; margin-right:300px">
 <h1> Please wait... </h1>
+<p> In process of searching a Kapido captain for your ride !!</p>
+ 
+ <br> <br>
 
-
-<%= link_to "Cancel the ride",  booking_requests_destroy_path(bid: @bookingId) , data: {turbo_method: :delete , confirm: "Are you sure"}%>
+<h6> Bored of getting waited </h6>
+<%= link_to "Cancel the ride",  booking_requests_destroy_path(bid: @bookingId) , data: {turbo_method: :delete , confirm: "Are you sure"} , class: "btn btn-primary btn-sm" %>
+</div>

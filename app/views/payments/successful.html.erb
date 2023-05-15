@@ -1,19 +1,29 @@
 <%if current_user.rider?%>
-<h1> Payment Successfully sent</h1>
+<div style = "float:right ; margin-right:300px">
+<h2> Payment Sent Successfully</h2>
+<br>
 <fieldset>
-<legend><b>Give rating for driver</b></legend>
+<legend><b>Rating for driver</b></legend>
 <%= form_for @driver , url: "/drivers/rating_change" do |f|%>
-
-    <%=f.label :driver_rating , "Enter the rating out of 5"%>
-    <%=f.number_field :driver_rating%>
+    <p> Enter rating of 0-5 </p>
+    <br>
+    <%=f.label :driver_rating , "Rating : "%>
+    <%=f.number_field :driver_rating , class: "form-control" , required: true%>
 
    <%= f.hidden_field :id , value: @paymentId %>
 
-    <%=f.submit "Submit"%>
+   <br>
+
+    <%=f.submit "Submit" , class: "btn btn-primary btn-sm"%>
 </fieldset>
     
 <%end%>
+</div>
 <%else%>
-<h1>Payment Successfully Recieved</h1>
-<%= link_to "Redirect to dashboard", driver_dash_path %>
+<div style = "float : right ; margin-right : 300px">
+<h2>Payment Recieved Successfully</h2>
+<h3>From the rider !!</h3>
+<br><br>
+<%= link_to "Dashboard", driver_dash_path , class: "btn btn-primary btn-small"%>
+</div>
 <%end%>

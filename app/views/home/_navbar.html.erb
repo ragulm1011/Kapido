@@ -1,5 +1,9 @@
-<nav class="navbar navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
+<nav class="navbar sticky-top navbar-expand-lg navbar-light" style="background-color: #e3f2fd;">
+
+
     <p>&nbsp &nbsp &nbsp</p>
+
+    
 
   <%if user_signed_in?%>
     <%if current_user.rider?%>
@@ -43,6 +47,13 @@
         <% end %>
       </li>
 
+      <%if user_signed_in?%>
+        <% if current_user.driver? %>
+        <li class = "nav-item active">
+          <%= link_to "Change city", edit_standby_city_path , class: "nav-link"%>
+        </li>
+        <% end %>
+      <%end%>
       <%if user_signed_in?%>
       
         <%= link_to "Signout", destroy_user_session_path ,data: { turbo_method: :delete }  , class: "nav-link"%>

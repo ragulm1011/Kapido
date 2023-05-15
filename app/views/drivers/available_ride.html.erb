@@ -1,17 +1,46 @@
-<h1>Available_rides</h1>
-<%if @available%>
+<div style = "float:right ; margin-right : 250px">
+
+
+<div style = "display : flex ; flex-direction : column">
+<%unless @available.size == 0%>
+    <h2> The rides available for you </h2>
+    <br><br>
+
     <%@available.each do |i|%>
-        <div>
-            <%="From location: #{i.from_location_name}"%>
+        
+            <div class="card bg-light mb-3" style="max-width: 18rem;">
+  <div class="card-header">Ride <%=@available.find_index(i)+1%></div>
+  <div class="card-body">
+    <h6 class="card-title"><%="From : #{i.from_location_name}"%></h6>
+    <h6 class="card-title"><%="To : #{i.to_location_name}"%></h6>
+    <%
+=begin%>
+ <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> 
+<%
+=end%>
+    
+    <%= link_to "Accept this ride", new_ride_path(id: i.id) , class: "btn btn-primary btn-sm" %>
+  </div>
+</div>
+            <%
+=begin%>
+ <%="From location: #{i.from_location_name}"%>
                 <br>
              <%="To location: #{i.to_location_name}"%>
               <br>
                 
 
- <%= link_to "Accept this Ride", new_ride_path(id: i.id) %>               
+ <%= link_to "Accept this Ride", new_ride_path(id: i.id) %>                
+<%
+=end%>
 
-        </div>
+        
     <%end%>
+</div>
+
 <%else%>
-  <h1>Currently no rides available for you at the moment</h1>
+  <h2> No rides </h2>
+  <h4> Available for you at the moment </h4>
 <%end%>
+
+</div>

@@ -15,7 +15,7 @@
   <legend><b>Credentials</b></legend>
   <div class="field">
     <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" , class: "form-control" %>
+    <%= f.email_field :email, autofocus: true, autocomplete: "email" , class: "form-control" , required: true %>
   </div>
 
   <div class="field">
@@ -23,17 +23,17 @@
     <% if @minimum_password_length %>
     <em>(<%= @minimum_password_length %> characters minimum)</em>
     <% end %><br />
-    <%= f.password_field :password, autocomplete: "new-password" , class: "form-control" %>
+    <%= f.password_field :password, autocomplete: "new-password" , class: "form-control" , required: true %>
   </div>
 
   <div class="field">
     <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" , class: "form-control" %>
+    <%= f.password_field :password_confirmation, autocomplete: "new-password" , class: "form-control" , required: true %>
   </div>
 
   <div class="field">
     <%= f.label :role %><br />
-    <%= f.select :role ,[['Driver','Driver'],['Rider','Rider']] , class: "form-control"%>
+    <%= f.select :role ,[['Driver','Driver'],['Rider','Rider']] , class: "form-control", required: true %>
   </div>
   </fieldset>
 
@@ -47,17 +47,17 @@
   <%= fields_for :details do |d| %>
   <div class="field">
     <%= d.label :name %><br />
-    <%= d.text_field :name, autocomplete: "name" , class: "form-control"%>
+    <%= d.text_field :name, autocomplete: "name" , class: "form-control", required: true %>
   </div>
 
   <div class = "field">
     <%= d.label :age %><br />
-    <%= d.number_field :age, autocomplete: "email" , class: "form-control" %>
+    <%= d.number_field :age, autocomplete: "email" , class: "form-control" , required: true %>
   </div>
 
   <div class = "field">
     <%= d.label :mobile_no %><br />
-    <%= d.text_field :mobile_no, autocomplete: "email" , class: "form-control" %>
+    <%= d.text_field :mobile_no, autocomplete: "email" , class: "form-control" , required: true %>
   </div>
 
   <%end%>
@@ -72,29 +72,29 @@
   <%= fields_for :address do |a| %>
       
       <%=a.label :door_no %><br>
-      <%=a.text_field :door_no , class: "form-control" %>
+      <%=a.text_field :door_no , class: "form-control" , required: true %>
       <br>
 
 
       <%=a.label :street %><br>
-      <%=a.text_field :street,  class: "form-control"  %>
+      <%=a.text_field :street,  class: "form-control"  , required: true %>
       <br>
 
       <%=a.label :city %><br>
-      <%=a.text_field :city ,  class: "form-control"  %>
+      <%=a.text_field :city ,  class: "form-control"  , required: true %>
       <br>
 
 
       <%=a.label :district %><br>
-      <%=a.text_field :district  ,  class: "form-control" %>
+      <%=a.text_field :district  ,  class: "form-control" , required: true %>
       <br>
 
       <%=a.label :state %><br>
-      <%=a.text_field :state  ,  class: "form-control" %>
+      <%=a.text_field :state  ,  class: "form-control" , required: true %>
       <br>
 
       <%=a.label :pincode %><br>
-      <%=a.number_field :pincode ,  class: "form-control" %>
+      <%=a.number_field :pincode ,  class: "form-control" , required: true %>
       <br>
 
   <%end%>
@@ -162,7 +162,8 @@
     <%= f.submit "Sign up" , class: "btn btn-primary"%>
   </div>
 
-  
+  <br>
+  <br>
 
 <% end %>
 
