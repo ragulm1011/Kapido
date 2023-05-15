@@ -1,5 +1,15 @@
 class RidesController < ApplicationController
+
+  before_action :authenticate_user!
+
+  
   def index
+    @rides
+    if current_user.driver?
+      @rides = Ride.where(driver_id: current_user.userable.id)
+    else
+      @rides = Ride.where(rider_id: current_user.userable.id)
+    end
   end
 
   def show

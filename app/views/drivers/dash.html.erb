@@ -1,13 +1,18 @@
 <div style = "float:right ; margin-right:300px">
-<h1> Welcome to drivers dashboard </h1>
+<h1> WELCOME TO DRIVER DASHBOARD </h1>
 <br>
 
 <% unless current_user.userable.standby_city%>
     <h1> Enter your standby location </h1>
-    <%= link_to "Click here to enter your standby location", edit_standby_city_path%>
+    <%= link_to "Set Standing Location", edit_standby_city_path , class: "btn btn-primary btn-sm"%>
     <br>
 <%end%>
 
+<% unless current_user.userable.primary_vehicle_id %>
+  <h1> Set your primary vehicle first </h1>
+  <%= link_to "Set Primary Vehicle", change_primary_vehicle_path , class: "btn btn-primary btn-sm"%>
+  <br><br>
+<% end %>
 <div style = "display : flex ; justify-content : space-around;">
     
     <div class="card  bg-light mb-3" style="max-width: 10rem;">
@@ -19,7 +24,9 @@
  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> 
 <%
 =end%>
+<%= link_to "View your rides", rides_path , class: "btn btn-primary btn-sm"%>
   </div>
+  
 </div>
 
 
@@ -36,10 +43,10 @@
 </div>
 
 
-<div class="card  bg-light mb-3" style="max-width: 10rem;">
+<div class="card  bg-light mb-3" style="max-width: 10rem; max-height :10rem">
   <div class="card-header"><b>Rating</b></div>
   <div class="card-body">
-    <h5 class="card-title"><%= @rating %></h5>
+    <h5 class="card-title"><%= @rating.round(2) %></h5>
     <%
 =begin%>
  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> 

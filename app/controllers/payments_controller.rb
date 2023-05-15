@@ -1,4 +1,7 @@
 class PaymentsController < ApplicationController
+
+  before_action :authenticate_user!
+
   def index
   end
 
@@ -34,6 +37,9 @@ class PaymentsController < ApplicationController
   def waiting_payment
     @payment = Payment.find_by(bill_no: params[:billId])
     if @payment
+      @bill = Bill.find(params[:billId])
+      @bill.payment_id = @payment.id
+      @bill.save
       redirect_to successful_path
     end
   end

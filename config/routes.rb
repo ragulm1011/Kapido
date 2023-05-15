@@ -23,6 +23,8 @@ Rails.application.routes.draw do
   get "/payments/waiting_payment" , controller: :payments , action: :waiting_payment , as: :waiting_payment
   get "/payments/successful" , controller: :payments , action: :successful , as: :successful
   post "/drivers/rating_change" , controller: :drivers , action: :rating_change , as: :rating_change
+  get "/vehicles/change_primary_vehicle" , controller: :vehicles , action: :change_primary_vehicle , as: :change_primary_vehicle
+  get "/vehicles/set_primary_vehicle" , controller: :vehicles , action: :set_primary_vehicle , as: :set_primary_vehicle
   
 
   resources :drivers 
@@ -32,4 +34,5 @@ Rails.application.routes.draw do
   resources :rides
   resources :bills
   resources :payments
+  resources :vehicles
 end

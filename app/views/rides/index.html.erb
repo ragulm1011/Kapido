@@ -1,2 +1,58 @@
-<h1>Rides#index</h1>
-<p>Find me in app/views/rides/index.html.erb</p>
+<div style = "float:right;margin-right:350px">
+    
+    <% if current_user.driver? %>
+        <% unless @rides.length == 0%>
+        <h1> The rides of you </h1>
+        <br><br>
+        <% @rides.each do |i| %>
+             <div class="card bg-light mb-3" style="max-width: 18rem;">
+  <div class="card-header">Ride <%=@rides.find_index(i)+1%></div>
+  <div class="card-body">
+    <% @booking = BookingRequest.find(i.booking_request_id) %>
+    <h6 class="card-title"><%="From : #{@booking.from_location_name}"%></h6>
+    <h6 class="card-title"><%="To : #{@booking.to_location_name}"%></h6>
+    <% @rider = User.find_by(userable_id: i.rider_id) %>
+    <h6 class = "card-title"><%= "Rider Name : #{@rider.name}" %>
+    <h6 class = "card-title"><%= "Ride date : #{i.ride_date}" %>
+    <% @bill = Bill.find_by(ride_id: i.id) %>
+    <h6 class = "card-title"><%= "Ride amount : #{@bill.bill_amount}" %>
+    
+  </div>
+</div>
+            
+        
+    <%end%>
+    <% else %>
+        <h1> No rides found </h1>
+    <%end %>
+        
+    <% else %>
+
+    <% unless @rides.length == 0%>
+        <h1> The rides of you </h1>
+        <br> <br>
+        <% @rides.each do |i| %>
+             <div class="card bg-light mb-3" style="max-width: 18rem;">
+  <div class="card-header">Ride <%=@rides.find_index(i)+1%></div>
+  <div class="card-body">
+    <% @booking = BookingRequest.find(i.booking_request_id) %>
+    <h6 class="card-title"><%="From : #{@booking.from_location_name}"%></h6>
+    <h6 class="card-title"><%="To : #{@booking.to_location_name}"%></h6>
+    <% @driver = User.find_by(userable_id: i.driver_id) %>
+    <h6 class = "card-title"><%= "Driver Name : #{@driver.name}" %>
+    <h6 class = "card-title"><%= "Ride date : #{i.ride_date}" %>
+    <% @bill = Bill.find_by(ride_id: i.id) %>
+    <h6 class = "card-title"><%= "Ride amount : #{@bill.bill_amount}" %>
+    
+    
+  </div>
+</div>
+            
+        
+    <%end%>
+    <% else %>
+        <h1> No rides found </h1>
+    <%end %>
+
+    <% end %>
+</div>

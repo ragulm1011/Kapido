@@ -1,0 +1,37 @@
+
+
+<div style = "float:right ; margin-right : 250px">
+
+<h1> Change your primary vehicle here </h1>
+<div style = "display : flex ; flex-direction : column">
+<%unless @vehicles.size == 0%>
+    <h2> Your Vehicles </h2>
+    <br><br>
+
+    <%@vehicles.each do |i|%>
+        
+            <div class="card bg-light mb-3" style="max-width: 18rem;">
+  <div class="card-header">Vehicle <%=@vehicles.find_index(i)+1%></div>
+  <div class="card-body">
+    <h6 class="card-title"><%="Vehicle name : #{i.vehicle_name}"%></h6>
+    <h6 class="card-title"><%="Vehicle Type : #{i.vehicle_type}"%></h6>
+    <h6 class="card-title"><%="Vehicle Number : #{i.vehicle_no}"%></h6>
+  
+    <% unless current_user.userable.primary_vehicle_id == i.id%>
+    <%= link_to "Make as primary", set_primary_vehicle_path(id: i.id) , class: "btn btn-primary btn-sm" %>
+    <% else %>
+        <button type="button" class="btn btn-secondary btn-sm" disabled>Primary Vehicle</button>
+    <% end %>
+  </div>
+</div>
+            
+        
+    <%end%>
+</div>
+
+<%else%>
+  <h1> Add your vehicle fist </h1>
+  <%= link_to "Add Vehicle", new_vehicle_path %>
+<%end%>
+
+</div>

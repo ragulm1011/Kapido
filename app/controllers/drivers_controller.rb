@@ -1,4 +1,7 @@
 class DriversController < ApplicationController
+  
+  before_action :authenticate_user!
+  
   def index
   end
 
@@ -60,6 +63,7 @@ class DriversController < ApplicationController
   
 
   def available_ride
-     @available = BookingRequest.where(city: "Coimbatore" , booking_status: "available" , vehicle_type: "Bike" )
+      @primaryVehicle = Vehicle.find(current_user.userable.primary_vehicle_id)
+     @available = BookingRequest.where(city: current_user.userable.standby_city , booking_status: "available" , vehicle_type: @primaryVehicle.vehicle_type)
   end
 end

@@ -1,15 +1,17 @@
-<h1> Update your location </h1>
+<div style = "float:right ; margin-right:300px">
+<h1> Change your standing city here </h1>
 
 <fieldset>
-<legend><b>Update the standby location</b></legend>
+<legend><b></b></legend>
 <%= form_for @driver , action: :update do |f|%>
 
-    <%=f.label :standby_city , "Enter your current city name"%>
-    <%=f.text_field :standby_city%>
+    <b><%=f.label :standby_city , "City : "%></b>
+    <%=f.text_field :standby_city , class: "form-control" , required: true%>
 
-    
+    <br>
 
-    <%=f.submit "Submit"%>
+    <%=f.submit "Submit" , class: "btn btn-primary btn-sm"%>
 </fieldset>
     
 <%end%>
+</div>
