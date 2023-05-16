@@ -6,8 +6,11 @@
 <%= form_for @booking ,url: { action: :create } do |f|%>
 
 
-   
- <% location_array = Location.all.map { |location| [location.location_name] } %> 
+   <% location_array1 = Location.where(rider_id: 3).map { |location| [location.location_name]}%> 
+ <% location_array2 = Location.where(rider_id: current_user.userable.id).map{ |location| [location.location_name]} %>
+ <% location_array = location_array1 | location_array2 %>
+
+
 
 
     <%if location_array.length != 0%>
@@ -28,7 +31,9 @@
     <br>
 
     
- <% location_array = Location.all.map { |location| [location.location_name]}%> 
+ <% location_array1 = Location.where(rider_id: 3).map { |location| [location.location_name]}%> 
+ <% location_array2 = Location.where(rider_id: current_user.userable.id).map{ |location| [location.location_name]} %>
+ <% location_array = location_array1 | location_array2 %>
 
 
     <%if location_array.length != 0%>

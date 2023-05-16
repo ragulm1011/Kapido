@@ -5,7 +5,7 @@
 <% unless current_user.userable.standby_city%>
     <h1> Enter your standby location </h1>
     <%= link_to "Set Standing Location", edit_standby_city_path , class: "btn btn-primary btn-sm"%>
-    <br>
+    <br> <br>
 <%end%>
 
 <% unless current_user.userable.primary_vehicle_id %>

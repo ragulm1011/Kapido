@@ -24,6 +24,7 @@ class BookingRequestsController < ApplicationController
 
 
     if  booking_request.save
+      flash[:notice] = "Your booking was created and wait for driver to accept the request"
       redirect_to waiting_path(id: booking_request.id)
     else
       render :new

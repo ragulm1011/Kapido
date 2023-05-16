@@ -1,17 +1,24 @@
 <div style = "float:right ; margin-right:300px">
 <h1> Hooray </h1>
 <h3> You are on the ride now</h3>
+<br> <br>
 
 <% if current_user.driver?%>
     <!--Driver Riding Page-->
-    <h3> With the rider </h3>
+    <h4> Rider Details :  </h4>
+    <h6> Name : <%= @rider.name%> </h6>
+    <h6> Age : <%= @rider.age %> </h6>
+    <h6> Mobile Number : <%= @rider.mobile_no%> </h6>
     <br>
     <p> <b> Reached the destination ? </b> </p>
     <%= link_to "End Ride", new_bill_path(rideId: @rideId)  , class: "btn btn-primary btn-sm" %>
     
 <%else%>
     <!--Rider Riding Page-->
-    <h3> With the driver </h3>
+    <h4> Driver Details: </h4>
+    <h6> Name : <%= @driver.name%> </h6>
+    <h6> Age : <%= @driver.age %> </h6>
+    <h6> Mobile Number : <%= @driver.mobile_no%> </h6>
     
 <%end%>
 </div>

@@ -5,17 +5,24 @@
 <fieldset>
 <legend><b>Rating for driver</b></legend>
 <%= form_for @driver , url: "/drivers/rating_change" do |f|%>
-    <p> Enter rating of 0-5 </p>
-    <br>
+    <p> <b> Enter your rating :  </b></p>
+   
+
+
     <%=f.label :driver_rating , "Rating : "%>
-    <%=f.number_field :driver_rating , class: "form-control" , required: true%>
+    <%rating_array = [1,2,3,4,5]%>
+    <%=f.select :driver_rating , rating_array , class: "form-control" , required: true%>
+
 
    <%= f.hidden_field :id , value: @paymentId %>
-
+    <br>
    <br>
 
     <%=f.submit "Submit" , class: "btn btn-primary btn-sm"%>
 </fieldset>
+
+    <br> <br>
+    <p> <b> Else move to your dasboard </b> <%= link_to "Dashboard", rider_dash_path , class: "btn btn-primary btn-sm" %>
     
 <%end%>
 </div>

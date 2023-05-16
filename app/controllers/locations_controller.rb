@@ -14,7 +14,9 @@ class LocationsController < ApplicationController
 
   def create
     location = Location.new(create_params)
+    location.rider_id = current_user.userable.id
     if location.save
+      flash[:notice] = 'Location added successfully'
       redirect_to new_booking_request_path
     else
       render :new

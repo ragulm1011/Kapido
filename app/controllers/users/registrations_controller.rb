@@ -54,16 +54,24 @@ class Users::RegistrationsController < Devise::RegistrationsController
     resource.role = params[:user][:role]
     resource.userable_type = params[:user][:role].camelcase
 
+    #  params.require(:address).permit(:door_no , :street, :city , :district , :state , :pincode)
+
+    resource.door_no = params[:address][:door_no]
+    resource.street = params[:address][:street]
+    resource.city = params[:address][:city]
+    resource.district = params[:address][:district]
+    resource.state = params[:address][:state]
+    resource.pincode = params[:address][:pincode]
+
     resource.save
 
-    @address=Address.new(address_params)
-      @address.addressable_id=userable.id
-      @address.addressable_type=params[:user][:role].camelcase
-      @address.save
+   
 
       if params[:user][:role] == 'Driver'
         @vehicle = Vehicle.new(vehicle_params)
+        @vehicle.driver_no = userable.id
         userable.vehicles << @vehicle
+        userable.driver_rating = 5
         userable.save
       end
     

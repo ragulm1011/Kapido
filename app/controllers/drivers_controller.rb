@@ -25,6 +25,7 @@ class DriversController < ApplicationController
     puts "================================================"
     driver.standby_city = params[:driver][:standby_city]
     if driver.save
+      flash[:notice] = "Your standing city changed successfully"
       redirect_to driver_dash_path
     else
       render :edit_standby_city
@@ -58,6 +59,7 @@ class DriversController < ApplicationController
     @oldRating = @driver.driver_rating
     @newRating = (@oldRating + params[:driver][:driver_rating].to_i)/2
     @driver.update(driver_rating: @newRating)
+    flash[:notice] = "Rating updated for the driver"
     redirect_to rider_dash_path
   end
   

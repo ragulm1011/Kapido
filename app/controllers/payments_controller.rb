@@ -19,6 +19,7 @@ class PaymentsController < ApplicationController
     @payment = Payment.new(create_params)
     @payment.payment_date = Date.today()
     if @payment.save
+        flash[:notice] = "Payment done successfully"
         redirect_to successful_path(paymentId: @payment.id)
     else
       render :new

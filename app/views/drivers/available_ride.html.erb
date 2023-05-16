@@ -13,27 +13,15 @@
   <div class="card-body">
     <h6 class="card-title"><%="From : #{i.from_location_name}"%></h6>
     <h6 class="card-title"><%="To : #{i.to_location_name}"%></h6>
-    <%
-=begin%>
- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> 
-<%
-=end%>
+    <% @rider = User.find_by(userable_id: i.rider_id) %>
+    <h6 class = "card-title"><%="Rider Name : #{@rider.name}"%></h6>
+     <h6 class = "card-title"><%= "Rider Age : #{@rider.age}" %></h6>
+      <h6 class = "card-title"><%= "Rider Mobile : #{@rider.mobile_no}" %></h6>
     
     <%= link_to "Accept this ride", new_ride_path(id: i.id) , class: "btn btn-primary btn-sm" %>
   </div>
 </div>
-            <%
-=begin%>
- <%="From location: #{i.from_location_name}"%>
-                <br>
-             <%="To location: #{i.to_location_name}"%>
-              <br>
-                
-
- <%= link_to "Accept this Ride", new_ride_path(id: i.id) %>                
-<%
-=end%>
-
+           
         
     <%end%>
 </div>
