@@ -42,7 +42,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
                     
                     
                   end
-
+                 
+                  
+   
     userable.save
     
     build_resource(sign_up_params)
@@ -65,13 +67,18 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
     resource.save
 
-   
+      if params[:user][:role] == 'Rider'
+        userable.aadhar_card_image.attach(params[:rider_details][:aadhar_card_image])
+        userable.save
+
+      end
 
       if params[:user][:role] == 'Driver'
         @vehicle = Vehicle.new(vehicle_params)
         @vehicle.driver_no = userable.id
         userable.vehicles << @vehicle
         userable.driver_rating = 5
+        userable.liscense_image.attach(params[:user][:liscense_image])        
         userable.save
       end
     

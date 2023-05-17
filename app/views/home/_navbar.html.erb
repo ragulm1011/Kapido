@@ -60,7 +60,17 @@
         </li>
       <% end %>
     
-
+    <% if user_signed_in? %>
+      <% if current_user.driver? %>
+        <li class = "nav-item active">
+          <%= link_to "View Profile", driver_path(id: current_user.userable.id) , class: "nav-link" %>  
+        </li>
+      <% else %>
+        <li class = "nav-item active">
+        <%= link_to "View Profile", rider_path(id: current_user.userable.id) , class: "nav-link" %>  
+        </li>
+      <% end %>
+    <% end %>
     
 
       <%if user_signed_in?%>

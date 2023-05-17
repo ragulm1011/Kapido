@@ -33,8 +33,9 @@
 
   <div class="field">
     <%= f.label :role %><br />
-    <%= f.select :role ,[['Driver','Driver'],['Rider','Rider']] , class: "form-control", required: true %>
+    <%=  f.select :role ,[['Driver','Driver'],['Rider','Rider']] , class: "form-control", required: true %>
   </div>
+    <h1> <%= %><h1>
   </fieldset>
 
   <br>
@@ -111,6 +112,11 @@
     <%=dd.text_field :liscense_no ,  class: "form-control" %>
     <br>
 
+    <div class="field">
+   <b> <%= f.label :liscense_image , "Attach your liscense" %> </b> <br>
+    <%= f.file_field :liscense_image %>
+  </div>
+
   <%end%>
 
   </fieldset>
@@ -126,6 +132,14 @@
 
     <%=rd.label :aadhar_no%><br>
     <%=rd.text_field :aadhar_no ,  class: "form-control" %>
+
+    <br>
+
+    <div class = "field">
+    <b><%= rd.label :aadhar_card_image , "Attach your aadhar" %></b> <br>
+    <%= rd.file_field :aadhar_card_image%>
+    </div>
+
     <br>
 
 

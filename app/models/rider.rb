@@ -1,5 +1,7 @@
 class Rider < ApplicationRecord
 
+
+    has_one_attached :aadhar_card_image , dependent: :destroy
     #Associations 
     has_one :user , as: :userable , dependent: :destroy
     
@@ -10,5 +12,9 @@ class Rider < ApplicationRecord
 
     #Valiations
     validates :gender , :aadhar_no , presence: true
+
+
+    scope :made_rides , -> { joins(:rides).group('riders.id').having('count(rider_id) > 0') }
+    scope :does_not_made_rides , -> { where.not(id: Ride.select('rider_id').distinct) }
     
 end
