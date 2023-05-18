@@ -62,6 +62,9 @@ ActiveAdmin.register Driver do
   filter :driver_rating
   filter :standby_city
 
+  #Custom filter
+  filter :primary_vehicle_id , as: :select , collection: Vehicle.all.map{|vehicle| [vehicle.vehicle_name , vehicle.id]}
+
   
   
 
