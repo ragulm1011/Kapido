@@ -66,5 +66,26 @@ class Api::LocationsController < Api::ApiController
     end
   end
 
+
+  #Custom API's
+  def get_all_default_locations
+    @locations = Location.where(rider_id: 3)
+    if @locations 
+      render json: @locations , status: :ok
+    else
+      render json: { message: "No Default Locations Available " } , status: :no_content
+    end
+  end
+
+
+
+  def get_all_rider_personal_locations
+    @locations = Location.where(rider_id: params[:id])
+    if @locations
+      render json: @locations , status: :ok
+    else
+      render json: { message: "No locations available for the rider with id #{params[:id]}"} , status: :no_content
+    end
+  end
   
 end

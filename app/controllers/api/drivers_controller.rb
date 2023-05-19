@@ -70,4 +70,28 @@ class Api::DriversController < Api::ApiController
       render json: @available , status: :ok
     end
   end
+
+
+
+  #Custom Api Methods
+  def drivers_with_standby_city
+    @drivers = Driver.where(standby_city: params[:city])
+    if @drivers.empty?
+      render json: { messsage: "No drivers available in the city #{params[:city]}" } , status: :no_content
+    else
+      render json: @drivers , status: :ok
+    end
+  end
+
+  def drivers_with_rating_above_3
+    @driver = Driver.where("driver_rating >= ?", 3)
+    if @driver.empty?
+      render json: { message: "No drivers available with rating greater than 3" } , status: :no_content
+    else
+      render json: @driver , status: :ok
+    end
+  end
+
+
+
 end

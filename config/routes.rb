@@ -73,6 +73,13 @@ Rails.application.routes.draw do
     post "/drivers/rating_change" , controller: :drivers , action: :rating_change , as: :rating_change
     get "/vehicles/change_primary_vehicle" , controller: :vehicles , action: :change_primary_vehicle , as: :change_primary_vehicle
     get "/vehicles/set_primary_vehicle" , controller: :vehicles , action: :set_primary_vehicle , as: :set_primary_vehicle
+
+    #Custom API's
+    get "/drivers/driversWithStandbyCity" , controller: :drivers , action: :drivers_with_standby_city , as: :driversWithStandbyCity
+    get "/drivers/driversWithRatingAbove3" , controller: :drivers , action: :drivers_with_rating_above_3 , as: :driversWithRatingAbove3
+    get "/locations/getAllDefaultLocations" , controller: :locations , action: :get_all_default_locations , as: :getAllDefaultLocations
+    get "/locations/getAllRiderPersonalLocations" , controller: :locations , action: :get_all_rider_personal_locations , as: :getAllRiderPersonalLocations
+    get "/vehicles/getVehiclesWithVehicleType" , controller: :vehicles , action: :get_vehicles_with_vehicle_type , as: :getVehiclesWithVehicleType
     
   
     resources :drivers 

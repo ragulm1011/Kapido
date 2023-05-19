@@ -67,4 +67,15 @@ class Api::VehiclesController < Api::ApiController
     end
   end
 
+
+   #Custom API's
+   def get_vehicles_with_vehicle_type 
+    @vehicles = Vehicle.where(vehicle_type: params[:vehicle_type])
+    if @vehicles.empty?
+      render json: { message: "No vehicle available with the type #{params[:vehicle_type]}" } , status: :no_content
+    else
+      render json: @vehicles , status: :ok
+    end
+   end
+
 end
