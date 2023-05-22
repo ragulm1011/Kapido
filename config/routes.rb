@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  use_doorkeeper
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
  
@@ -45,6 +46,7 @@ Rails.application.routes.draw do
    namespace :api , default: {format: :json} do
     devise_for :admin_users, ActiveAdmin::Devise.config
     ActiveAdmin.routes(self)
+    # use_doorkeeper
    
     # devise_for :users
     

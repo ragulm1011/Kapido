@@ -1,53 +1,185 @@
 class Api::BillsController < Api::ApiController 
 
-  skip_before_action :verify_authenticity_token
+  
+  before_action :is_driver? , except: [:index, :show]
 
-  #Done
-  def index 
-    @bills = Bill.all
-    if @bills.empty?
-      render json: { message: "Bills not found" } , status: :no_content
+  
+  def index   
+
+
+    if current_user.rider?
+      @rides = Ride.where(rider_id: current_user.userable.id)
+      @rides_id_array = @rides.pluck(:id)
+      @bills = Bill.all
+      @finalBills = Array.new
+
+      @rides_id_array.each do |i|
+        @bills.each do |j|
+          if j.ride_id == i
+            @finalBills.push(j)
+          end
+        end
+      end
+
+      if @finalBills.size > 0
+        render json: @finalBills, status: :ok
+      else
+        render json: {message: "No bills available for you"} , status: :no_content
+      end
+      
+
+      
     else
-      render json: @bills , status: :ok
+
+      @rides = Ride.where(driver_id: current_user.userable.id)
+      @rides_id_array = @rides.pluck(:id)
+      @bills = Bill.all
+      @finalBills = Array.new
+
+      @rides_id_array.each do |i|
+        @bills.each do |j|
+          if j.ride_id == i
+            @finalBills.push(j)
+          end
+        end
+      end
+
+      if @finalBills.size > 0
+        render json: @finalBills, status: :ok
+      else
+        render json: { message: "No bills available for you"} , status: :no_content
+      end
+      
+
+
+
     end
 
   end
+
+
+  
 
   #Not Working - Directing to index action
   def show 
-    @billId = params[:id]
-    @bill = Bill.find_by(id: @billId)
-    if @bill
-      render json: @bill , status: :ok
+    
+    if current_user.driver?
+      @rides = Ride.where(driver_id: current_user.userable.id)
+      @rides_id_array = @rides.pluck(:id)
+      @bills = Bill.all
+      @finalBills = Array.new
+
+      @rides_id_array.each do |i|
+        @bills.each do |j|
+          if j.ride_id == i
+            @finalBills.push(j)
+          end
+        end
+      end
+
+      @final_bills_id_array = @finalBills.pluck(:id)
+
+      unless @final_bills_id_array.include?(params[:id].to_i)
+        render json: { message: "You are not authorized to view this page "} , status: :forbidden
+        return 
+      end
+
+      @bill = Bill.find_by(id: params[:id].to_i)
+
+      if @bill
+        render json: @bill , status: :ok
+      else
+        render json: { message: "No bill available with the given id #{params[:id].to_i}"} , status: :no_content
+      end
+
     else
-      render json: { message: "Bill not found" } , status: not_found
+
+      @rides = Ride.where(rider_id: current_user.userable.id)
+      @rides_id_array = @rides.pluck(:id)
+      @bills = Bill.all
+      @finalBills = Array.new
+
+      @rides_id_array.each do |i|
+        @bills.each do |j|
+          if j.ride_id == i
+            @finalBills.push(j)
+          end
+        end
+      end
+
+      @final_bills_id_array = @finalBills.pluck(:id)
+
+      unless @final_bills_id_array.include?(params[:id].to_i)
+        render json: { message: "You are not authorized to view this page"} , status: :forbidden
+        return 
+      end
+      
+      @bill = Bill.find_by(id: params[:id].to_i)
+      
+      if @bill
+        render json: @bill , status: :ok
+      else
+        render json: {message: "No bill available with the id #{params[:id].to_i}"} , status: :no_content
+      end
+
     end
 
   end
 
-  #Done
+
+  
+
+  
   def create
-    @bill = Bill.new(ride_id: params[:ride_id] , payment_id: 25 , bill_date: Date.today() , bill_amount: params[:bill_amount])
-   
+    
+    @bill = Bill.new()
+
+    @bill.ride_id = params[:ride_id]
+    @bill.payment_id = 25
+    @bill.bill_date = Date.today()
+    @bill.bill_amount = params[:bill_amount]
+
     if @bill.save
       render json: @bill , status: :created
     else
       render json: {error: @bill.errors.full_messages} , status: :unprocessable_entity
     end
+
   end
 
 
   #No routes found error
   def update 
+    @rides = Ride.where(driver_id: current_user.userable.id)
+    @rides_id_array = @rides.pluck(:id)
+    @bills = Bill.all
+    @finalBills = Array.new
+
+    @rides_id_array.each do |i|
+      @bills.each do |j|
+        if j.ride_id == i
+          @finalBills.push(j)
+        end
+      end
+    end
+
+    @final_bills_id_array = @finalBills.pluck(:id)
+
+    unless @final_bills_id_array.include?(params[:id].to_i)
+      render json: {message: "You are not authorized to view this page"} , status: :forbidden
+      return 
+    end
+
     @billId = params[:id]
     @bill = Bill.find(@billId)
     @updatedBillAmount = params[:bill_amount]
+
     if @bill
       @bill.bill_amount = @updatedBillAmount
       if @bill.save
         render json: @bill , status: :accepted
       else
-        render json: { error: @bill.errors.full_messages } , status: unprocessable_entity
+        render json: { error: @bill.errors.full_messages } , status: :unprocessable_entity
       end
     else
       render json: {error: "No bill with id #{@billId}"} , status: :not_found
@@ -59,6 +191,28 @@ class Api::BillsController < Api::ApiController
   #No routes found error
 
   def destroy 
+
+    @rides = Ride.where(driver_id: current_user.userable.id)
+    @rides_id_array = @rides.pluck(:id)
+    @bills = Bill.all
+    @finalBills = Array.new
+
+    @rides_id_array.each do |i|
+      @bills.each do |j|
+        if j.ride_id == i
+          @finalBills.push(j)
+        end
+      end
+    end
+
+    @final_bills_id_array = @finalBills.pluck(:id)
+
+    unless @final_bills_id_array.include?(params[:id].to_i)
+      render json: {message: "You are not authorized to view this page"} , status: :forbidden
+      return 
+    end
+
+
     @billId = params[:id]
     @bill = Bill.find(@billId)
     if @bill
@@ -73,5 +227,9 @@ class Api::BillsController < Api::ApiController
     end
   end
 
+  private
+  def is_driver?
+    return user_signed_in? && current_user.driver?
+  end
   
 end

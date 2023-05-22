@@ -10,7 +10,7 @@ gem "rails", "~> 7.0.4", ">= 7.0.4.3"
 gem 'sass-rails', '>= 5'
 gem "sprockets-rails"
 
-# Use postgresql as the database for Active Record
+# Use postgresql as the database for Actibundle add doorkeepere Record
 gem "pg", "~> 1.1"
 
 # Use the Puma web server [https://github.com/puma/puma]
@@ -73,3 +73,5 @@ group :test do
   gem "selenium-webdriver"
   gem "webdrivers"
 end
+
+gem "doorkeeper"
