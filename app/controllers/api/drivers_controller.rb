@@ -42,22 +42,20 @@ class Api::DriversController < Api::ApiController
   
   end
 
-
-
-  def destroy
-  end
-
   
   
 
   def available_ride
     
-    @primaryVehicle = Vehicle.find(params[:id])
-     @available = BookingRequest.where(city: params[:city] , booking_status: "available" , vehicle_type: @primaryVehicle.vehicle_type)
-
-     if @available.empty?
+    @primaryVehicle = Vehicle.find_by(id: current_user.userable.primary_vehicle_id)
+    @available = BookingRequest.where(city: params[:city] , booking_status: "available" , vehicle_type: @primaryVehicle.vehicle_type)
+    
+    
+    if @available.size == 0
+     
       render json: {  message: "No rides available" } , status: :no_content
     else
+      
       render json: @available , status: :ok
     end
   end
@@ -66,7 +64,9 @@ class Api::DriversController < Api::ApiController
 
   #Custom Api Methods
   def drivers_with_standby_city
+    
     @drivers = Driver.where(standby_city: params[:city])
+    
     if @drivers.empty?
       render json: { messsage: "No drivers available in the city #{params[:city]}" } , status: :no_content
     else
@@ -86,7 +86,9 @@ class Api::DriversController < Api::ApiController
 
   private
   def is_driver?
-    return user_signed_in? && current_user.driver?
+    unless user_signed_in? && current_user.driver?
+      render json: { message: "You are not authorized to view this page"} , status: :forbidden
+    end
   end
 
 end

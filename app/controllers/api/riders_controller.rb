@@ -1,36 +1,34 @@
 class Api::RidersController < Api::ApiController
   
-  skip_before_action :verify_authenticity_token
-  
+  before_action :is_rider? , except: [:index]
+
   def index
+
     @riders = Rider.all 
     if @riders.empty?
       render json: { message: "Riders not found" } , status: :no_content
     else
       render json: @riders , status: :ok
     end
+
   end
 
+
   def show
-    @rider = Rider.find(params[:id])
+
+    @rider = Rider.find_by(id: current_user.userable.id)
     if @rider
       render json: @rider , status: :ok
     else
       render json: { message: "Rider not found" } , status: :not_found
     end
+
   end
 
-  # def new
-  # end
-
-  # def create
-  # end
-
-  # def edit
-  # end
+  
 
   def update
-    @rider = Rider.find_by(id: params[:id])
+    @rider = Rider.find_by(id: current_user.userable.id)
     if @rider
       @rider.aadhar_no = params[:aadhar_no]
       if @rider.save
@@ -43,8 +41,13 @@ class Api::RidersController < Api::ApiController
     end
   end
 
-  # def destroy
-  # end
+  
 
+  def is_rider?
+    unless user_signed_in? && current_user.rider?
+      render json: { message: "You are not authorized to view this page"} , status: :forbidden
+      return 
+    end
+  end
 
 end

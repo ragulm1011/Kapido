@@ -229,7 +229,9 @@ class Api::BillsController < Api::ApiController
 
   private
   def is_driver?
-    return user_signed_in? && current_user.driver?
+    unless user_signed_in? && current_user.driver?
+      render json: {message: "You are not authorized to view this page"} , status: :unauthorized
+    end
   end
   
 end
