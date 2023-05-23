@@ -1,12 +1,8 @@
 class VehiclesController < ApplicationController
 
   before_action :authenticate_user!  
-
-  def index
-  end
-
-  def show
-  end
+  before_action :is_driver?
+  
 
   def new
     @vehicle = Vehicle.new()
@@ -17,9 +13,7 @@ class VehiclesController < ApplicationController
     
     @vehicle = Vehicle.new(create_params)
     @vehicle.driver_no = current_user.userable.id 
-    p "================================================================"
-    p @vehicle
-    p "================================================================"
+ 
 
     if @vehicle.save
       flash[:notice] = 'Your Vehicle added successfully'
@@ -31,11 +25,7 @@ class VehiclesController < ApplicationController
 
   end
 
-  def edit
-  end
-
-  def update
-  end
+  
 
   def destroy
   end
@@ -46,11 +36,29 @@ class VehiclesController < ApplicationController
 
   def set_primary_vehicle
     @vehicleId = params[:id]
+    @vehicles = Vehicle.where(driver_no: current_user.userable.id)
+    @vehicles_id_array = @vehicles.pluck(:id)
+
+    unless vehicles_id_array.include?(@vehicleId)
+      flash[:alert] = "Uauthorized action"
+      redirect_to driver_dash_path
+    end
+
     current_user.userable.update(primary_vehicle_id: @vehicleId)
     redirect_to driver_dash_path
   end
+
   private
   def create_params
     params.require(:vehicle).permit(:vehicle_name , :vehicle_type , :no_of_seats , :vehicle_no)
   end
+
+  private
+  def is_driver?
+    unless user_signed_in? && current_user.driver?
+      flash[:alert] = "Unauthorized action"
+      redirect_to rider_dash_path
+    end
+  end
+  
 end

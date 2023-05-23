@@ -2,11 +2,7 @@ class PaymentsController < ApplicationController
 
   before_action :authenticate_user!
 
-  def index
-  end
-
-  def show
-  end
+  
 
   def new
     
@@ -26,14 +22,7 @@ class PaymentsController < ApplicationController
     end
   end
 
-  def edit
-  end
-
-  def update
-  end
-
-  def destroy
-  end
+  
 
   def waiting_payment
     @payment = Payment.find_by(bill_no: params[:billId])

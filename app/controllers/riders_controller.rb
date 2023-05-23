@@ -1,28 +1,20 @@
 class RidersController < ApplicationController
   
   before_action :authenticate_user!
+  before_action :is_rider?
   
-  def index
-  end
-
+ 
   def show
+    
+    unless params[:id] == current_user.userable.id
+      flash[:alert] = "Unauthorized action"
+      redirect_to rider_dash_path
+    end
+
     @rider = Rider.find(params[:id])
   end
 
-  def new
-  end
-
-  def create
-  end
-
-  def edit
-  end
-
-  def update
-  end
-
-  def destroy
-  end
+  
 
   def dash
    @rides = Ride.where(rider_id: current_user.userable.id)
@@ -34,6 +26,14 @@ class RidersController < ApplicationController
       end
     end
 
+  end
+
+  private
+  def is_rider?
+    unless user_signed_in? && current_user.rider?
+      flash[:alert] = "Unauthorized action"
+      redirect_to driver_dash_path
+    end
   end
 
 end

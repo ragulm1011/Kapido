@@ -1,12 +1,9 @@
 class LocationsController < ApplicationController
 
   before_action :authenticate_user!
+  before_action :is_rider?
   
-  def index
-  end
-
-  def show
-  end
+  
 
   def new
     @location = Location.new
@@ -23,17 +20,18 @@ class LocationsController < ApplicationController
     end
   end
 
-  def edit
-  end
-
-  def update
-  end
-
-  def destroy
-  end
+  
 
   private
   def create_params
     params.require(:location).permit(:location_name, :landmark , :city , :pincode)
+  end
+
+  private
+  def is_rider?
+    unless user_signed_in? && current_user.rider?
+      flash[:alert] = "Unauthorized action"
+      redirect_to driver_dash_path
+    end
   end
 end

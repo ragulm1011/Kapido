@@ -30,14 +30,19 @@ Rails.application.routes.draw do
   get "/vehicles/set_primary_vehicle" , controller: :vehicles , action: :set_primary_vehicle , as: :set_primary_vehicle
   
 
-  resources :drivers 
-  resources :riders
-  resources :booking_requests
-  resources :locations
-  resources :rides
-  resources :bills
-  resources :payments
-  resources :vehicles
+  resources :drivers , only: [:show , :edit , :update]
+  resources :riders , only: [:show]
+  resources :booking_requests , only: [:new , :create , :destroy]
+  resources :locations , only: [:new , :create]
+  resources :rides , only: [:index , :new , :create]
+  resources :bills , only: [:new , :create]
+  resources :payments , only: [:new , :create]
+  resources :vehicles , only: [:new , :create , :destroy]
+
+  #Exception Routes
+  get '/404', to: 'errors#not_found'
+  get '/500', to: 'errors#internal_server'
+  get '/422', to: 'errors#unprocessable'
 
  
   

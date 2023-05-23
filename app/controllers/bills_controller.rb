@@ -1,16 +1,24 @@
 class BillsController < ApplicationController
 
   before_action :authenticate_user!
+  before_action :is_driver?
 
-  def index
-  end
 
-  def show
-  end
+  
 
   def new
+    
+    @ride = Ride.find_by(id: params[:rideId])
+    @driver_id = @ride.driver_id
+
+    unless @driver_id == current_user.userable.id 
+      flash[:alert] = "Unauthorized action"
+      redirect_to driver_dash_path
+    end
+
     @rideId = params[:rideId]
     @bill = Bill.new
+
   end
 
   def create
@@ -24,12 +32,17 @@ class BillsController < ApplicationController
     end
   end
 
-  def edit
+  private
+  def is_driver?
+    unless user_signed_in? && current_user.driver? 
+      flash[:alert] = "Unauthorized action"
+      if user_signed_in?
+        redirect_to rider_dash_path
+      else
+        redirect_to new_user_session_path
+      end
+    end
   end
 
-  def update
-  end
-
-  def destroy
-  end
+  
 end

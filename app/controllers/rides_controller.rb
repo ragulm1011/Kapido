@@ -12,8 +12,7 @@ class RidesController < ApplicationController
     end
   end
 
-  def show
-  end
+  
 
   def new
     # @booking = BookingRequest.find(params[:bid])
@@ -26,7 +25,10 @@ class RidesController < ApplicationController
     #   @ride.rider_id = current_user.userable.id
     # end
     # @ride.save
-
+    if current_user.rider? 
+      flash[:alert] = "Unauthorized action"
+      redirect_to rider_dash_path
+    end
     
     booking = BookingRequest.find(params[:id])
    
@@ -40,25 +42,41 @@ class RidesController < ApplicationController
   def create
   end
 
-  def edit
-  end
-
-  def update
-  end
-
-  def destroy
-  end
+  
 
   def waiting
+
+    if current_user.driver?
+      flash[:alert] = "Unauthorized action"
+      redirect_to driver_dash_path
+    end
+
+
     @bookingId = params[:id]
     currentBooking = BookingRequest.find(@bookingId)
+
+    unless current_user.userable.id == currentBooking.rider_id
+      flash[:alert] = "Unauthorized action"
+      redirect_to rider_dash_path
+    end
+
+
     if currentBooking.booking_status == 'booked'
       
       redirect_to finish_waiting_path(bid: currentBooking.id)
     end
+
+
   end
 
   def finish_waiting
+    
+    if current_user.driver?
+      flash[:alert] = "Unauthorized action"
+      redirect_to driver_dash_path
+    end
+
+
     bid = params[:bid]
     ride = Ride.find_by(booking_request_id: bid)
     

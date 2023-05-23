@@ -1,29 +1,37 @@
 class DriversController < ApplicationController
   
   before_action :authenticate_user!
+  before_action :is_driver? , except: [:rating_change]
   
-  def index
-  end
+  
 
   def show
+
+    unless params[:id] == current_user.userable.id
+      flash[:alert] = "Unauthorized action"
+      redirect_to driver_dash_path
+    end
+
     @driver = Driver.find(params[:id])
+
   end
 
-  def new
-  end
+  
 
-  def create
-  end
-
+  
   def edit
+
+    unless params[:id] == current_user.userable.id
+      flash[:alert] = "Unauthorized action"
+      redirect_to driver_dash_path
+    end
+
     @cid = params[:id]
+    
   end
 
   def update
     driver = Driver.find(current_user.userable.id)
-    puts "================================================"
-    
-    puts "================================================"
     driver.standby_city = params[:driver][:standby_city]
     if driver.save
       flash[:notice] = "Your standing city changed successfully"
@@ -33,8 +41,7 @@ class DriversController < ApplicationController
     end
   end
 
-  def destroy
-  end
+  
 
   def dash
     @rides = Ride.where(driver_id: current_user.userable.id)
@@ -54,6 +61,12 @@ class DriversController < ApplicationController
   end
   
   def rating_change
+
+    if current_user.driver?
+      flash[:alert] = "Unauthorized action"
+      redirect_to driver_dash_path
+    end
+
     @paymentId = params[:driver][:id]
     @payment = Payment.find(@paymentId)
     @driver = Driver.find(@payment.driver_id)
@@ -66,7 +79,20 @@ class DriversController < ApplicationController
   
 
   def available_ride
-      @primaryVehicle = Vehicle.find(current_user.userable.primary_vehicle_id)
-     @available = BookingRequest.where(city: current_user.userable.standby_city , booking_status: "available" , vehicle_type: @primaryVehicle.vehicle_type)
+    @primaryVehicle = Vehicle.find(current_user.userable.primary_vehicle_id)
+    @available = BookingRequest.where(city: current_user.userable.standby_city , booking_status: "available" , vehicle_type: @primaryVehicle.vehicle_type)
+  end
+
+  private
+  def is_driver?
+    
+    unless user_signed_in? && current_user.driver? 
+      flash[:alert] = "Unauthorized action"
+      if user_signed_in?
+        redirect_to rider_dash_path
+      else
+        redirect_to new_user_session_path
+      end
+    end
   end
 end

@@ -1,12 +1,8 @@
 class BookingRequestsController < ApplicationController
   
-  before_action :authenticate_user!
+  before_action :authenticate_user! , :is_rider?
 
-  def index
-  end
-
-  def show
-  end
+  
 
   def new
     @booking = BookingRequest.new
@@ -31,15 +27,17 @@ class BookingRequestsController < ApplicationController
     end
   end
 
-  def edit
-  end
-
-  def update
-  end
+  
 
   def destroy
     
-    BookingRequest.find(params[:bid]).destroy
+    booking_request = BookingRequest.find_by(id: params[:bid])
+    unless booking_request.rider_id == current_user.userable.id 
+      flash[:alert] = "Unauthorized action"
+      redirect_to rider_dash_path
+    end
+
+    booking_request.destroy
     flash[:notice] = "Your ride cancelled successfully"
     redirect_to rider_dash_path
   end
@@ -47,6 +45,18 @@ class BookingRequestsController < ApplicationController
   private
   def create_params
     params.require(:booking_request).permit(:city, :vehicle_type , :from_location_name , :to_location_name)
+  end
+
+  private 
+  def is_rider?
+    unless user_signed_in? && current_user.rider?
+      flash[:alert] = "Unauthorized action"
+      if user_signed_in?
+        redirect_to driver_dash_path
+      else
+        redirect_to new_user_sesssion_path
+      end
+    end
   end
 
 end
