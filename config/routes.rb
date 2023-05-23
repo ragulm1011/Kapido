@@ -77,11 +77,11 @@ Rails.application.routes.draw do
     get "/vehicles/set_primary_vehicle" , controller: :vehicles , action: :set_primary_vehicle , as: :set_primary_vehicle
 
     #Custom API's
-    get "/drivers/driversWithStandbyCity" , controller: :drivers , action: :drivers_with_standby_city , as: :driversWithStandbyCity
-    get "/drivers/driversWithRatingAbove3" , controller: :drivers , action: :drivers_with_rating_above_3 , as: :driversWithRatingAbove3
-    get "/locations/getAllDefaultLocations" , controller: :locations , action: :get_all_default_locations , as: :getAllDefaultLocations
-    get "/locations/getAllRiderPersonalLocations" , controller: :locations , action: :get_all_rider_personal_locations , as: :getAllRiderPersonalLocations
-    get "/vehicles/getVehiclesWithVehicleType" , controller: :vehicles , action: :get_vehicles_with_vehicle_type , as: :getVehiclesWithVehicleType
+    get "/drivers/drivers_with_standby_city" , controller: :drivers , action: :drivers_with_standby_city , as: :drivers_with_standby_city
+    get "/drivers/drivers_with_rating_above_3" , controller: :drivers , action: :drivers_with_rating_above_3 , as: :drivers_with_rating_above_3
+    get "/locations/get_all_default_locations" , controller: :locations , action: :get_all_default_locations , as: :get_all_default_locations
+    get "/locations/get_all_rider_personal_locations" , controller: :locations , action: :get_all_rider_personal_locations , as: :get_all_rider_personal_locations
+    get "/vehicles/get_vehicles_with_vehicle_type" , controller: :vehicles , action: :get_vehicles_with_vehicle_type , as: :get_vehicles_with_vehicle_type
     
   
     resources :drivers 

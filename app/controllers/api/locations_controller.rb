@@ -6,31 +6,31 @@ class Api::LocationsController < Api::ApiController
   
   def index
 
-    @locations = Location.all
-    if @locations.empty?
+    locations = Location.all
+    if locations.empty?
       render json: { message: "No locations found" } , status: :no_content
     else
-      render json: @locations , status: :ok
+      render json: locations , status: :ok
     end
   end
 
 
   def show
-    @all_locations = Location.where(rider_id: current_user.userable.id)
-    @all_locations_id_array = @all_locations.pluck(:id)
+    all_locations = Location.where(rider_id: current_user.userable.id)
+    all_locations_id_array = all_locations.pluck(:id)
 
-    @all_default_locations = Locations.where(rider_id: 3)
-    @all_default_locations_id_array = @all_default_locations.pluck(:id)
+    all_default_locations = Locations.where(rider_id: 3)
+    all_default_locations_id_array = all_default_locations.pluck(:id)
 
-    unless @all_locations_id_array.include?(params[:id].to_i) && @all_default_locations_id_array.include?(params[:id].to_i)
+    unless all_locations_id_array.include?(params[:id].to_i) && all_default_locations_id_array.include?(params[:id].to_i)
       render json: { message: "You are not authorized to view this page"} , status: :forbidden
       return 
     end
 
-    @location = Location.find_by(id: params[:id])
+    location = Location.find_by(id: params[:id])
 
-    if @location
-      render json: @location, status: :ok
+    if location
+      render json: location, status: :ok
     else
       render json: { message: "No location found with the id #{params[:id]}" } , status: :not_found
     end
@@ -55,10 +55,10 @@ class Api::LocationsController < Api::ApiController
  
   def update
 
-    @all_locations = Location.where(rider_id: current_user.userable.id)
-    @all_locations_id_array = @all_locations.pluck(:id)
+    all_locations = Location.where(rider_id: current_user.userable.id)
+    all_locations_id_array = all_locations.pluck(:id)
 
-    unless @all_locations_id_array.include?(params[:id].to_i)
+    unless all_locations_id_array.include?(params[:id].to_i)
       render json: { message: "You are not authorized to view this page"} , status: :forbidden
       return 
     end
@@ -79,10 +79,10 @@ class Api::LocationsController < Api::ApiController
 
   def destroy
 
-    @all_locations = Location.where(rider_id: current_user.userable.id)
-    @all_locations_id_array = @all_locations.pluck(:id)
+    all_locations = Location.where(rider_id: current_user.userable.id)
+    all_locations_id_array = all_locations.pluck(:id)
 
-    unless @all_locations_id_array.include?(params[:id].to_i)
+    unless all_locations_id_array.include?(params[:id].to_i)
       render json: { message: "You are not authorized to view this page"} , status: :forbidden
       return 
     end
@@ -102,9 +102,9 @@ class Api::LocationsController < Api::ApiController
 
   #Custom API's
   def get_all_default_locations
-    @locations = Location.where(rider_id: 3)
-    if @locations 
-      render json: @locations , status: :ok
+    locations = Location.where(rider_id: 3)
+    if locations 
+      render json: locations , status: :ok
     else
       render json: { message: "No Default Locations Available " } , status: :no_content
     end
@@ -113,9 +113,9 @@ class Api::LocationsController < Api::ApiController
 
 
   def get_all_rider_personal_locations
-    @locations = Location.where(rider_id: current_user.userable.id)
-    if @locations
-      render json: @locations , status: :ok
+    locations = Location.where(rider_id: current_user.userable.id)
+    if locations
+      render json: locations , status: :ok
     else
       render json: { message: "No locations available for the rider #{current_user.name}" } , status: :no_content
     end
