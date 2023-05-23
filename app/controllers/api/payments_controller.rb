@@ -1,22 +1,17 @@
 class Api::PaymentsController < Api::ApiController
 
 
-  before_action :is_rider? , except: [:index, :show]
+  before_action :is_rider? , except: [:index, :show , :own_index]
   
 
   def index
-    # payments = Payment.all
-    # if payments.empty?
-    #   render json: { message: "Payments not found" } , status: :no_content
-    # else
-    #   render json: payments , status: :ok
-    # end
-    payments = current_user.userable.payments
-    if payments.size == 0
-      render json: { message: "No Payments available for you "} , status: :no_content
+    payments = Payment.all
+    if payments.empty?
+      render json: { message: "Payments not found" } , status: :no_content
     else
       render json: payments , status: :ok
     end
+   
 
   end
 
@@ -30,9 +25,7 @@ class Api::PaymentsController < Api::ApiController
     #   render json: { message: "Payment not found" } , status: :not_found
     # end
 
-    payments = current_user.userable.payments
-    payments_id_array = payments.pluck(:id)
-
+    payments_id_array = current_user.userable.payments.pluck(:id)
     unless payments_id_array.include?(params[:id].to_i)
       render json: { message: "You are not authorized to view this page" } , status: :forbidden
       return 
@@ -72,9 +65,7 @@ class Api::PaymentsController < Api::ApiController
 
 
   def update
-    payments = current_user.userable.payments
-    payments_id_array = payments.pluck(:id)
-
+    payments_id_array = current_user.userable.payments.pluck(:id)    
     unless payments_id_array.include?(params[:id].to_i)
       render json: { message: "You are not authorized to view this page" } , status: :forbidden
       return       
@@ -97,9 +88,7 @@ class Api::PaymentsController < Api::ApiController
 
 
   def destroy
-    payments = current_user.userable.payments
-    payments_id_array = payments.pluck(:id)
-
+    payments_id_array = current_user.userable.payments.pluck(:id)
     unless payments_id_array.include?(params[:id].to_i)
       render json: { message: "You are not authorized to view this page" } , status: :forbidden
       return 
@@ -115,6 +104,15 @@ class Api::PaymentsController < Api::ApiController
       end
     else
         render json: { message: "Payment not found"} , status: :not_found
+    end
+  end
+
+  def own_index
+    payments = current_user.userable.payments
+    if payments.size == 0
+      render json: { message: "No Payments available for you "} , status: :no_content
+    else
+      render json: payments , status: :ok
     end
   end
 

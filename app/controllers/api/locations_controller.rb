@@ -16,11 +16,10 @@ class Api::LocationsController < Api::ApiController
 
 
   def show
-    all_locations = Location.where(rider_id: current_user.userable.id)
-    all_locations_id_array = all_locations.pluck(:id)
-
-    all_default_locations = Locations.where(rider_id: 3)
-    all_default_locations_id_array = all_default_locations.pluck(:id)
+    
+    all_locations_id_array = Location.where(rider_id: current_user.userable.id).pluck(:id)
+    all_default_locations_id_array = Locations.where(rider_id: 3).pluck(:id)
+    
 
     unless all_locations_id_array.include?(params[:id].to_i) && all_default_locations_id_array.include?(params[:id].to_i)
       render json: { message: "You are not authorized to view this page"} , status: :forbidden
@@ -55,14 +54,11 @@ class Api::LocationsController < Api::ApiController
  
   def update
 
-    all_locations = Location.where(rider_id: current_user.userable.id)
-    all_locations_id_array = all_locations.pluck(:id)
-
+    all_locations_id_array = Location.where(rider_id: current_user.userable.id).pluck(:id)
     unless all_locations_id_array.include?(params[:id].to_i)
       render json: { message: "You are not authorized to view this page"} , status: :forbidden
       return 
     end
-
     location = Location.find_by(id: params[:id])
     if location
       location.landmark = params[:landmark]
@@ -79,14 +75,11 @@ class Api::LocationsController < Api::ApiController
 
   def destroy
 
-    all_locations = Location.where(rider_id: current_user.userable.id)
-    all_locations_id_array = all_locations.pluck(:id)
-
+    all_locations_id_array = Location.where(rider_id: current_user.userable.id).pluck(:id)
     unless all_locations_id_array.include?(params[:id].to_i)
       render json: { message: "You are not authorized to view this page"} , status: :forbidden
       return 
     end
-
     location = Location.find_by(id: params[:id])
     if location
       if location.destroy
@@ -120,6 +113,7 @@ class Api::LocationsController < Api::ApiController
       render json: { message: "No locations available for the rider #{current_user.name}" } , status: :no_content
     end
   end
+
 
   private
   def is_rider?

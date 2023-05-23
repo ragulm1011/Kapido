@@ -4,29 +4,12 @@ class Api::RidesController < Api::ApiController
 
   
   def index
-    # rides = Ride.all
-    # if rides.empty?
-    #   render json: { message: "Rides not found" } , status: :no_content
-    # else
-    #   render json: rides , status: :ok
-    # end
-
-    if current_user.driver?
-      rides = Ride.where(driver_id: current_user.userable.id)
-      if rides.empty?
-        render json: { message: "No rides available" } , status: :no_content
-      else
-        render json: rides , status: :ok
-      end
+    rides = Ride.all
+    if rides.empty?
+      render json: { message: "Rides not found" } , status: :no_content
     else
-      rides = Ride.where(rider_id: current_user.userable.id)
-      if rides.empty?
-        render json: { message: "No rides available" } , status: :no_content
-      else
-        render json: rides , status: :ok
-      end
+      render json: rides , status: :ok
     end
-
   end
 
 
@@ -34,9 +17,7 @@ class Api::RidesController < Api::ApiController
   def show
     if current_user.driver?
 
-      rides = Ride.where(driver_id: current_user.userable.id)
-      rides_id_array = rides.pluck(:id)
-
+      rides_id_array = Ride.where(driver_id: current_user.userable.id).pluck(:id)
       unless rides_id_array.include?(params[:id].to_i)
         render json: { message: "You are not authorized to view this page" } , status: :forbidden
         return 
@@ -51,9 +32,7 @@ class Api::RidesController < Api::ApiController
       end
 
     else
-      rides = Ride.where(rider_id: current_user.userable.id)
-      rides_id_array = rides.pluck(:id)
-
+      rides_id_array = Ride.where(rider_id: current_user.userable.id).pluck(:id)
       unless rides_id_array.include?(params[:id].to_i)
         render json: { message: "You are not authorized to view this page" } , status: :forbidden
         return 
@@ -115,8 +94,7 @@ class Api::RidesController < Api::ApiController
       return 
     end
 
-    rides = Ride.where(driver_id: current_user.userable.id)
-    rides_id_array = rides.pluck(:id)
+    rides_id_array = Ride.where(driver_id: current_user.userable.id).pluck(:id)
 
     unless rides_id_array.include?(params[:id].to_i)
       render json: { message: "You are not authorized to view this page" } , status: :forbidden
@@ -156,8 +134,7 @@ class Api::RidesController < Api::ApiController
     end
 
 
-    rides = Ride.where(driver_id: current_user.userable.id)
-    rides_id_array = rides.pluck(:id)
+    rides_id_array = Ride.where(driver_id: current_user.userable.id).pluck(:id)
 
     unless rides_id_array.include?(params[:id].to_i)
       render json: { message: "You are not authorized to view this page" } , status: :forbidden
@@ -177,6 +154,24 @@ class Api::RidesController < Api::ApiController
     end
 
 
+  end
+
+  def own_index
+    if current_user.driver?
+      rides = Ride.where(driver_id: current_user.userable.id)
+      if rides.empty?
+        render json: { message: "No rides available" } , status: :no_content
+      else
+        render json: rides , status: :ok
+      end
+    else
+      rides = Ride.where(rider_id: current_user.userable.id)
+      if rides.empty?
+        render json: { message: "No rides available" } , status: :no_content
+      else
+        render json: rides , status: :ok
+      end
+    end
   end
 
   

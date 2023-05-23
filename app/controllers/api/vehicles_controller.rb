@@ -1,16 +1,14 @@
 class Api::VehiclesController < Api::ApiController
 
-  before_action :is_driver? , except: [:get_vehicles_with_vehicle_type]
+  before_action :is_driver? , except: [:get_vehicles_with_vehicle_type , :index]
 
   def index
-
-    vehicles = Vehicle.where(driver_no: current_user.userable.id)
-    if vehicles.empty?
-      render json: { message: "No Vehicle found." } , status: :no_content
+    vehicle = Vehicle.all
+    if vehicle.empty?
+      render json: { message: "No vehicle available" } , status: :no_content
     else
-      render json: vehicles , status: :ok
+      render json: vehicle , status: :ok
     end
-
   end
 
   def show
@@ -21,11 +19,10 @@ class Api::VehiclesController < Api::ApiController
     #   render json: { message: "Vehicle not found with the id #{params[:id]}" } , status: :not_found
     # end
 
-    vehicles = Vehicle.where(driver_no: current_user.userable.id)
-    vehicles_id_array = vehicles.pluck(:id)
+    vehicles_id_array = Vehicle.where(driver_no: current_user.userable.id).pluck(:id)
 
     unless vehicles_id_array.include?(params[:id].to_i)
-      render json: { mesage: "You are not not authorized to view this page"} , status: :forbidden
+      render json: { message: "You are not not authorized to view this page"} , status: :forbidden
       return 
     end
 
@@ -63,11 +60,10 @@ class Api::VehiclesController < Api::ApiController
   def update
 
 
-    vehicles = Vehicle.where(driver_no: current_user.userable.id)
-    vehicles_id_array = vehicles.pluck(:id)
-
+    vehicles_id_array = Vehicle.where(driver_no: current_user.userable.id).pluck(:id)
+    
     unless vehicles_id_array.include?(params[:id].to_i)
-      render json: { mesage: "You are not not authorized to view this page"} , status: :forbidden
+      render json: { message: "You are not not authorized to view this page"} , status: :forbidden
       return 
     end
 
@@ -89,11 +85,10 @@ class Api::VehiclesController < Api::ApiController
 
   def destroy
 
-    vehicles = Vehicle.where(driver_no: current_user.userable.id)
-    vehicles_id_array = vehicles.pluck(:id)
+    vehicles_id_array = Vehicle.where(driver_no: current_user.userable.id).pluck(:id)
 
     unless vehicles_id_array.include?(params[:id].to_i)
-      render json: { mesage: "You are not not authorized to view this page"} , status: :forbidden
+      render json: { message: "You are not not authorized to view this page"} , status: :forbidden
       return 
     end
 
@@ -129,6 +124,15 @@ class Api::VehiclesController < Api::ApiController
       return 
     end
 
+   end
+
+   def own_index
+    vehicles = Vehicle.where(driver_no: current_user.userable.id)
+    if vehicles.empty?
+      render json: { message: "No Vehicle found." } , status: :no_content
+    else
+      render json: vehicles , status: :ok
+    end
    end
 
 end

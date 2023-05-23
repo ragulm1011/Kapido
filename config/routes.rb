@@ -87,6 +87,14 @@ Rails.application.routes.draw do
     get "/locations/get_all_default_locations" , controller: :locations , action: :get_all_default_locations , as: :get_all_default_locations
     get "/locations/get_all_rider_personal_locations" , controller: :locations , action: :get_all_rider_personal_locations , as: :get_all_rider_personal_locations
     get "/vehicles/get_vehicles_with_vehicle_type" , controller: :vehicles , action: :get_vehicles_with_vehicle_type , as: :get_vehicles_with_vehicle_type
+
+
+    #own_index_routes
+    get "/bills/own_index" , controller: :bills , action: :own_index 
+    get "/booking_requests/own_index" , controller: :booking_requests , action: :own_index
+    get "/payments/own_index" , controller: :payments , action: :own_index
+    get "/rides/own_index" , controller: :rides , action: :own_index
+    get "/vehicles/own_index" , controller: :vehicles , action: :own_index
     
   
     resources :drivers 
