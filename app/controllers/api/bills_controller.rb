@@ -16,8 +16,6 @@ class Api::BillsController < Api::ApiController
 
 
   
-
-  #Not Working - Directing to index action
   def show 
     
     if current_user.driver?

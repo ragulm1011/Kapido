@@ -18,25 +18,16 @@ class Api::PaymentsController < Api::ApiController
 
 
   def show
-    # payment = Payment.find_by(id: params[:id])
-    # if payment
-    #   render json: payment, status: :ok
-    # else
-    #   render json: { message: "Payment not found" } , status: :not_found
-    # end
-
-    payments_id_array = current_user.userable.payments.pluck(:id)
-    unless payments_id_array.include?(params[:id].to_i)
-      render json: { message: "You are not authorized to view this page" } , status: :forbidden
-      return 
-    end
-
+   
     payment = Payment.find_by(id: params[:id].to_i)
-
     if payment
-      render json: payment , status: :ok
+      if payment.rider_id == current_user.userable.id || payment.driver_id == current_user.usrebale.id
+        render json: payment, status: :ok
+      else
+        render json: { message: "You are not authorized to view this page" } , status: :forbidden
+      end
     else
-      render json: { message: "No payment available with the id #{params[:id].to_i}"} , status: :no_content
+      render json: { message: "No payment available with the id #{params[:id].to_i}" } , status: :not_found
     end
 
   end
@@ -65,46 +56,44 @@ class Api::PaymentsController < Api::ApiController
 
 
   def update
-    payments_id_array = current_user.userable.payments.pluck(:id)    
-    unless payments_id_array.include?(params[:id].to_i)
-      render json: { message: "You are not authorized to view this page" } , status: :forbidden
-      return       
-    end
 
     payment = Payment.find_by(id: params[:id].to_i)
-
     if payment
-      payment.amount = params[:amount]
-      if payment.save
-        render json: payment , status: :accepted
+      if payment.rider_id == current_user.userable.id
+        payment.amount = params[:amount]
+        if payment.save
+          render json: payment , status: :ok
+        else
+          render json: { errors: payment.errors.full_messages } , status: :unprocessable_entity
+        end
       else
-        render json: { error: payment.errors.full_messages } , status: :unprocessable_entity
+        render json: { message: "You are not authorized to view this page" } , status: :forbidden
       end
     else
-      render json: { message: "Payment not found"} , status: :not_found
+      render json: {message: "No payment found with id #{params[:id]}"} , status: :not_found
     end
+
   end
 
 
 
   def destroy
-    payments_id_array = current_user.userable.payments.pluck(:id)
-    unless payments_id_array.include?(params[:id].to_i)
-      render json: { message: "You are not authorized to view this page" } , status: :forbidden
-      return 
-    end
-
+  
     payment = Payment.find_by(id: params[:id].to_i)
-
     if payment
-      if payment.destroy
-        render json: { message: "Payment destroyed" } , status: :ok
+      if payment.rider_id == current_user.userable.id 
+        if payment.destroy
+          render json: { message: "Payment destroyed" } , status: :ok
+        else
+          render json: { errors: payment.errors.full_messages } , status: :unprocesable_entity
+        end
       else
-        render json: { error: payment.errors.full_messages } , status: :forbidden
+        render json: { message: "You are not authorized to view this page" } , status: :forbidden
       end
     else
-        render json: { message: "Payment not found"} , status: :not_found
+      render json: { message: "Payment not found with the id #{params[:id].to_i}" } , status: :not_found
     end
+
   end
 
   def own_index

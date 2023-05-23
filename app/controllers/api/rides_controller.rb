@@ -15,39 +15,18 @@ class Api::RidesController < Api::ApiController
 
 
   def show
-    if current_user.driver?
-
-      rides_id_array = Ride.where(driver_id: current_user.userable.id).pluck(:id)
-      unless rides_id_array.include?(params[:id].to_i)
-        render json: { message: "You are not authorized to view this page" } , status: :forbidden
-        return 
-      end
-
-      ride = Ride.find_by(id: params[:id].to_i)
-
-      if ride
+   
+    ride = Ride.find_by(id: params[:id].to_i)
+    if ride
+      if ride.rider_id == current_user.userable.id || ride.driver_id == current_user.userable.id 
         render json: ride , status: :ok
       else
-        render json: { message: "No ride available with the id #{params[:id].to_i}" } , status: :no_content
+        render json: { message: 'You are not authorized to view this page' } , status: :forbidden
       end
-
     else
-      rides_id_array = Ride.where(rider_id: current_user.userable.id).pluck(:id)
-      unless rides_id_array.include?(params[:id].to_i)
-        render json: { message: "You are not authorized to view this page" } , status: :forbidden
-        return 
-      end
-
-      ride = Ride.find_by(id: params[:id].to_i)
-
-      if ride
-        render json: ride , status: :ok
-      else
-        render json: { message: "No ride available with the id #{params[:id].to_i}" } , status: :no_content
-      end
-
-
+      render json: { message: "No ride found with the id #{params[:id].to_i}" } , status: :not_found
     end
+
   end
 
   
@@ -77,80 +56,55 @@ class Api::RidesController < Api::ApiController
 
  
   def update
-    # ride = Ride.find_by(id: params[:id])
-    # if ride
-    #   ride.ride_date = Date.today()
-    #   if ride.save
-    #     render json: ride , status: :accepted
-    #   else
-    #     render json: {error: ride.errors.full_messages} , status: :unprocessable_entity
-    #   end
-    # else
-    #   render json: { message: "Ride not found" } , status: :not_found
-    # end
+    
 
     if current_user.rider?
       render json: { message: "You are not authorized to view this page"} , status: :forbidden
       return 
     end
 
-    rides_id_array = Ride.where(driver_id: current_user.userable.id).pluck(:id)
-
-    unless rides_id_array.include?(params[:id].to_i)
-      render json: { message: "You are not authorized to view this page" } , status: :forbidden
-      return 
-    end
 
     ride = Ride.find_by(id: params[:id].to_i)
-     
     if ride
-      ride.ride_date = Date.today()
-      if ride.save 
-        render json: ride , status: :ok
+      if ride.driver_id == current_user.userable.id
+        ride.ride_date = Date.today()
+        if ride.save
+          render json: ride , status: :ok
+        else
+          render json: { errors: ride.errors.full_messages } , status: :unprocessable_entity
+        end
       else
-        render json: { error: ride.errors.full_messages } , status: :unprocessable_entity
+        render json: { message: "You are not authorized to view this page "} , status: :forbidden
       end
     else
-      render json: {message: "No ride available with the id #{params[:id].to_i}"} , status: :no_content
+      render json: { message: "No ride available with the id #{params[:id].to_i}"} , status: :not_found
     end
   end
 
 
   def destroy
-    # ride = Ride.find_by(id: params[:id])
-    # if ride
-    #   if ride.destroy
-    #     render json: { message: "Ride destroyed" } , status: :ok
-    #   else
-    #     render json: { error: ride.errors.full_messages } , status: :forbidden
-    #   end
-    # else
-    #   render json: { message: "Ride not found" } , status: :not_fond
-    # end
-
+    
     if current_user.rider?
       render json: { message: "You are not authorized to view this page"} , status: :forbidden
       return 
     end
 
 
-    rides_id_array = Ride.where(driver_id: current_user.userable.id).pluck(:id)
-
-    unless rides_id_array.include?(params[:id].to_i)
-      render json: { message: "You are not authorized to view this page" } , status: :forbidden
-      return 
-    end
+   
 
     ride = Ride.find_by(id: params[:id].to_i)
-
     if ride
-      if ride.destroy
-        render json: { message: "Ride destroyed" } , status: :ok
+      if ride.driver_id == current_user.userable.id
+        if ride.destroy
+          render json: { message: "Ride destroyed" } , status: :ok
+        else
+          render json: { errors: ride.errors.full_messages } , status: :unprocessable_entity
+        end
       else
-        render json: { error: ride.errors.full_messages } , status: :unprocessable_entity
+        render json: { message: "You are not authorized to view this page" } , status: :forbidden
       end
     else
-      render json: { message: "No ride available with the id #{params[:id].to_i}"} , status: :no_content
+      render json: { message: "No ride available with the id #{params[:id].to_i}"} , status: :not_found
     end
 
 

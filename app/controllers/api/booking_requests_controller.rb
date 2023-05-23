@@ -23,24 +23,18 @@ class Api::BookingRequestsController < Api::ApiController
       return       
     end
 
-    breqs_id_array = BookingRequest.where(city: current_user.userable.standby_city).pluck(:id)
 
-
-    unless breqs_id_array.include?(params[:id].to_i)
-      render json: { mesage: "You are not authorized to view this page" } , status: :forbidden
-      return 
-    end
-
-
-    breq = BookingRequest.find(params[:id].to_i)
-
-    if breq
-      render json: breq, status: :ok
-      return 
+    b_req = BookingRequest.find_by(id: params[:id].to_i)
+    if b_req
+      if b_req.city = current_user.userable.standby_city
+        render json: b_req , status: :ok
+      else
+        render json: { message: "You are not authorized to view this page" } , status: :forbidden
+      end
     else
-      render json: "No BookingRequest found with id #{params[:id].to_i}" , status: :not_found
-      return 
+      render json: { message: "No Booking Request found with the id #{params[:id].to_i}" } , status: :not_found
     end
+
   end
 
 
@@ -76,56 +70,49 @@ class Api::BookingRequestsController < Api::ApiController
 
   def update 
 
-    b_requests_id_array = BookingRequest.where(rider_id: current_user.userable.id).pluck(:id)
-    unless b_requests_id_array.include?(params[:id].to_i)
-      render json: { message: "You are not authorized to view this page"}
-    end
-
-
     breq = BookingRequest.find_by(id: params[:id])
-    updated_city = params[:city]
-
     if breq
-      breq.city = updated_city
-      if breq.save
-        render json: breq, status: :accepted
+      if breq.rider_id == current_user.userable.id
+        breq.city = params[:city]
+        if breq.save
+          render json: breq , status: :ok
+        else
+          render json: { errors: breq.errors.full_messages } , status: :unprocessable_entity
+        end
       else
-        render json: { error: breq.errors.full_messages} , status: :unprocessable_entity
+        render json: { message: "You are not authorized to view this page"} , status: :forbidden
       end
     else
-      render json: "No BookingRequest found" , status: :not_found
+      render json: { message: "No booking request found with this id #{params[:id].to_i}"} , status: :not_found
     end
+
+    
   end
 
  
 
   def destroy
     
-    b_requests_id_array = BookingRequest.where(rider_id: current_user.userable.id).pluck(:id)
-
-    unless b_requests_id_array.include?(params[:id])
-      render json: { message: "You are not authorized to view this page"} , status: :forbidden
-      return 
-    end
-
-    
-    breq = BookingRequest.find(params[:id])
-
+    breq = BookingRequest.find_by(id: params[:id].to_i)
     if breq
-      if breq.destroy
-        render json: {message: "BookingRequest was successfully destroyed"} , status: :ok
-        return 
+      if breq.rider_id == current_user.userable.id 
+        if breq.destroy
+          render json: { message: "BookingRequest was successfully destroyed"} , status: :ok
+        else
+          render json: { errors: breq.errors.full_messages } , status: :unprocessable_entity
+        end
       else
-        render json: {error: breq.errors.full_messages} , status: :forbidden
-        return 
+        render json: { message: "You are not authorized to view this page"} , status: :forbidden
       end
     else
-      render json: "No BookingRequest found with id #{params[:id]}" , status: :not_found
-      return 
+      render json: {message: "No booking request found with the id #{params[:id].to_i}"} , status: :not_found
     end
   end
 
+
+
   def own_index
+    
     if current_user.rider?
       render json: {message: "You are not authorized to view this page "} , status: :forbidden
       return 

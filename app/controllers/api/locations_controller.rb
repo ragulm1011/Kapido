@@ -16,22 +16,16 @@ class Api::LocationsController < Api::ApiController
 
 
   def show
-    
-    all_locations_id_array = Location.where(rider_id: current_user.userable.id).pluck(:id)
-    all_default_locations_id_array = Locations.where(rider_id: 3).pluck(:id)
-    
 
-    unless all_locations_id_array.include?(params[:id].to_i) && all_default_locations_id_array.include?(params[:id].to_i)
-      render json: { message: "You are not authorized to view this page"} , status: :forbidden
-      return 
-    end
-
-    location = Location.find_by(id: params[:id])
-
+    location = Location.find_by(id: params[:id].to_i)
     if location
-      render json: location, status: :ok
+      if location.rider_id == 3 || location.rider_id == current_user.userable.id
+        render json: location , status: :ok
+      else
+        render json: { message: "You are not authorized to view this page"} , status: :forbidden
+      end
     else
-      render json: { message: "No location found with the id #{params[:id]}" } , status: :not_found
+      render json: { message: "No location found with the id #{params[:id].to_i}" } , status: :not_found
     end
   end
 
@@ -54,38 +48,37 @@ class Api::LocationsController < Api::ApiController
  
   def update
 
-    all_locations_id_array = Location.where(rider_id: current_user.userable.id).pluck(:id)
-    unless all_locations_id_array.include?(params[:id].to_i)
-      render json: { message: "You are not authorized to view this page"} , status: :forbidden
-      return 
-    end
-    location = Location.find_by(id: params[:id])
+    location = Location.find_by(id: params[:id].to_i)
     if location
-      location.landmark = params[:landmark]
-      if location.save
-        render json: location , status: :accepted
+      if location.rider_id == current_user.userable.id 
+        location.landmark = params[:landmark]
+        if location.save
+          render json: location , status: :ok
+        else
+          render json: {errors: location.errors.full_messages} , status: :unprocessable_entity
+        end
       else
-        render json: { error: location.errors.full_messages } , status: :unprocessable_entity
+        render json: { message: "You are not authorized to view this page"} , status: :forbidden
       end
     else
-        render json: { message: "Location not found with the id #{params[:id]}" } , status: :not_found
+      render json: { message: "No location found with the id #{params[:id]}"} , status: :not_found
     end
+
   end
 
 
   def destroy
 
-    all_locations_id_array = Location.where(rider_id: current_user.userable.id).pluck(:id)
-    unless all_locations_id_array.include?(params[:id].to_i)
-      render json: { message: "You are not authorized to view this page"} , status: :forbidden
-      return 
-    end
     location = Location.find_by(id: params[:id])
     if location
-      if location.destroy
-        render json: { message: 'Location deleted successfully' } , status: :ok
+      if location.rider_id == current_user.userable.id
+        if location.destroy
+          render json: { message: 'Location deleted successfully' } , status: :ok
+        else
+          render json: { errors: location.errors.full_messages } , status: :unprocessable_entity
+        end
       else
-        render json: { error: location.errors.full_messages } , status: :unprocessable_entity
+        render json: { message: "You are not authorized to view this page"} , status: :forbidden
       end
     else
       render json: { message: "No location found with the id #{params[:id]}" } , status: :not_found

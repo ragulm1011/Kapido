@@ -12,27 +12,16 @@ class Api::VehiclesController < Api::ApiController
   end
 
   def show
-    # vehicle = Vehicle.find_by(id: params[:id])
-    # if vehicle
-    #   render json: vehicle, status: :ok
-    # else
-    #   render json: { message: "Vehicle not found with the id #{params[:id]}" } , status: :not_found
-    # end
-
-    vehicles_id_array = Vehicle.where(driver_no: current_user.userable.id).pluck(:id)
-
-    unless vehicles_id_array.include?(params[:id].to_i)
-      render json: { message: "You are not not authorized to view this page"} , status: :forbidden
-      return 
-    end
-
 
     vehicle = Vehicle.find_by(id: params[:id].to_i)
-
     if vehicle
-      render json: vehicle , status: :ok
+      if vehicle.driver_no == current_user.userable.id
+        render json: vehicle , status: :ok
+      else
+        render json: { message: "You are not authorized to view this page" } , status: :forbidden
+      end
     else
-      render json: { message: "No vehicle available with the id #{params[:id]}" } , status: :no_content
+      render json: { message: "No vehicle found with the id #{params[:id]}" } , status: :not_found
     end
 
   end
@@ -59,25 +48,20 @@ class Api::VehiclesController < Api::ApiController
   
   def update
 
-
-    vehicles_id_array = Vehicle.where(driver_no: current_user.userable.id).pluck(:id)
-    
-    unless vehicles_id_array.include?(params[:id].to_i)
-      render json: { message: "You are not not authorized to view this page"} , status: :forbidden
-      return 
-    end
-
-
-    vehicle = Vehicle.find_by(id: params[:id])
+    vehicle = Vehicle.find_by(id: params[:id].to_i)
     if vehicle
-      vehicle.no_of_seats= params[:seats]
-      if vehicle.save
-        render json: vehicle, status: :accepted
+      if vehicle.driver_no == current_user.userable.id 
+        vehicle.no_of_seats = params[:seats]
+        if vehicle.save
+          render json: vehicle, status: :accepted
+        else
+          render json: { error: vehicle.errors.full_messages } , status: :unprocessable_entity
+        end
       else
-        render json: { error: vehicle.errors.full_messages } , status: :unprocesable_entity
+        render json: { message: "You are not authorized to view this page"} , status: :forbidden
       end
     else
-      render json: { message: "Vehicle not found with the id #{params[:id]}" } , status: :not_found
+      render json: { message:  "No vehicle found with the id #{params[:id]}" } , status: :not_found
     end
   end
 
@@ -85,24 +69,23 @@ class Api::VehiclesController < Api::ApiController
 
   def destroy
 
-    vehicles_id_array = Vehicle.where(driver_no: current_user.userable.id).pluck(:id)
-
-    unless vehicles_id_array.include?(params[:id].to_i)
-      render json: { message: "You are not not authorized to view this page"} , status: :forbidden
-      return 
-    end
-
-
-    vehicle = Vehicle.find_by(id: params[:id])
+   
+    vehicle = Vehicle.find_by(id: params[:id].to_i)
     if vehicle
-      if vehicle.destroy
-        render json: { message: "Vehicle deleted successfully"} , status: :ok
+      if vehicle.driver_no == current_user.userable.id 
+        
+        if vehicle.destroy
+          render json: { message: "Vehicle destroyed successfully "}, status: :ok
+        else
+          render json: { error: vehicle.errors.full_messages } , status: :unprocessable_entity
+        end
       else
-        render json: { error: vehicle.errors.full_messages } , status: :unprocessable_entity
+        render json: { message: "You are not authorized to view this page"} , status: :forbidden
       end
     else
-      render json: { message: "Vehicle not found with the id #{params[:id]}" } , status: :not_found
+      render json: { message:  "No vehicle found with the id #{params[:id]}" } , status: :not_found
     end
+    
   end
 
 
