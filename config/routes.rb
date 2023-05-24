@@ -90,11 +90,11 @@ Rails.application.routes.draw do
 
 
     #own_index_routes
-    get "/bills/own_index" , controller: :bills , action: :own_index 
-    get "/booking_requests/own_index" , controller: :booking_requests , action: :own_index
-    get "/payments/own_index" , controller: :payments , action: :own_index
-    get "/rides/own_index" , controller: :rides , action: :own_index
-    get "/vehicles/own_index" , controller: :vehicles , action: :own_index
+    get "/bills/your_bills" , controller: :bills , action: :your_bills 
+    get "/booking_requests/your_booking_requests" , controller: :booking_requests , action: :your_booking_requests
+    get "/payments/your_payments" , controller: :payments , action: :your_payments
+    get "/rides/your_rides" , controller: :rides , action: :your_rides
+    get "/vehicles/your_vehicles" , controller: :vehicles , action: :your_vehicles
     
   
     resources :drivers 

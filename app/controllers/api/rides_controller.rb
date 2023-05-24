@@ -110,7 +110,7 @@ class Api::RidesController < Api::ApiController
 
   end
 
-  def own_index
+  def your_rides
     if current_user.driver?
       rides = Ride.where(driver_id: current_user.userable.id)
       if rides.empty?

@@ -12,6 +12,7 @@ class Rider < ApplicationRecord
 
     #Valiations
     validates :gender , :aadhar_no , presence: true
+    validates :aadhar_no , length: { is: 12 } , numericality: { only_integer: true }
 
 
     scope :made_rides , -> { joins(:rides).group('riders.id').having('count(rider_id) > 0') }

@@ -96,7 +96,7 @@ class Api::PaymentsController < Api::ApiController
 
   end
 
-  def own_index
+  def your_payments
     payments = current_user.userable.payments
     if payments.size == 0
       render json: { message: "No Payments available for you "} , status: :no_content

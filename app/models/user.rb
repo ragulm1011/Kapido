@@ -11,6 +11,10 @@ class User < ApplicationRecord
   # Validations
   validates :email, uniqueness: true
   validates :email , format: URI::MailTo::EMAIL_REGEXP
+  validates :name , :age , :mobile_no , :door_no , :street , :city , :district , :state , :role , presence: true
+
+  validates :mobile_no , length: {is: 10} , numericality: { only_integer: true }
+  validates :pincode , length: {is: 6} , numericality: { only_integer: true }
 
   # Devise authentication 
   def self.authenticate(email, password)

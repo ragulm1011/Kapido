@@ -58,6 +58,7 @@ class Api::DriversController < Api::ApiController
       
       render json: available , status: :ok
     end
+
   end
 
 
@@ -73,6 +74,8 @@ class Api::DriversController < Api::ApiController
       render json: drivers , status: :ok
     end
   end
+
+  
 
   def drivers_with_rating_above_3
     driver = Driver.where("driver_rating >= ?", 3)

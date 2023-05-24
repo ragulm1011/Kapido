@@ -6,12 +6,12 @@ class Api::BookingRequestsController < Api::ApiController
 
   def index 
 
-  breqs = BookingRequest.all
-  if breqs.empty?
-    render json: { message: "No booking requests found." } , status: :no_content
-  else
-    render json: breqs , status: :ok
-  end
+    breqs = BookingRequest.all
+    if breqs.empty?
+      render json: { message: "No booking requests found." } , status: :no_content
+    else
+      render json: breqs , status: :ok
+    end
 
   end
 
@@ -111,7 +111,7 @@ class Api::BookingRequestsController < Api::ApiController
 
 
 
-  def own_index
+  def your_booking_requests
     
     if current_user.rider?
       render json: {message: "You are not authorized to view this page "} , status: :forbidden

@@ -178,7 +178,7 @@ class Api::BillsController < Api::ApiController
   end
 
 
-  def own_index
+  def your_bills
 
     if current_user.rider?
       rides = Ride.where(rider_id: current_user.userable.id)
