@@ -5,25 +5,22 @@ RSpec.describe Bill, type: :model do
   #Association Rspec Testcases
   describe 'association' do
 
-
-    context 'belongs_to' do
-      it 'ride' do
-        bill = create(:bill)
-        ride = create(:ride)
-        bill.ride = ride
-        expect(bill.ride).to eq(ride)
+    context "belongs_to"  do
+      let(:ride) {create(:ride)}
+      let(:bill) {build(:bill , ride: ride)}
+      it "ride is true" do
+        expect(bill.ride).to be_an_instance_of(Ride)
       end
     end
 
-    context 'belongs_to' do
-      it 'payment' do
-        bill = create(:bill)
-        payment = create(:payment)
-        bill.payment = payment
-        expect(bill.payment).to eq(payment)
+    context "belongs_to"  do
+      let(:payment) {create(:payment)}
+      let(:bill) {build(:bill , payment: payment)}
+      it "payment is true" do
+        expect(bill.payment).to be_an_instance_of(Payment)
       end
     end
-
+  
 
   end
 
@@ -96,6 +93,23 @@ RSpec.describe Bill, type: :model do
     end
 
 
+
+
+  end
+
+
+  describe "callbacks" do
+
+    context "make_ride_status_as_completed" do
+      let(:ride) {create(:ride)}
+      let(:payment) {create(:payment)}
+      
+      let(:bill) {build(:bill , ride: ride , payment: payment)}
+      it "sets ride status as completed" do
+        bill.make_ride_as_completed
+        expect(bill.ride.ride_status).to eq("completed")
+      end
+    end
 
 
   end

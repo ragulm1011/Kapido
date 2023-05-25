@@ -5,48 +5,24 @@ RSpec.describe Rider, type: :model do
    #Association Rspec Testcases
   describe 'association' do
 
-    context 'has_many' do
-      it 'rides' do
-        rider = create(:rider)
-        ride = create(:ride)
-        rider.rides << ride
-        expect(rider.rides).to include(ride)
+    context "has_many" do
+
+      [:rides , :booking_requests , :payments , :locations].each do |each|
+        it each.to_s.humanize do
+          association = Rider.reflect_on_association(each).macro
+          expect(association).to be(:has_many)
+        end
       end
     end
 
+   
 
-    context 'has_many' do
-      it 'booking_requests' do
-        rider = create(:rider)
-        booking_request = create(:booking_request)
-        rider.booking_requests << booking_request
-        expect(rider.booking_requests).to include(booking_request)
+    context "has_one" do
+      it "user" do
+        association = Rider.reflect_on_association(:user).macro
+        expect(association).to be(:has_one)
       end
     end
-
-    context 'has_many' do
-      it 'payments' do
-        rider = create(:rider)
-        payment = create(:payment)
-        rider.payments << payment
-        expect(rider.payments).to include(payment)
-      end
-    end
-
-    context 'has_many' do
-      it 'locations' do
-        rider = create(:rider)
-        location = create(:location)
-        rider.locations << location
-        expect(rider.locations).to include(location)
-      end
-    end
-
-    # context 'has_one' do
-    #   it 'user' do
-
-    #   end
-    # end
 
   end
 

@@ -4,11 +4,13 @@ RSpec.describe Vehicle, type: :model do
   #Association Rspec Testcases
   describe 'association' do
 
-    # context 'has_and_belongs_to_many' do
-    #   it 'vehicles' do
-
-    #   end
-    # end
+    [:drivers].each do |each|
+      it each.to_s.humanize do
+        association = Vehicle.reflect_on_association(each).macro
+        expect(association).to be(:has_and_belongs_to_many)
+      end
+    end
+  
 
   end
 

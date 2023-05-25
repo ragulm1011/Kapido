@@ -5,42 +5,56 @@ RSpec.describe Driver, type: :model do
    #Association Rspec Testcases
    describe 'association' do
 
-    # context 'has_and_belongs_to_many' do
-    #   it 'vehicles' do
-        
-    #   end
-    # end
+    context "has_and_belongs_to_many" do
 
-    context 'has_many' do
-      it 'payments' do
-        driver = create(:driver)
-        payment = create(:payment)
-        driver.payments << payment
-        expect(driver.payments).to include(payment)
+      [:vehicles].each do |each|
+        it each.to_s.humanize do
+          association = Driver.reflect_on_association(each).macro
+          expect(association).to be(:has_and_belongs_to_many)
+        end
+      end
+    end
+    
+
+    context "has_many" do
+
+      [:payments].each do |each|
+        it each.to_s.humanize do
+          association = Driver.reflect_on_association(each).macro
+          expect(association).to be(:has_many)
+        end
       end
     end
 
-    context 'has_many' do
-      it 'rides' do
-        driver = create(:driver)
-        ride = create(:ride)
-        driver.rides << ride
-        expect(driver.rides).to include(ride)
+
+    context "has_many" do
+      [:rides].each do |each|
+        it each.to_s.humanize do
+          association = Driver.reflect_on_association(each).macro
+          expect(association).to be(:has_many)
+        end
       end
     end
 
-    # context 'has_many through payments' do
-    #   it 'riders' do
 
-    #   end
-    # end
+    context "has_many" do
+
+      [:riders].each do |each|
+        it each.to_s.humanize do
+          association = Driver.reflect_on_association(each).macro
+          expect(association).to be(:has_many)
+        end
+      end
+    end
 
 
-    # context 'has_one' do
-    #   it 'user' do
+    context "has_one" do
+      it "User" do
+        association = Driver.reflect_on_association(:user).macro
+        expect(association).to be(:has_one)
+      end
+    end
 
-    #   end
-    # end
 
 
    end

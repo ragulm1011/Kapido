@@ -4,13 +4,11 @@ RSpec.describe Location, type: :model do
   #Association Rspec Testcases
   describe 'association' do
 
-
-    context 'belongs_to' do
-      it 'rider' do
-        location = create(:location)
-        rider = create(:rider)
-        location.rider = rider
-        expect(location.rider).to eq(rider)
+    context "belongs_to"  do
+      let(:rider) {create(:rider)}
+      let(:location) {build(:location , rider: rider)}
+      it "rider is true" do
+        expect(location.rider).to be_an_instance_of(Rider)
       end
     end
 

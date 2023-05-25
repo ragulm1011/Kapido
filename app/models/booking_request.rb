@@ -12,4 +12,13 @@ class BookingRequest < ApplicationRecord
     scope :available_requests , -> { BookingRequest.where("booking_status = ?" , "available")}
     scope :booked_requests , -> { BookingRequest.where("booking_status = ?" , "booked") }
     
+    #Callbacks
+    before_create :set_booking_status
+
+
+    
+    def set_booking_status 
+        self.booking_status = "available"
+    end
+    
 end

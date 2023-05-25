@@ -1,8 +1,11 @@
 FactoryBot.define do
   factory :user do
+
     sequence :email do |n|
       "test#{n}@gmail.com"
     end
+
+    
     password { "123456" }
     password_confirmation { "123456" }
     name { "Ragul" }
@@ -19,12 +22,12 @@ FactoryBot.define do
 
     trait :for_rider do
       association :userable, factory: :rider
-      role {'rider'}
+      role {'Rider'}
     end
 
     trait :for_driver do
       association :userable, factory: :driver
-      role {'driver'}
+      role {'Driver'}
     end
   end
 end

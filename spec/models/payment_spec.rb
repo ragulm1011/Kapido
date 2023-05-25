@@ -5,29 +5,29 @@ RSpec.describe Payment, type: :model do
     #Association Rspec Testcases
     describe 'association' do
 
-      context 'has_one' do
-        it 'bill' do
-          payment = create(:payment)
-          bill = create(:bill , payment: payment)
-          expect(bill.payment).to eq(payment)
+      context "has_one" do
+        [:bill].each do |model|
+          it model.to_s.humanize do
+            association = Payment.reflect_on_association(model).macro
+            expect(association).to be(:has_one)
+          end
         end
       end
 
-      context 'belongs_to' do
-        it 'rider' do
-          payment = create(:payment)
-          rider = create(:rider)
-          payment.rider = rider
-          expect(payment.rider).to eq(rider)
+     
+      context "belongs_to"  do
+        let(:rider) {create(:rider)}
+        let(:payment) {build(:payment , rider: rider)}
+        it "rider is true" do
+          expect(payment.rider).to be_an_instance_of(Rider)
         end
       end
 
-      context 'belongs_to' do
-        it 'driver' do
-          payment = create(:payment)
-          driver = create(:driver)
-          payment.driver = driver
-          expect(payment.driver).to eq(driver)
+      context "belongs_to"  do
+        let(:driver) {create(:driver)}
+        let(:payment) {build(:payment , driver: driver)}
+        it "driver is true" do
+          expect(payment.driver).to be_an_instance_of(Driver)
         end
       end
 

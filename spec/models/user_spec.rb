@@ -1,6 +1,29 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
+
+  #Association Rspec Testcases
+  describe 'association' do
+
+    context "belongs_to" do
+      let!(:user) {create(:user , :for_rider)}
+      it "rider is true" do
+        expect(user.userable).to be_an_instance_of(Rider)
+      end
+    end
+
+    context "belongs_to" do
+      let!(:user) {create(:user , :for_driver)}
+      it "driver is true" do
+        expect(user.userable).to be_an_instance_of(Driver)
+      end
+    end
+
+
+
+  end
+
+  #Validations Rspec Testcases
   describe "name" do
 
     before(:each) do
@@ -251,6 +274,43 @@ RSpec.describe User, type: :model do
       it "throws error" do
         expect(user.errors).to include(:mobile_no)
       end
+    end
+    
+  end
+
+  describe "methods" do
+
+    context "when rider is created" do
+      let(:user) {build(:user)}
+      it 'user.rider? return true' do
+        
+        expect(user.rider?).to eq(true)
+      end
+
+    end
+
+    context "when driver is created" do
+      let(:user) {build(:user , :for_driver)}
+      it 'user.rider? return false' do
+        expect(user.rider?).to eq(false)
+      end
+
+    end
+
+    context "when driver is created" do
+      let(:user) {build(:user , :for_driver)}
+      it 'user.driver? return true' do
+        expect(user.driver?).to eq(true)
+      end
+
+    end
+
+    context "when rider is created" do
+      let(:user) {build(:user , :for_rider)}
+      it 'user.driver? return false' do
+        expect(user.driver?).to eq(false)
+      end
+
     end
     
   end

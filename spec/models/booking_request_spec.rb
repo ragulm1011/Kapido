@@ -6,20 +6,24 @@ RSpec.describe BookingRequest, type: :model do
   describe 'association' do
 
 
-    context 'belongs_to' do
-      it 'rider' do
-        booking_request = create(:booking_request)
-        rider = create(:rider)
-        booking_request.rider = rider
-        expect(booking_request.rider).to eq(rider)
-      end
-    end
+    
 
-    context 'has_one' do
-      it 'ride' do
-        booking_request = create(:booking_request)
-        ride = create(:ride , booking_request: booking_request)
-        expect(booking_request.ride).to eq(ride)
+      context "belongs_to"  do
+        let(:rider) {create(:rider)}
+        let(:booking_request) {build(:booking_request , rider: rider)}
+        it "ride is true" do
+          expect(booking_request.rider).to be_an_instance_of(Rider)
+        end
+      end
+
+     
+
+    context "has_one" do
+      [:ride].each do |model|
+        it model.to_s.humanize do
+          association = BookingRequest.reflect_on_association(model).macro
+          expect(association).to be(:has_one)
+        end
       end
     end
 
@@ -143,6 +147,24 @@ RSpec.describe BookingRequest, type: :model do
         expect(booking_request.errors).to include(:to_location_name)
       end
     end
+
+
+  end
+
+
+
+  describe "callbacks" do
+
+   
+      context "set_booking_status" do
+        let(:rider) {create(:rider)}
+        let(:booking_request) {build(:booking_request , rider: rider)}
+        it "sets booking status as available" do
+          booking_request.set_booking_status
+          expect(booking_request.booking_status).to eq("available")
+        end
+      end
+
 
 
   end
