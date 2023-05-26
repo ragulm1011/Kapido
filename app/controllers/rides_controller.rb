@@ -28,6 +28,7 @@ class RidesController < ApplicationController
     if current_user.rider? 
       flash[:alert] = "Unauthorized action"
       redirect_to rider_dash_path
+      return 
     end
     
     booking = BookingRequest.find(params[:id])
@@ -49,6 +50,8 @@ class RidesController < ApplicationController
     if current_user.driver?
       flash[:alert] = "Unauthorized action"
       redirect_to driver_dash_path
+      return 
+      
     end
 
 
@@ -58,12 +61,14 @@ class RidesController < ApplicationController
     unless current_user.userable.id == currentBooking.rider_id
       flash[:alert] = "Unauthorized action"
       redirect_to rider_dash_path
+      return 
     end
 
 
     if currentBooking.booking_status == 'booked'
-      
+      flash[:notice] = "Your waiting was over"
       redirect_to finish_waiting_path(bid: currentBooking.id)
+      return 
     end
 
 
@@ -74,6 +79,7 @@ class RidesController < ApplicationController
     if current_user.driver?
       flash[:alert] = "Unauthorized action"
       redirect_to driver_dash_path
+      return 
     end
 
 
@@ -86,6 +92,8 @@ class RidesController < ApplicationController
     else
       render :finish_waiting_path
     end
+
+    
   end
 
 

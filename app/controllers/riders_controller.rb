@@ -9,6 +9,7 @@ class RidersController < ApplicationController
     unless params[:id] == current_user.userable.id
       flash[:alert] = "Unauthorized action"
       redirect_to rider_dash_path
+      return 
     end
 
     @rider = Rider.find(params[:id])

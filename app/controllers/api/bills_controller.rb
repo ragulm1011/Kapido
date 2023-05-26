@@ -1,7 +1,7 @@
 class Api::BillsController < Api::ApiController 
 
   
-  before_action :is_driver? , except: [:index, :show , :own_index]
+  before_action :is_driver? , except: [:index, :show , :your_bills]
 
   
   def index   

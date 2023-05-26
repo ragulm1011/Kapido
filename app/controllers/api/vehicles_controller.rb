@@ -98,6 +98,15 @@ class Api::VehiclesController < Api::ApiController
       render json: vehicles , status: :ok
     end
    end
+   
+   def your_vehicles
+    vehicles = Vehicle.where(driver_no: current_user.userable.id)
+    if vehicles.empty?
+      render json: { message: "No Vehicle found." } , status: :no_content
+    else
+      render json: vehicles , status: :ok
+    end
+   end
 
    private
    def is_driver?
@@ -109,13 +118,6 @@ class Api::VehiclesController < Api::ApiController
 
    end
 
-   def your_vehicles
-    vehicles = Vehicle.where(driver_no: current_user.userable.id)
-    if vehicles.empty?
-      render json: { message: "No Vehicle found." } , status: :no_content
-    else
-      render json: vehicles , status: :ok
-    end
-   end
+  
 
 end

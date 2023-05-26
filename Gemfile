@@ -83,3 +83,5 @@ group :development, :test do
 end
 
 gem "doorkeeper"
+
+gem 'rails-controller-testing'

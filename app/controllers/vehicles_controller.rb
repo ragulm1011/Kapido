@@ -39,9 +39,10 @@ class VehiclesController < ApplicationController
     @vehicles = Vehicle.where(driver_no: current_user.userable.id)
     @vehicles_id_array = @vehicles.pluck(:id)
 
-    unless vehicles_id_array.include?(@vehicleId)
-      flash[:alert] = "Uauthorized action"
+    unless @vehicles_id_array.include?(@vehicleId)
+      flash[:alert] = "Unauthorized action"
       redirect_to driver_dash_path
+      return 
     end
 
     current_user.userable.update(primary_vehicle_id: @vehicleId)

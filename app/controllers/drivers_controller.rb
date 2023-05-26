@@ -7,9 +7,11 @@ class DriversController < ApplicationController
 
   def show
 
+    
     unless params[:id] == current_user.userable.id
       flash[:alert] = "Unauthorized action"
       redirect_to driver_dash_path
+      return 
     end
 
     @driver = Driver.find(params[:id])
@@ -24,6 +26,7 @@ class DriversController < ApplicationController
     unless params[:id] == current_user.userable.id
       flash[:alert] = "Unauthorized action"
       redirect_to driver_dash_path
+      return 
     end
 
     @cid = params[:id]
@@ -54,6 +57,7 @@ class DriversController < ApplicationController
     end
     @rating = current_user.userable.driver_rating
     
+    
   end
 
   def edit_standby_city
@@ -65,6 +69,7 @@ class DriversController < ApplicationController
     if current_user.driver?
       flash[:alert] = "Unauthorized action"
       redirect_to driver_dash_path
+      return 
     end
 
     @paymentId = params[:driver][:id]

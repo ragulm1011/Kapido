@@ -28,9 +28,12 @@ Rails.application.routes.draw do
   post "/drivers/rating_change" , controller: :drivers , action: :rating_change , as: :rating_change
   get "/vehicles/change_primary_vehicle" , controller: :vehicles , action: :change_primary_vehicle , as: :change_primary_vehicle
   get "/vehicles/set_primary_vehicle" , controller: :vehicles , action: :set_primary_vehicle , as: :set_primary_vehicle
-  
+  get "/drivers/show" => "drivers#show"
+  get "/drivers/edit" => "drivers#edit"
+  patch "/drivers/update" => "drivers#update"
+  get "/riders/show" => "riders#show"
 
-  resources :drivers , only: [:show , :edit , :update]
+  resources :drivers
   resources :riders , only: [:show]
   resources :booking_requests , only: [:new , :create , :destroy]
   resources :locations , only: [:new , :create]
