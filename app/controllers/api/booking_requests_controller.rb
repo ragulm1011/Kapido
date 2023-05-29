@@ -1,7 +1,7 @@
 class Api::BookingRequestsController < Api::ApiController
   
   # before_action :authenticate_user!
-  before_action :is_rider? , except: [:index , :show , :own_index]
+  before_action :is_rider? , except: [:index , :show , :your_booking_requests]
 
 
   def index 

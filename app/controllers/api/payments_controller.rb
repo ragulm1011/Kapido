@@ -1,7 +1,7 @@
 class Api::PaymentsController < Api::ApiController
 
 
-  before_action :is_rider? , except: [:index, :show , :own_index]
+  before_action :is_rider? , except: [:index, :show , :your_payments]
   
 
   def index
@@ -21,7 +21,7 @@ class Api::PaymentsController < Api::ApiController
    
     payment = Payment.find_by(id: params[:id].to_i)
     if payment
-      if payment.rider_id == current_user.userable.id || payment.driver_id == current_user.usrebale.id
+      if payment.rider_id == current_user.userable.id || payment.driver_id == current_user.userable.id
         render json: payment, status: :ok
       else
         render json: { message: "You are not authorized to view this page" } , status: :forbidden

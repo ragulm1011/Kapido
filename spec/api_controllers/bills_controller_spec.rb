@@ -102,7 +102,7 @@ RSpec.describe Api::BillsController , type: :request do
             end
         end
 
-        # Add 25 payments and uncomment it
+        # # Add 25 payments and uncomment it
         # context "when authenticated driver_user accesses create with valid params" do
         #     it "return status 201" do
         #         post "/api/bills" , params: {access_token: driver_user_token.token , ride_id: ride.id , bill_amount: 500}

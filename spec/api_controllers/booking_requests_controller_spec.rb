@@ -186,10 +186,57 @@ RSpec.describe Api::BookingRequestsController , type: :request do
             end
         end
 
+        context "when authenticated rider_user access destroy with valid params" do
+            let(:booking_request_5) { create(:booking_request , rider: rider)}
+            it "return status 200"  do
+                delete "/api/booking_requests/#{booking_request_5.id}" , params: { access_token: rider_user_token.token }
+                expect(response).to have_http_status(200)
+
+            end
+        end
+
+        context "when authenticated rider_user access destroy with invalid params" do
+            let(:booking_request_6) { create(:booking_request , rider: rider_2) }
+            it "return status 403" do
+                delete "/api/booking_requests/#{booking_request_6.id}" , params: { access_token: rider_user_token.token }
+                expect(response).to have_http_status(403)
+            end
+        end
+
+        context "when authenticated rider_user access destroy with not found booking_id"   do
+            it "return status 404 " do
+                delete "/api/booking_requests/10000" , params: { access_token: rider_user_token.token }
+                expect(response).to have_http_status(404)
+            end
+        end
+
     end
 
     describe "get /booking_requests#your_booking_request" do
         
+        context "when user is not authenticated" do
+            it "returns status 401" do
+                get "/api/booking_requests/yout_booking_requests"
+                expect(response).to have_http_status(401)
+            end
+        end 
+
+        context "when authenticated rider_user access get your_booking_request" do
+            it "return status 403" do
+                get "/api/booking_requests/your_booking_requests" , params: { access_token: rider_user_token.token }
+                expect(response).to have_http_status(403)
+            end
+        end
+
+        context "when authenticated driver_user access get your_booking_request" do
+            it "return status 200" do
+                get "/api/booking_requests/your_booking_requests" , params: { access_token: driver_user_token.token }
+                expect(response).to have_http_status(200)
+            end
+        end
+
+
+
     end
  
 end
