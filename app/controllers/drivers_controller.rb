@@ -8,13 +8,13 @@ class DriversController < ApplicationController
   def show
 
     
-    unless params[:id] == current_user.userable.id
+    unless params[:id].to_i == current_user.userable.id
       flash[:alert] = "Unauthorized action"
       redirect_to driver_dash_path
       return 
     end
 
-    @driver = Driver.find(params[:id])
+    @driver = Driver.find_by(id: params[:id])
 
   end
 
@@ -34,7 +34,7 @@ class DriversController < ApplicationController
   end
 
   def update
-    driver = Driver.find(current_user.userable.id)
+    driver = Driver.find_by(id: current_user.userable.id)
     driver.standby_city = params[:driver][:standby_city]
     if driver.save
       flash[:notice] = "Your standing city changed successfully"
@@ -61,7 +61,7 @@ class DriversController < ApplicationController
   end
 
   def edit_standby_city
-    @driver = Driver.find(current_user.userable.id)
+    @driver = Driver.find_by(id: current_user.userable.id)
   end
   
   def rating_change
@@ -72,9 +72,9 @@ class DriversController < ApplicationController
       return 
     end
 
-    @paymentId = params[:driver][:id]
-    @payment = Payment.find(@paymentId)
-    @driver = Driver.find(@payment.driver_id)
+    @paymentId = params[:driver][:id].to_i
+    @payment = Payment.find_by(id: @paymentId)
+    @driver = Driver.find_by(id: @payment.driver_id)
     @oldRating = @driver.driver_rating
     @newRating = (@oldRating + params[:driver][:driver_rating].to_i)/2
     @driver.update(driver_rating: @newRating)
@@ -84,7 +84,7 @@ class DriversController < ApplicationController
   
 
   def available_ride
-    @primaryVehicle = Vehicle.find(current_user.userable.primary_vehicle_id)
+    @primaryVehicle = Vehicle.find_by(id: current_user.userable.primary_vehicle_id)
     @available = BookingRequest.where(city: current_user.userable.standby_city , booking_status: "available" , vehicle_type: @primaryVehicle.vehicle_type)
   end
 

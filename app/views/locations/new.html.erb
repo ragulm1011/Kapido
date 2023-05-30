@@ -1,30 +1,41 @@
-<h1>NEW LOCATION</h1>
+<div style = "float:left;width:10px;height:10px;margin-left:150px">
+  <img src = "<%=image_path('location_new.avif')%>"  height=700px style = "position:absolute;">
+</div> 
+
+
+
+
+<div style = "float:right ; margin-right: 300px ; margin-top: 120px">
+
+
 
 <fieldset>
-<legend><b>NEW LOCATION</b></legend>
+<legend><b>Location Details : </b></legend>
 <%= form_for @location , action: :create do |f|%>
 
-    <%=f.label :location_name , "Enter the location name"%>
-    <%=f.text_field :location_name%>
+    <%=f.label :location_name , "Location Name : "%>
+    <%=f.text_field :location_name , class: "form-control" , required: true%>
 
     <br>
 
-    <%=f.label :landmark , "Enter the landmark for that location"%>
-    <%=f.text_field :landmark%>
+    <%=f.label :landmark , "Landmark : "%>
+    <%=f.text_field :landmark , class: "form-control" , required: true%>
 
     <br>
 
-    <%=f.label :city , "Enter the city of the location"%>
-    <%=f.text_field :city%>
+    <%=f.label :city , "City : "%>
+    <%=f.text_field :city , class: "form-control" , required: true%>
 
     <br>
 
-    <%=f.label :pincode , "Enter the pincode"%>
-    <%=f.text_field :pincode%>
+    <%=f.label :pincode , "Pincode : "%>
+    <%=f.text_field :pincode , class: "form-control" , required: true%>
 
-    <br>
+    <br> <br>
 
-    <%=f.submit "Submit"%>
+    <%=f.submit "Submit" , class: "btn btn-primary btn-sm"%>
 </fieldset>
     
 <%end%>
+
+</div>

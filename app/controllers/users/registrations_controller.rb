@@ -34,17 +34,19 @@ class Users::RegistrationsController < Devise::RegistrationsController
     # user.save
     
     userable = if params[:user][:role] == 'Driver'
-                    Driver.create!(driver_params)
+                    Driver.new(driver_params)
 
                     
                   else
-                    Rider.create!(rider_params)
+                    Rider.new(rider_params)
                     
                     
                   end
                  
                   
-   
+    if params[:user][:role] == 'Driver'
+      userable.driver_rating = 5.0
+    end
     userable.save
     
     build_resource(sign_up_params)

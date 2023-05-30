@@ -6,8 +6,8 @@ class PaymentsController < ApplicationController
 
   def new
     
-    @bill = Bill.find_by(ride_id: params[:rideId])
-    @ride = Ride.find(params[:rideId])
+    @bill = Bill.find_by(ride_id: params[:rideId].to_i)
+    @ride = Ride.find_by(id: params[:rideId].to_i)
     @payment = Payment.new()
   end
 
@@ -27,7 +27,7 @@ class PaymentsController < ApplicationController
   def waiting_payment
     @payment = Payment.find_by(bill_no: params[:billId])
     if @payment
-      @bill = Bill.find(params[:billId])
+      @bill = Bill.find_by(id: params[:billId])
       @bill.payment_id = @payment.id
       @bill.save
       redirect_to successful_path
@@ -37,7 +37,7 @@ class PaymentsController < ApplicationController
   def successful
     if current_user.rider?
       @driver = Driver.new
-      @paymentId = params[:paymentId]
+      @paymentId = params[:paymentId].to_i
     end
   end
 

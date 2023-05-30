@@ -1,5 +1,10 @@
 
 
+ <div style = "float:left;width:10px;height:10px;">
+  <img src = "<%=image_path('Mobile-login.jpg')%>" width=950px style = "position:absolute;">
+</div> 
+
+
 
 
 <div style="float:right;margin-right:200px;" >
@@ -127,8 +132,11 @@
   <legend><b>Rider Details</b>(Only if you are a rider)</legend>
   <%=fields_for :rider_details do |rd|%>
     <%=rd.label :gender%><br>
-    <%=rd.text_field :gender ,  class: "form-control" %>
-    <br>
+    
+
+    <%gender_type_array = ["Male" ,"Female"]%>
+  <%=rd.select :gender , gender_type_array , class: "form-control"%>
+    <br> <br>
 
     <%=rd.label :aadhar_no%><br>
     <%=rd.text_field :aadhar_no ,  class: "form-control" %>
@@ -159,8 +167,9 @@
   <br>
 
   <%=vd.label :vehicle_type%><br>
-  <%=vd.text_field :vehicle_type ,  class: "form-control" %>
-  <br>
+  <%vehicle_type_array = ["Bike" ,"Auto" ,  "Mini-Car" , "Sedan-Car" , "SUV-Car"]%>
+  <%=vd.select :vehicle_type , vehicle_type_array , class: "form-control"%>
+  <br><br>
 
   <%=vd.label :no_of_seats%><br>
   <%=vd.number_field :no_of_seats ,  class: "form-control" %>
@@ -188,3 +197,4 @@
 =end%>
 
 </div>
+

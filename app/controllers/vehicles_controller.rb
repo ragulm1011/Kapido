@@ -35,7 +35,7 @@ class VehiclesController < ApplicationController
   end
 
   def set_primary_vehicle
-    @vehicleId = params[:id]
+    @vehicleId = params[:id].to_i
     @vehicles = Vehicle.where(driver_no: current_user.userable.id)
     @vehicles_id_array = @vehicles.pluck(:id)
 

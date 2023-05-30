@@ -1,36 +1,59 @@
-<div class = "container-fluid">
+<div style = "float:left;width:10px;height:10px;">
+  <img src = "<%=image_path('driver_show.jpg')%>"  height=650px style = "position:absolute;">
+</div> 
 
-    <h2> Basic Details </h2>
+
+
+
+
+
+
+
+<div style = "float:right" >
+
+   <fieldset> 
+   <legend class = "lead"> <b> Basic Details </b>  </legend>
 
     <br> 
-    <h6>Name : <%= current_user.name %></h6>
-    <h6>Email :  <%= current_user.email %></h6>
-    <h6>Age:  <%= current_user.age %></h6>
-    <h6>Mobile Number :  <%= current_user.mobile_no %></h6>
-    <h6>Role : <%= current_user.role %></h6>
+    <h6 class = "lead"> Name : <%= current_user.name %></h6>
+    <h6 class = "lead" >Email :  <%= current_user.email %></h6>
+    <h6 class = "lead"> Age:  <%= current_user.age %></h6>
+    <h6 class = "lead" >Mobile Number :  <%= current_user.mobile_no %></h6>
+    <h6 class = "lead">Role : <%= current_user.role %></h6>
 
+    </fieldset>
 
-    <h2> Address Details </h2>
+    <br> <br>
+
+    <fieldset>
+    <legend class = "lead"> <b> Address </b> </legend>
     <br>
 
-    <h6>Door No : <%= current_user.door_no %></h6>
-    <h6>Street : <%= current_user.street %> </h6>
-    <h6>City :  <%= current_user.city %></h6>
-    <h6>District :  <%= current_user.district %></h6>
-    <h6>State :  <%= current_user.state %></h6>
-    <h6>Pincode : <%= current_user.pincode %> </h6>
+    <h6 class = "lead">Door No : <%= current_user.door_no %></h6>
+    <h6 class = "lead" >Street : <%= current_user.street %> </h6>
+    <h6 class = "lead">City :  <%= current_user.city %></h6>
+    <h6 class = "lead">District :  <%= current_user.district %></h6>
+    <h6 class = "lead">State :  <%= current_user.state %></h6>
+    <h6 class = "lead">Pincode : <%= current_user.pincode %> </h6>
 
+    </fieldset>
+    <br> <br>
 
-    <h2> Proofs </h2>
-    <h6> Liscense No : <%= @driver.liscense_no %></h6>
-    <h6> Aadhar Picture : </h6>
+    <fieldset>
+    <legend class = "lead"> <b> Proofs </b> </legend> 
+    
+    <h6 class = "lead"> Liscense No : <%= @driver.liscense_no %></h6>
+    <h6 class = "lead"> Liscense image : </h6>
+    <br>
 
     <% if @driver.liscense_image.attached? %>
         <div class = "container-sm">
-        <%= image_tag @driver.liscense_image , style: "max-height:10px , max-width:10px"%>    
+        <%= image_tag @driver.liscense_image , style: 'height:500px;width:900px;' %>    
         </div>
     <% else %>
         <p> No liscense card image was attached with this profile </p>
     <% end%>
+
+    </fieldset>
     
 </div>

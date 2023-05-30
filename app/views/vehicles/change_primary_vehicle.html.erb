@@ -1,11 +1,16 @@
 
+<div style = "float:left;width:10px;height:10px;margin-left:30px">
+  <img src = "<%=image_path('urban_racing_5.jpg')%>" width=950 height=650px style = "position:absolute;">
+</div> 
 
-<div style = "float:right ; margin-right : 250px">
 
-<h1> Change your primary vehicle here </h1>
+
+<div style = "float:right ; margin-right : 300px">
+
+<h1> Your Vehicles </h1>
 <div style = "display : flex ; flex-direction : column">
 <%unless @vehicles.size == 0%>
-    <h2> Your Vehicles </h2>
+    
     <br><br>
 
     <%@vehicles.each do |i|%>

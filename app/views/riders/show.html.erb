@@ -1,36 +1,67 @@
-<div class = "container-fluid">
 
-    <h2> Basic Details </h2>
+<div style = "float:left;width:10px;height:10px;">
+  <img src = "<%=image_path('rider_show.avif')%>"  height=650px style = "position:absolute;">
+</div> 
+
+
+
+
+
+
+
+
+<div style = "float:right" >
+
+
+
+    <fieldset>
+
+    <legend class = "lead"> <b> Basic Details </b> </legend>
 
     <br> 
-    <h6>Name : <%= current_user.name %></h6>
-    <h6>Email :  <%= current_user.email %></h6>
-    <h6>Age:  <%= current_user.age %></h6>
-    <h6>Mobile Number :  <%= current_user.mobile_no %></h6>
-    <h6>Role : <%= current_user.role %></h6>
+    <h6 class = "lead" >Name : <%= current_user.name %></h6>
+    <h6 class = "lead">Email :  <%= current_user.email %></h6>
+    <h6 class = "lead">Age:  <%= current_user.age %></h6>
+    <h6 class = "lead">Mobile Number :  <%= current_user.mobile_no %></h6>
+    <h6 class = "lead">Role : <%= current_user.role %></h6>
+
+    </fieldset>
+
+    <br> 
 
 
-    <h2> Address Details </h2>
+   <fieldset>
+
+   <legend class = "lead"><b> Address <b> </legend>
+
+    <h6 class = "lead" >Door No : <%= current_user.door_no %></h6>
+    <h6 class = "lead">Street : <%= current_user.street %> </h6>
+    <h6 class = "lead">City :  <%= current_user.city %></h6>
+    <h6 class = "lead">District :  <%= current_user.district %></h6>
+    <h6 class = "lead">State :  <%= current_user.state %></h6>
+    <h6 class = "lead">Pincode : <%= current_user.pincode %> </h6>
+
+    </fieldset>
+
+    <br> <br>
+
+
+    <fieldset>
+    <legend class = "lead"> <b> Proofs </b> </legend>
+
+    <h6 class = "lead"> Aadhar Number : <%= @rider.aadhar_no %></h6>
+    <h6 class = "lead" > Aadhar Picture : </h6>
+
     <br>
-
-    <h6>Door No : <%= current_user.door_no %></h6>
-    <h6>Street : <%= current_user.street %> </h6>
-    <h6>City :  <%= current_user.city %></h6>
-    <h6>District :  <%= current_user.district %></h6>
-    <h6>State :  <%= current_user.state %></h6>
-    <h6>Pincode : <%= current_user.pincode %> </h6>
-
-
-    <h2> Proofs </h2>
-    <h6> Aadhar Number : <%= @rider.aadhar_no %></h6>
-    <h6> Aadhar Picture : </h6>
 
     <% if @rider.aadhar_card_image.attached? %>
         <div class = "container-sm">
-        <%= image_tag @rider.aadhar_card_image %>    
+        <%= image_tag @rider.aadhar_card_image , style: 'height:500px;width:900px;'%>    
         </div>
     <% else %>
         <p> No aadhar card image was attached with this profile </p>
     <% end%>
+
+    </fieldset>
     
 </div>

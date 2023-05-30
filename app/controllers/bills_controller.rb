@@ -8,7 +8,7 @@ class BillsController < ApplicationController
 
   def new
     
-    @ride = Ride.find_by(id: params[:rideId])
+    @ride = Ride.find_by(id: params[:rideId].to_i)
     @driver_id = @ride.driver_id
 
     unless @driver_id == current_user.userable.id 
@@ -23,7 +23,7 @@ class BillsController < ApplicationController
   end
 
   def create
-    @bill = Bill.new(ride_id: params[:bill][:ride_id] , payment_id: 25 , bill_date: Date.today() , bill_amount: params[:bill][:bill_amount])
+    @bill = Bill.new(ride_id: params[:bill][:ride_id] , payment_id: 41 , bill_date: Date.today() , bill_amount: params[:bill][:bill_amount])
     
     if @bill.save
       

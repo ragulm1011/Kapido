@@ -31,7 +31,7 @@ class BookingRequestsController < ApplicationController
 
   def destroy
     
-    booking_request = BookingRequest.find_by(id: params[:bid])
+    booking_request = BookingRequest.find_by(id: params[:bid].to_i)
 
     unless booking_request.rider_id == current_user.userable.id 
       flash[:alert] = "Unauthorized action"

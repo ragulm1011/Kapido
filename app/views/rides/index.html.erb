@@ -1,8 +1,16 @@
-<div style = "float:right;margin-right:350px">
+<div style = "float:left;width:10px;height:10px;">
+  <img src = "<%=image_path('rides.jpg')%>" width=950px height=700px style = "position:absolute;">
+</div> 
+
+
+
+
+
+<div style = "float:right;margin-right:500px">
     
     <% if current_user.driver? %>
-        <% unless @rides.length == 0%>
-        <h1> The rides of you </h1>
+        <% unless @rides.empty?%>
+        <h1> Your Rides </h1>
         <br><br>
         <% @rides.each do |i| %>
              <div class="card bg-light mb-3" style="max-width: 18rem;">
@@ -15,7 +23,10 @@
     <h6 class = "card-title"><%= "Rider Name : #{@rider.name}" %>
     <h6 class = "card-title"><%= "Ride date : #{i.ride_date}" %>
     <% @bill = Bill.find_by(ride_id: i.id) %>
+
+    <% if @bill %>
     <h6 class = "card-title"><%= "Ride amount : #{@bill.bill_amount}" %>
+    <% end %>
     
   </div>
 </div>
@@ -29,7 +40,7 @@
     <% else %>
 
     <% unless @rides.length == 0%>
-        <h1> The rides of you </h1>
+        <h1> Your Rides </h1>
         <br> <br>
         <% @rides.each do |i| %>
              <div class="card bg-light mb-3" style="max-width: 18rem;">
@@ -42,7 +53,10 @@
     <h6 class = "card-title"><%= "Driver Name : #{@driver.name}" %>
     <h6 class = "card-title"><%= "Ride date : #{i.ride_date}" %>
     <% @bill = Bill.find_by(ride_id: i.id) %>
+
+    <% if @bill %>
     <h6 class = "card-title"><%= "Ride amount : #{@bill.bill_amount}" %>
+    <%end%>
     
     
   </div>

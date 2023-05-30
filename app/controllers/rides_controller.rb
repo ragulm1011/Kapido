@@ -31,9 +31,9 @@ class RidesController < ApplicationController
       return 
     end
     
-    booking = BookingRequest.find(params[:id])
+    booking = BookingRequest.find_by(id: params[:id])
    
-    @ride = Ride.new(booking_request_id: params[:id], driver_id: current_user.userable.id , rider_id: booking.rider_id , ride_date: Date.today())
+    @ride = Ride.new(booking_request_id: params[:id].to_i, driver_id: current_user.userable.id , rider_id: booking.rider_id , ride_date: Date.today())
     @ride.save
     booking.update(booking_status: 'booked')
     flash[:notice] = "You are on the ride"    
@@ -55,8 +55,8 @@ class RidesController < ApplicationController
     end
 
 
-    @bookingId = params[:id]
-    currentBooking = BookingRequest.find(@bookingId)
+    @bookingId = params[:id].to_i
+    currentBooking = BookingRequest.find_by(id: @bookingId)
 
     unless current_user.userable.id == currentBooking.rider_id
       flash[:alert] = "Unauthorized action"
@@ -83,7 +83,7 @@ class RidesController < ApplicationController
     end
 
 
-    bid = params[:bid]
+    bid = params[:bid].to_i
     ride = Ride.find_by(booking_request_id: bid)
     
     if ride.save
@@ -98,8 +98,8 @@ class RidesController < ApplicationController
 
 
   def riding
-    @rideId = params[:id]
-    @ride = Ride.find(@rideId)
+    @rideId = params[:id].to_i
+    @ride = Ride.find_by(id: @rideId)
     @driver = User.find_by(userable_id: @ride.driver_id)
     @rider = User.find_by(userable_id: @ride.rider_id)
     if current_user.rider?

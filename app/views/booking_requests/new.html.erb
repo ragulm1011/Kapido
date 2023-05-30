@@ -1,5 +1,12 @@
-<div style = "float:right; margin-right:250px">
- <h1>Book your ride here !!</h1>
+<div style = "float:left;width:10px;height:10px;">
+  <img src = "<%=image_path('booking_new.jpg')%>"  height=700px style = "position:absolute;">
+</div> 
+
+
+
+
+<div style = "float:right; margin-right:250px ; margin-top: 100px">
+ <h1></h1>
 
  <fieldset>
 <legend> <b> Booking Details </b>  </legend>
@@ -14,8 +21,8 @@
 
 
     <%if location_array.length != 0%>
-    <%=f.label :from_location_name, "From : "%>
-    <br>
+    <%=f.label :from_location_name, "Source :   "%>
+    
     <%=f.select :from_location_name , location_array , class: "form-control" , required: true%>
     <%end%>
 
@@ -25,7 +32,7 @@
     <p> If your location is not there yet , then add it manually here <%= link_to "Add a location",  new_location_path , class: "btn btn-secondary btn-sm"%></p>
 
 
-    <%=f.label :city , "City : "%>
+    <%=f.label :city , "Source city :  "%>
     <%=f.text_field :city , class: "form-control" , required: true%>
 
     <br>
@@ -37,8 +44,8 @@
 
 
     <%if location_array.length != 0%>
-    <%=f.label :to_location_name , "To : "%>
-    <br>
+    <%=f.label :to_location_name , "Destination : "%>
+    
     <%=f.select :to_location_name , location_array , class: "form-control" , required: true%>
     <%end%>
 
