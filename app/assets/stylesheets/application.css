@@ -13,3 +13,17 @@
  *= require_tree .
  *= require_self
  */
+
+ #driver_details {   
+    display: none; 
+  }
+
+#rider_details {
+    display: none;
+}
+
+#vehicle_details{
+    display: none;
+}
+
+

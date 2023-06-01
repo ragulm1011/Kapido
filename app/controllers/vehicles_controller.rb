@@ -46,6 +46,7 @@ class VehiclesController < ApplicationController
     end
 
     current_user.userable.update(primary_vehicle_id: @vehicleId)
+    flash[:notice] = "Your Primary Vehicle updated successfully"
     redirect_to driver_dash_path
   end
 

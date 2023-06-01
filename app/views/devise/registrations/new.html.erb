@@ -53,7 +53,7 @@
  <%=  f.select :role , , class: "form-control", required: true %> 
 <%
 =end%>
-     <%= f.select :role, options_for_select([['Driver','Driver'],['Rider','Rider']]), { :multiple => false, include_blank: 'Select'}, {class: "form-select shadow shadow-sm ", required: true}  %>
+     <%= f.select :role, options_for_select([['Driver','Driver'],['Rider','Rider']]), { include_blank: 'Select'}, {class: "form-select shadow shadow-sm ", required: true , id: "role" , onchange: "drop()"}  %>
   </div>
     <h1> <%= %><h1>
 
@@ -147,6 +147,7 @@
 
 
   <!--Vehicle Details With Liscense Number-->
+  <div id = "driver_details">
   <fieldset>
    <h1 class = "display-7 lead"><b>DRIVER DETAILS</b>(Only if you are a driver)</h1>
    <br>
@@ -166,8 +167,11 @@
   </div></div>
 
   </fieldset>
+  </div>
 
   <br> <br>
+
+  <div id = "rider_details">
 
     <fieldset>
   <h1 class = "display-7 lead"><b>RIDER DETAILS</b>(Only if you are a rider)</h1>
@@ -204,10 +208,11 @@
   </div>
   </div>
   </fieldset>
+  </div>
 
   <br><br>
 
-
+  <div id = "vehicle_details">
   <fieldset>
    <h1 class = "display-7 lead"><b>VEHICLE DETAILS</b>(Only if you are a driver)</h1>
    <br>
@@ -242,6 +247,7 @@
   <%end%>
   </div></div>
   </fieldset>
+  </div>
 
   <br>
   <br>
@@ -263,3 +269,6 @@
 
 </div>
 
+
+
+<%= javascript_include_tag 'sign_up' %>
