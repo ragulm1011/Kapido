@@ -11,37 +11,43 @@
 
 
 
-<div style = "float:right ; margin-right: 300px ; margin-top: 150px">
+<div style = "float:right ; margin-right: 200px ; margin-top: 50px">
 
 
 <fieldset>
-<legend><b>Vehicle Details</b></legend>
+<h6 class = "display-6 lead"> VEHICLE DETAILS </h6>
+<br>
+
+ <div class="card shadow shadow-md" style="width: 30rem;">
+  <div class="card-body">
 <%= form_for @vehicle , action: :create do |f|%>
 
-    <%=f.label :vehicle_name , "Vehicle Name :  "%>
+    <%=f.label :vehicle_name , "VEHICLE NAME : " , class: "display-8 lead" %>
     <%=f.text_field :vehicle_name , class: "form-control form-control-sm" , required: true  %>
 
     <br>
 
-    <%=f.label :vehicle_type , "Vehicle Type: "%>
+    <%=f.label :vehicle_type , "VEHICLE TYPE : " , class: "display-8 lead" %>
     <br>
     <%vehicle_type_array = ["Bike" ,"Auto" ,  "Mini-Car" , "Sedan-Car" , "SUV-Car"]%>
-    <%=f.select :vehicle_type , vehicle_type_array , class: "form-control" , required: true%>
+    <%=f.select :vehicle_type , vehicle_type_array , class: "form-control display-9" , required: true%>
     <br>
 
     <br>
 
-    <%=f.label :no_of_seats , "No of seats : "%>
+    <%=f.label :no_of_seats , "NO OF SEATS : " , class: "display-8 lead"%>
     <%=f.number_field :no_of_seats , class: "form-control" , required: true%>
 
     <br>
 
-    <%=f.label :vehicle_no , "Vehicle Number : "%>
+    <%=f.label :vehicle_no , "VEHICLE NUMBER : " , class: "display-8 lead"%>
     <%=f.text_field :vehicle_no , class: "form-control" , required: true%>
 
     <br>
 
     <%=f.submit "Submit" , class: "btn btn-primary btn-small"%>
+    </div>
+    </div>
 </fieldset>
     
 <%end%>

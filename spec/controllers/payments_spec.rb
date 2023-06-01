@@ -47,7 +47,7 @@ RSpec.describe PaymentsController, type: :controller do
         context "when rider_user is signed in with valid params" do
             it "redirects to successful path" do
                 sign_in rider_user
-                post :create , params: { payment: {rider_id: 1 , driver_id: 1 , mode_of_payment: "Gpay" , amount: 100 , credentials: "9994406107" , remarks: "Done for a ride" , bill_no: 1}}
+                post :create , params: { payment: {rider_id: 6146 , driver_id: 4575 , mode_of_payment: "Gpay" , amount: 100 , credentials: "9994406107" , remarks: "Done for a ride" , bill_no: 1}}
                 expect(flash[:notice]).to eq("Payment done successfully")
             end
         end
@@ -63,7 +63,7 @@ RSpec.describe PaymentsController, type: :controller do
         context "when driver_user is signed in with valid params" do
             it "redirects to successful path" do
                 sign_in driver_user
-                post :create , params: { payment: {rider_id: 1 , driver_id: 1 , mode_of_payment: "Gpay" , amount: 100 , credentials: "9994406107" , remarks: "Done for a ride" , bill_no: 1}}
+                post :create , params: { payment: {rider_id: 6585 , driver_id: 4575 , mode_of_payment: "Gpay" , amount: 100 , credentials: "9994406107" , remarks: "Done for a ride" , bill_no: 1}}
                 expect(flash[:notice]).to eq("Payment done successfully")
             end
         end
@@ -91,7 +91,7 @@ RSpec.describe PaymentsController, type: :controller do
         context "when rider_user is signed in" do
             it "redirects to successful path" do
                 sign_in rider_user
-                get :waiting_payment , params: {billId: 1}
+                get :waiting_payment , params: {billId: 415 }
                 expect(response).to redirect_to(successful_path)
             end
         end
@@ -99,7 +99,7 @@ RSpec.describe PaymentsController, type: :controller do
         context "when driver_user is signed in" do
             it "redirects to successful path" do
                 sign_in driver_user
-                get :waiting_payment , params: { billId: 1 }
+                get :waiting_payment , params: { billId: 415 }
                 expect(response).to redirect_to(successful_path)
             end
         end

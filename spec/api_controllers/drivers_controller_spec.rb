@@ -2,16 +2,16 @@ require 'rails_helper'
 
 RSpec.describe Api::DriversController , type: :request do
 
-    let(:rider) { create(:rider) }
-    let(:rider_user) {  create(:user , :for_rider , userable: rider) }
+    let!(:rider) { create(:rider) }
+    let!(:rider_user) {  create(:user , :for_rider , userable: rider) }
 
-    let(:driver) { create(:driver) }
-    let(:driver_user) { create(:user , :for_driver , userable: driver) }
+    let!(:driver) { create(:driver) }
+    let!(:driver_user) { create(:user , :for_driver , userable: driver) }
 
     # let(:customer_token) {create(:doorkeeper_access_token , resource_owner_id: customer_user.id)}
 
-    let(:rider_user_token) { create(:doorkeeper_access_token , resource_owner_id: rider_user.id)}
-    let(:driver_user_token) { create(:doorkeeper_access_token , resource_owner_id: driver_user.id)}
+    let!(:rider_user_token) { create(:doorkeeper_access_token , resource_owner_id: rider_user.id)}
+    let!(:driver_user_token) { create(:doorkeeper_access_token , resource_owner_id: driver_user.id)}
     
     describe "get /drivers#index" do
 
@@ -99,7 +99,7 @@ RSpec.describe Api::DriversController , type: :request do
         end
 
         context "when rider_user access available_ride" do
-            let(:booking_request_1) { create(:booking_request , rider: rider) }
+            let!(:booking_request_1) { create(:booking_request , rider: rider) }
                 it "return status 403" do
                     get "/api/drivers/available_ride" , params: { access_token: rider_user_token.token  , city: "San Francisco"}
                     expect(response).to have_http_status(403)

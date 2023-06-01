@@ -3,23 +3,23 @@ require 'rails_helper'
 RSpec.describe Api::PaymentsController , type: :request do
 
 
-    let(:rider) { create(:rider) }
-    let(:rider_user) {  create(:user , :for_rider , userable: rider) }
+    let!(:rider) { create(:rider) }
+    let!(:rider_user) {  create(:user , :for_rider , userable: rider) }
 
-    let(:driver) { create(:driver) }
-    let(:driver_user) { create(:user , :for_driver , userable: driver) }
+    let!(:driver) { create(:driver) }
+    let!(:driver_user) { create(:user , :for_driver , userable: driver) }
 
     # let(:customer_token) {create(:doorkeeper_access_token , resource_owner_id: customer_user.id)}
 
-    let(:rider_user_token) { create(:doorkeeper_access_token , resource_owner_id: rider_user.id)}
-    let(:driver_user_token) { create(:doorkeeper_access_token , resource_owner_id: driver_user.id)}
+    let!(:rider_user_token) { create(:doorkeeper_access_token , resource_owner_id: rider_user.id)}
+    let!(:driver_user_token) { create(:doorkeeper_access_token , resource_owner_id: driver_user.id)}
 
 
-    let(:payment_1) { create(:payment , rider: rider , driver: driver)}
+    let!(:payment_1) { create(:payment , rider: rider , driver: driver)}
 
-    let(:rider_2) { create(:rider)}
+    let!(:rider_2) { create(:rider)}
 
-    let(:driver_2) { create(:driver)}
+    let!(:driver_2) { create(:driver)}
     
     describe "get /payments#index" do
 
@@ -64,7 +64,7 @@ RSpec.describe Api::PaymentsController , type: :request do
         end
 
         context "when authenticated rider_user access index with invalid payment_id" do
-            let(:payment_2) { create(:payment , rider: rider_2 , driver: driver)  }
+            let!(:payment_2) { create(:payment , rider: rider_2 , driver: driver)  }
             it "returns status 403" do
                 get "/api/payments/#{payment_2.id}" , params: { access_token: rider_user_token.token }
                 expect(response).to have_http_status(403)
@@ -88,7 +88,7 @@ RSpec.describe Api::PaymentsController , type: :request do
         end
 
         context "when authenticated rider_user access index with invalid payment_id" do
-            let(:payment_6) { create(:payment , rider: rider_2 , driver: driver_2)  }
+            let!(:payment_6) { create(:payment , rider: rider_2 , driver: driver_2)  }
             it "returns status 403" do
                 get "/api/payments/#{payment_6.id}" , params: { access_token: driver_user_token.token }
                 expect(response).to have_http_status(403)
@@ -123,7 +123,7 @@ RSpec.describe Api::PaymentsController , type: :request do
 
         context "when authenticated rider_user access create with valid params" do
             it "returns status 201" do
-                post "/api/payments" ,  params: { access_token: rider_user_token.token , driver_id: 1 , mode_of_payment: "Gpay" , amount: 100 , credentials: "Done for a ride" , remarks: "Nothing" , bill_no: 1 } 
+                post "/api/payments" ,  params: { access_token: rider_user_token.token , driver_id: 2290 , mode_of_payment: "Gpay" , amount: 100 , credentials: "Done for a ride" , remarks: "Nothing" , bill_no: 1 } 
                 expect(response).to have_http_status(201)
             end
         end

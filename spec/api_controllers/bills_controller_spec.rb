@@ -2,22 +2,22 @@ require 'rails_helper'
 
 RSpec.describe Api::BillsController , type: :request do
     
-    let(:rider) { create(:rider) }
-    let(:rider_user) {  create(:user , :for_rider , userable: rider) }
+    let!(:rider) { create(:rider) }
+    let!(:rider_user) {  create(:user , :for_rider , userable: rider) }
 
-    let(:driver) { create(:driver) }
-    let(:driver_user) { create(:user , :for_driver , userable: driver) }
+    let!(:driver) { create(:driver) }
+    let!(:driver_user) { create(:user , :for_driver , userable: driver) }
 
-    # let(:customer_token) {create(:doorkeeper_access_token , resource_owner_id: customer_user.id)}
+    # let!(:customer_token) {create(:doorkeeper_access_token , resource_owner_id: customer_user.id)}
 
-    let(:rider_user_token) { create(:doorkeeper_access_token , resource_owner_id: rider_user.id)}
-    let(:driver_user_token) { create(:doorkeeper_access_token , resource_owner_id: driver_user.id)}
+    let!(:rider_user_token) { create(:doorkeeper_access_token , resource_owner_id: rider_user.id)}
+    let!(:driver_user_token) { create(:doorkeeper_access_token , resource_owner_id: driver_user.id)}
 
-    let(:booking_request) { create(:booking_request , rider: rider) }
-    let(:ride) { create(:ride , rider: rider , driver: driver , booking_request: booking_request)}
-    let(:payment) { create(:payment , rider: rider , driver: driver)}
+    let!(:booking_request) { create(:booking_request , rider: rider) }
+    let!(:ride) { create(:ride , rider: rider , driver: driver , booking_request: booking_request)}
+    let!(:payment) { create(:payment , rider: rider , driver: driver)}
 
-    let(:bill) { create(:bill , ride: ride , payment: payment) }
+    let!(:bill) { create(:bill , ride: ride , payment: payment) }
     
 
     describe "get /bills#index" do

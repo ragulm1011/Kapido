@@ -17,10 +17,10 @@ class Users::SessionsController < Devise::SessionsController
     set_flash_message!(:notice, :signed_in)
     sign_in(resource_name, resource)
     if user_signed_in? && current_user.role == 'Driver'
-      flash[:notice] = 'You have signed in successfully driver'
+      flash[:notice] = "You have signed in successfully driver #{current_user.name}"
       redirect_to driver_dash_path 
     else
-      flash[:notice] = 'You have signed in successfully rider'
+      flash[:notice] = "You have signed in successfully rider #{current_user.name}"
       redirect_to rider_dash_path
     end
     yield resource if block_given?

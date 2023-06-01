@@ -1,19 +1,24 @@
 <div style = "float:left;width:10px;height:10px;">
-  <img src = "<%=image_path('booking_new.jpg')%>"  height=700px style = "position:absolute;">
+  <img src = "<%=image_path('booking_new.jpg')%>"  height=700px style = "position:fixed;">
 </div> 
 
 
 
 
-<div style = "float:right; margin-right:250px ; margin-top: 100px">
+<div style = "float:right; margin-right:100px ;">
  <h1></h1>
 
  <fieldset>
-<legend> <b> Booking Details </b>  </legend>
+<h1 class = "display-6 lead">BOOKING DETAILS </h1>
+<br>
+
+<div class="card shadow shadow-md" style="width: 50rem;">
+  <div class="card-body">
+
 <%= form_for @booking ,url: { action: :create } do |f|%>
 
 
-   <% location_array1 = Location.where(rider_id: 3).map { |location| [location.location_name]}%> 
+   <% location_array1 = Location.where(rider_id: 7).map { |location| [location.location_name]}%> 
  <% location_array2 = Location.where(rider_id: current_user.userable.id).map{ |location| [location.location_name]} %>
  <% location_array = location_array1 | location_array2 %>
 
@@ -21,47 +26,53 @@
 
 
     <%if location_array.length != 0%>
-    <%=f.label :from_location_name, "Source :   "%>
+    <%=f.label :from_location_name, "SOURCE :   " , class: "display-8 lead" %>
+    &nbsp &nbsp
     
-    <%=f.select :from_location_name , location_array , class: "form-control" , required: true%>
+     <%= f.select :from_location_name, options_for_select(location_array), { :multiple => false, include_blank: 'Select'}, {class: "form-select shadow shadow-sm ", required: true}  %>
     <%end%>
 
 
     <br> 
 
-    <p> If your location is not there yet , then add it manually here <%= link_to "Add a location",  new_location_path , class: "btn btn-secondary btn-sm"%></p>
+    <p class = "display-8 lead"> If your location is not there yet , then add it manually here <%= link_to "Add a location",  new_location_path , class: "btn btn-secondary btn-sm"%></p>
 
 
-    <%=f.label :city , "Source city :  "%>
-    <%=f.text_field :city , class: "form-control" , required: true%>
+    <%=f.label :city , "Source city :  " , class: "display-8 lead" %>
+    <%=f.text_field :city , class: "form-control shadow shadow-sm" , required: true%>
 
     <br>
 
     
- <% location_array1 = Location.where(rider_id: 3).map { |location| [location.location_name]}%> 
+ <% location_array1 = Location.where(rider_id: 7).map { |location| [location.location_name]}%> 
  <% location_array2 = Location.where(rider_id: current_user.userable.id).map{ |location| [location.location_name]} %>
  <% location_array = location_array1 | location_array2 %>
 
 
     <%if location_array.length != 0%>
-    <%=f.label :to_location_name , "Destination : "%>
+    <%=f.label :to_location_name , "Destination : " , class: "display-8 lead"%>
+    &nbsp &nbsp
     
-    <%=f.select :to_location_name , location_array , class: "form-control" , required: true%>
+     <%= f.select :to_location_name, options_for_select(location_array), { :multiple => false, include_blank: 'Select'}, {class: "form-select shadow shadow-sm ", required: true}  %>
     <%end%>
 
-    <br>
+    <br> 
    
-   <p> If your location is not there yet , then add it manually here <%= link_to "Add a location",  new_location_path , class: "btn btn-secondary btn-sm"%></p>
+   <p class = "display-8 lead"> If your location is not there yet , then add it manually here <%= link_to "Add a location",  new_location_path , class: "btn btn-secondary btn-sm"%></p>
     
     <br>
 
-    <%=f.label :vehicle_type , "Vehicle : "%>
+    <%=f.label :vehicle_type , "Vehicle : " , class: "display-8 lead"%>
+    &nbsp &nbsp
     <%vehicle_type_array = ["Bike" ,"Auto" ,  "Mini-Car" , "Sedan-Car" , "SUV-Car"]%>
-    <%=f.select :vehicle_type , vehicle_type_array , class: "form-control" , required: true%>
+   
+    <%= f.select :vehicle_type, options_for_select(vehicle_type_array), { :multiple => false, include_blank: 'Select'}, {class: "form-select shadow shadow-sm ", required: true}  %>
 
     <br> <br>
 
     <%=f.submit "Submit" , class: "btn btn-primary btn-sm"%>
+    </div>
+    </div>
 </fieldset>
     
 <%end%>

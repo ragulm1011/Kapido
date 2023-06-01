@@ -43,11 +43,11 @@ class Api::BookingRequestsController < Api::ApiController
 
     bookingRequest = BookingRequest.new()
 
-    fromLocation = Location.find_by(location_name: params[:from_location_name])
-    toLocation =   Location.find_by(location_name: params[:to_location_name])
+    # fromLocation = Location.find_by(location_name: params[:from_location_name])
+    # toLocation =   Location.find_by(location_name: params[:to_location_name])
 
-    bookingRequest.from_location_id = fromLocation.id
-    bookingRequest.to_location_id = toLocation.id
+    # bookingRequest.from_location_id = fromLocation.id
+    # bookingRequest.to_location_id = toLocation.id
 
     bookingRequest.booking_status = "available"
     bookingRequest.from_location_name = params[:from_location_name]

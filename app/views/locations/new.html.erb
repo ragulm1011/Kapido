@@ -1,39 +1,47 @@
-<div style = "float:left;width:10px;height:10px;margin-left:150px">
+<div style = "float:left;width:10px;height:10px;margin-left:100px">
   <img src = "<%=image_path('location_new.avif')%>"  height=700px style = "position:absolute;">
 </div> 
 
 
 
 
-<div style = "float:right ; margin-right: 300px ; margin-top: 120px">
+<div style = "float:right ; margin-right: 50px ; margin-top: 100px">
 
 
 
 <fieldset>
-<legend><b>Location Details : </b></legend>
+<h1 class = "display-6 lead">LOCATION DETAILS</h1>
+<br>
+
+<div class="card shadow shadow-md" style="width: 50rem;">
+  <div class="card-body">
+
+
 <%= form_for @location , action: :create do |f|%>
 
-    <%=f.label :location_name , "Location Name : "%>
+    <%=f.label :location_name , "Location Name : " , class: "display-8 lead"%>
     <%=f.text_field :location_name , class: "form-control" , required: true%>
 
     <br>
 
-    <%=f.label :landmark , "Landmark : "%>
+    <%=f.label :landmark , "Landmark : ", class: "display-8 lead"%>
     <%=f.text_field :landmark , class: "form-control" , required: true%>
 
     <br>
 
-    <%=f.label :city , "City : "%>
+    <%=f.label :city , "City : " , class: "display-8 lead"%>
     <%=f.text_field :city , class: "form-control" , required: true%>
 
     <br>
 
-    <%=f.label :pincode , "Pincode : "%>
+    <%=f.label :pincode , "Pincode : " , class: "display-8 lead" %>
     <%=f.text_field :pincode , class: "form-control" , required: true%>
 
     <br> <br>
 
     <%=f.submit "Submit" , class: "btn btn-primary btn-sm"%>
+
+    </div> </div>
 </fieldset>
     
 <%end%>

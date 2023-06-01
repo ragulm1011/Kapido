@@ -19,7 +19,7 @@ class Api::LocationsController < Api::ApiController
 
     location = Location.find_by(id: params[:id].to_i)
     if location
-      if location.rider_id == 3 || location.rider_id == current_user.userable.id
+      if location.rider_id == 7 || location.rider_id == current_user.userable.id
         render json: location , status: :ok
       else
         render json: { message: "You are not authorized to view this page"} , status: :forbidden
@@ -88,7 +88,7 @@ class Api::LocationsController < Api::ApiController
 
   #Custom API's
   def get_all_default_locations
-    locations = Location.where(rider_id: 3)
+    locations = Location.where(rider_id: 7)
     if locations 
       render json: locations , status: :ok
     else

@@ -32,7 +32,9 @@ class RidesController < ApplicationController
     end
     
     booking = BookingRequest.find_by(id: params[:id])
-   
+    current_user.userable.update(riding_status: "on_ride")
+
+    
     @ride = Ride.new(booking_request_id: params[:id].to_i, driver_id: current_user.userable.id , rider_id: booking.rider_id , ride_date: Date.today())
     @ride.save
     booking.update(booking_status: 'booked')

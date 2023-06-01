@@ -27,7 +27,7 @@
       <li class="nav-item active">
       <%if user_signed_in?%>
         <%if  current_user.driver?%>
-          <%= link_to "Dashboard", driver_dash_path , class: "nav-link" %>
+          <%= link_to "Dashboard", driver_dash_path , class: "nav-link " %>
         <%else%>
           <%= link_to "Dashboard", rider_dash_path , class: "nav-link" %>
         <%end%>
@@ -113,12 +113,12 @@
       &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp</p></li>  
 <%
 =end%>
-
+      
       <li class="nav-item">
         <a class="nav-link disabled">Your Ride , Your Right</a>
       </li>
     </ul>
-    <%
+    <%2
 =begin%>
  <form class="form-inline my-2 my-lg-0">
       <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">

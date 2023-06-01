@@ -174,6 +174,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   private 
   def vehicle_params
-    params.require(:vehicle_details).permit(:vehicle_name , :vehicle_type , :no_of_seats)
+    params.require(:vehicle_details).permit(:vehicle_name , :vehicle_type , :no_of_seats , :vehicle_no)
   end
 end

@@ -1,6 +1,6 @@
 
 <div style = "float:left;width:10px;height:10px;">
-  <img src = "<%=image_path('rider_show.avif')%>"  height=650px style = "position:absolute;">
+  <img src = "<%=image_path('rider_show.avif')%>"  height=650px style = "position:fixed;">
 </div> 
 
 
@@ -14,43 +14,54 @@
 
 
 
-    <fieldset>
+    <fieldset> 
+   <h1 class = "display-6 lead">  <b> BASIC DETAILS </b>  </h1>
 
-    <legend class = "lead"> <b> Basic Details </b> </legend>
-
-    <br> 
-    <h6 class = "lead" >Name : <%= current_user.name %></h6>
-    <h6 class = "lead">Email :  <%= current_user.email %></h6>
-    <h6 class = "lead">Age:  <%= current_user.age %></h6>
-    <h6 class = "lead">Mobile Number :  <%= current_user.mobile_no %></h6>
-    <h6 class = "lead">Role : <%= current_user.role %></h6>
-
-    </fieldset>
+    
 
     <br> 
+    <div class="card shadow shadow-md" style="width: 30rem;">
+  <div class="card-body">
+    <h6 class = "lead">  <b> NAME : </b> <%= current_user.name %></h6>
+    <h6 class = "lead" > <b> EMAIL :  </b> <%= current_user.email %></h6>
+    <h6 class = "lead"> <b> AGE : </b> <%= current_user.age %></h6>
+    <h6 class = "lead" > <b> MOBILE NUMBER :  </b> <%= current_user.mobile_no %></h6>
+    <h6 class = "lead"><b> ROLE: </b> <%= current_user.role %></h6>
 
-
-   <fieldset>
-
-   <legend class = "lead"><b> Address <b> </legend>
-
-    <h6 class = "lead" >Door No : <%= current_user.door_no %></h6>
-    <h6 class = "lead">Street : <%= current_user.street %> </h6>
-    <h6 class = "lead">City :  <%= current_user.city %></h6>
-    <h6 class = "lead">District :  <%= current_user.district %></h6>
-    <h6 class = "lead">State :  <%= current_user.state %></h6>
-    <h6 class = "lead">Pincode : <%= current_user.pincode %> </h6>
-
+    </div>
+    </div>
     </fieldset>
 
     <br> <br>
 
+    <h1 class = "display-6 lead"> <b> ADDRESS </b> </h1>
+    <br>
+
+     <div class="card shadow shadow-md" style="width: 30rem;">
+  <div class="card-body">
+
+    <h6 class = "lead"><b> DOOR NO :   <%= current_user.door_no %></h6>
+    <h6 class = "lead" ><b> STREET :  </b><%= current_user.street %> </h6>
+    <h6 class = "lead"><b> CITY :   </b><%= current_user.city %></h6>
+    <h6 class = "lead"><b> DISTRICT :   </b><%= current_user.district %></h6>
+    <h6 class = "lead"><b> STATE :  </b><%= current_user.state %></h6>
+    <h6 class = "lead"><b> PINCODE : </b><%= current_user.pincode %> </h6>
+
+    </div>
+    </div>
+
+    </fieldset>
+    <br> <br>
+
 
     <fieldset>
-    <legend class = "lead"> <b> Proofs </b> </legend>
-
-    <h6 class = "lead"> Aadhar Number : <%= @rider.aadhar_no %></h6>
-    <h6 class = "lead" > Aadhar Picture : </h6>
+    <h1 class = "display-6 lead"> <b> PROOFS </b> </h1>
+    <br>
+    <div class="card shadow shadow-md" style="width: 30rem;">
+  <div class="card-body">
+    <h6 class = "lead"> <b>Aadhar Number : <%= @rider.aadhar_no %></b></h6>
+    <h6 class = "lead" > <b>Aadhar Picture : </b></h6>
+    </div></div>
 
     <br>
 

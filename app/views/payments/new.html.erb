@@ -1,35 +1,39 @@
 <div style = "float:left;width:10px;height:10px;margin-left:150px">
-  <img src = "<%=image_path('payment_new.avif')%>"  height=700px style = "position:absolute;">
+  <img src = "<%=image_path('payment_new.avif')%>"  height=700px style = "position:fixed;">
 </div> 
 
 
 
 
-<div style = "float:right ; margin-right:300px ; margin-top : 115px">
+<div style = "float:right ; margin-right:200px ; margin-top : 70px">
 
 
 
 <fieldset>
-<legend><b> Payment Details</b></legend>
+<h1 class = "display-6 lead"> </b> PAYMENT DETAILS  </b> </h1>
+<br>
+
+<div class="card shadow shadow-md" style="width: 30rem;">
+  <div class="card-body">
 
 <%= form_for @payment , action: :create do |f|%>
 
-    <%=f.label :amount , "Amount : "%>
+    <%=f.label :amount , "Amount : " , class: "display-8 lead"%>
     <%=f.number_field :amount , value: @bill.bill_amount , class: "form-control" , readonly: true%>
 
     <br>
 
-    <%=f.label :mode_of_payment , "Mode of payment : "%>
+    <%=f.label :mode_of_payment , "Mode of payment : " , class: "display-8 lead"%>
     <%=f.text_field :mode_of_payment , class: "form-control" , required: true %>
 
     <br>
 
-    <%=f.label :credentials , "Credentials : "%>
+    <%=f.label :credentials , "Credentials : " , class: "display-8 lead"%>
     <%=f.text_field :credentials , class: "form-control" , required: true%>
 
     <br>
 
-    <%=f.label :remarks , "Remarks : "%>
+    <%=f.label :remarks , "Remarks : " , class: "display-8 lead"%>
     <%=f.text_field :remarks , class: "form-control"%>
 
     <br>
@@ -39,6 +43,8 @@
     <%=f.hidden_field :bill_no , value: @bill.id%>
 
     <%=f.submit "Submit" , class: "btn btn-primary btn-sm"%>
+    </div>
+    </div>
 </fieldset>
     
 <%end%>

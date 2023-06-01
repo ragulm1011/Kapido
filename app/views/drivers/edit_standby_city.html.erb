@@ -20,19 +20,25 @@
 
 
 
-<div style = "float:right ; margin-right:500px ; margin-top: 200px">
-<h1> Standing City </h1>
+<div style = "float:right ; margin-right:300px ; margin-top: 200px">
+<h1 class = "display-6 lead" >STANDING CITY</h1>
 
 <fieldset>
 <legend><b></b></legend>
 <%= form_for @driver , action: :update do |f|%>
 
-    <b><%=f.label :standby_city , "City : "%></b>
+ <div class="card shadow shadow-md" style="width: 30rem;">
+  <div class="card-body">
+
+    <b><%=f.label :standby_city , "CITY : " , class: "h6 display-8 lead " %></b>
     <%=f.text_field :standby_city , class: "form-control" , required: true%>
 
     <br>
 
     <%=f.submit "Submit" , class: "btn btn-primary btn-sm"%>
+    </div>
+    </div>
+
 </fieldset>
     
 <%end%>

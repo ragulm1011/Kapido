@@ -8,17 +8,27 @@
 
 
 <%if current_user.rider?%>
-<div style = "float:right ; margin-right:300px ; margin-top:200px">
-<h2> Payment Sent Successfully</h2>
+<div style = "float:right ; margin-right:300px ; margin-top:120px">
+
+<div class="card shadow shadow-md" style="width: 25rem;">
+  <div class="card-body">
+<h2 class = "display-6  lead"> PAYMENT SENT</h2>
+<h2 class = "display-7 lead">TO THE DRIVER SUCCESSFULLY </h2>
+</div> </div>
 <br>
 <fieldset>
-<legend><b>Rating for driver</b></legend>
+
+
+<div class="card shadow shadow-md" style="width: 27rem;">
+  <div class="card-body">
+
+<h1 class = "display-6 lead">RATING FOR DRIVER</h1>
 <%= form_for @driver , url: "/drivers/rating_change" do |f|%>
-    <p> <b> Enter your rating :  </b></p>
+    <p class = "display-7 lead">YOUR RATING PLEASE ? </p>
    
 
 
-    <%=f.label :driver_rating , "Rating : "%>
+    <%=f.label :driver_rating , "Rating : " , class: "display-8 lead" %>
     <%rating_array = [1,2,3,4,5]%>
     <%=f.select :driver_rating , rating_array , class: "form-control" , required: true%>
 
@@ -28,18 +38,28 @@
    <br>
 
     <%=f.submit "Submit" , class: "btn btn-primary btn-sm"%>
+    </div></div>
 </fieldset>
 
     <br> <br>
-    <p> <b> Else move to your dasboard </b> <%= link_to "Dashboard", rider_dash_path , class: "btn btn-primary btn-sm" %>
+    <p class = "display-9 lead"> <b> Else move to your dasboard  </b> &nbsp <%= link_to "Dashboard", rider_dash_path , class: "btn btn-primary btn-sm" %>
     
 <%end%>
 </div>
 <%else%>
-<div style = "float : right ; margin-right : 300px ; margin-top: 250px">
-<h2>Payment Recieved Successfully</h2>
-<h3>From the rider !!</h3>
+
+
+
+<div style = "float : right ; margin-right : 300px ; margin-top: 150px">
+
+<div class="card shadow shadow-md" style="width: 27rem;">
+  <div class="card-body">
+<h2 class = "display-6 lead">PAYMENT RECIEVED</h2>
+<h3 class = "display-7 lead">FROM THE RIDER SUCCESSFULLY</h3>
+</div> </div>
 <br><br>
 <%= link_to "Dashboard", driver_dash_path , class: "btn btn-primary btn-small"%>
 </div>
+
+
 <%end%>

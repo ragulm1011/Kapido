@@ -1,17 +1,23 @@
 <div style = "float:left;width:10px;height:10px;margin-left:150px">
-  <img src = "<%=image_path('waiting_ride.avif')%>"  height=700px style = "position:absolute;">
+  <img src = "<%=image_path('waiting_ride.avif')%>"  height=700px style = "position:fixed;">
 </div> 
 
 
 
 
 
-<div style = "float:right ; margin-right:300px ; margin-top: 200px">
-<h1> Please wait... </h1>
-<p> In process of searching a Kapido captain for your ride !!</p>
+<div style = "float:right ; margin-right:100px ; margin-top: 200px">
+
+
+<div class="card shadow shadow-md" style="width: 40rem;">
+  <div class="card-body">
+<h1 class = "display-6 lead"> <b> Please wait... </b> </h1>
+<p class = "display-7 lead"> In process of searching a Kapido captain for your ride !!</p>
  
+ </div>
+ </div>
  <br> <br>
 
-<h6> Bored of getting waited </h6>
+<h6 class = "display-8 lead"> <b>Bored of getting waited</b> </h6>
 <%= link_to "Cancel the ride",  booking_requests_destroy_path(bid: @bookingId) , data: {turbo_method: :delete , confirm: "Are you sure"} , class: "btn btn-primary btn-sm" %>
 </div>

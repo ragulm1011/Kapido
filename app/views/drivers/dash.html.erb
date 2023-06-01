@@ -1,5 +1,5 @@
 <div style = "float:left;width:10px;height:10px;">
-  <img src = "<%=image_path('driver-dash.jpg')%>" width=950px height=700px style = "position:absolute;">
+  <img src = "<%=image_path('driver-dash.jpg')%>" width=950px height=700px style = "position:fixed;">
 </div> 
 
 
@@ -8,12 +8,12 @@
 
 
 
-<div style = "float:right ; margin-right:300px ; margin-top: 150px">
-<h1> DRIVER DASHBOARD </h1>
+<div style = "float:right ; margin-right:220px ; margin-top: 150px">
+<h1 class = "display-5 lead"> DRIVER DASHBOARD </h1>
 <br>
 
 
-<h3> View your analytics here </h3>
+<h3 class = "display-6 lead" >  View your analytics here  </h3>
 <br>
 
 <% unless current_user.userable.standby_city%>
@@ -27,27 +27,33 @@
   <%= link_to "Set Primary Vehicle", change_primary_vehicle_path , class: "btn btn-primary btn-sm"%>
   <br><br>
 <% end %>
+
+<% unless current_user.userable.riding_status %>
+    <% current_user.userable.update(riding_status: "off_ride") %>
+  
+<% end %>
 <div style = "display : flex ; justify-content : space-around;">
     
-    <div class="card  bg-light mb-3" style="max-width: 10rem;">
-  <div class="card-header"><b>Total Rides</b></div>
+    <div class="card bg-light mb-3 shadow shadow-md" style="max-width: 10rem;">
+  <div class="card-header"> <p class = "display-7 lead"> <b>Total Rides</b> </p> </div>
   <div class="card-body">
-    <h5 class="card-title"><%= @rides.length %></h5>
+    <h5 class="card-title"><p class = "display-6 lead"> <b> <%= @rides.length %> </b> </p> </h5>
     <%
 =begin%>
  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> 
 <%
 =end%>
-<%= link_to "View your rides", rides_path , class: "btn btn-primary btn-sm"%>
+<%= link_to "View your rides", rides_path , class: "display-7 lead btn btn-primary btn-sm"%>
   </div>
   
 </div>
 
 
-<div class="card  bg-light mb-3" style="max-width: 10rem;">
-  <div class="card-header"><b>Total Earnings</b></div>
+
+<div class="card bg-light mb-3 shadow shadow-md" style="max-width: 25rem;margin-left:30px">
+  <div class="card-header"> <p class = "display-7 lead"> <b>Total Earnings</b> </p> </div>
   <div class="card-body">
-    <h5 class="card-title"><%= @earnings %></h5>
+    <h5 class="card-title"> <p class = "display-6 lead"><b> <%= @earnings %> </b> </p> </h5>
     <%
 =begin%>
  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> 
@@ -57,10 +63,10 @@
 </div>
 
 
-<div class="card  bg-light mb-3" style="max-width: 10rem; max-height :10rem">
-  <div class="card-header"><b>Rating</b></div>
+<div class="card bg-light mb-3 shadow shadow-md" style="max-width: 25rem; margin-left : 30px">
+  <div class="card-header"><p class = "display-7 lead"><b>Driver Rating</b></p></div>
   <div class="card-body">
-    <h5 class="card-title"><%= @rating.round(2) %></h5>
+    <h5 class="card-title"><p class = "display-6 lead"><b><%= @rating.round(2) %></b></p></h5>
     <%
 =begin%>
  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> 

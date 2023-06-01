@@ -2,23 +2,23 @@ require 'rails_helper'
 
 RSpec.describe Api::LocationsController , type: :request do
 
-    let(:rider) { create(:rider) }
-    let(:rider_user) {  create(:user , :for_rider , userable: rider) }
+    let!(:rider) { create(:rider) }
+    let!(:rider_user) {  create(:user , :for_rider , userable: rider) }
 
-    let(:driver) { create(:driver) }
-    let(:driver_user) { create(:user , :for_driver , userable: driver) }
+    let!(:driver) { create(:driver) }
+    let!(:driver_user) { create(:user , :for_driver , userable: driver) }
 
     # let(:customer_token) {create(:doorkeeper_access_token , resource_owner_id: customer_user.id)}
 
-    let(:rider_user_token) { create(:doorkeeper_access_token , resource_owner_id: rider_user.id)}
-    let(:driver_user_token) { create(:doorkeeper_access_token , resource_owner_id: driver_user.id)}
+    let!(:rider_user_token) { create(:doorkeeper_access_token , resource_owner_id: rider_user.id)}
+    let!(:driver_user_token) { create(:doorkeeper_access_token , resource_owner_id: driver_user.id)}
     
 
-    let(:location_1) { create(:location , rider: rider)}
+    let!(:location_1) { create(:location , rider: rider)}
 
-    let(:rider_2) { create(:rider) }
-    let(:rider_3) { create(:rider) }
-    let(:location_2) { create(:location , rider: rider_3) }
+    let!(:rider_2) { create(:rider) }
+    let!(:rider_3) { create(:rider) }
+    let!(:location_2) { create(:location , rider: rider_3) }
 
     describe "get /locations#index" do
 
@@ -181,7 +181,7 @@ RSpec.describe Api::LocationsController , type: :request do
         end
 
         context "when authenticated rider_user access delete with valid location id" do
-            let(:location_5) { create(:location , rider: rider) }
+            let!(:location_5) { create(:location , rider: rider) }
             it "returns status 200" do
                 delete "/api/locations/#{location_5.id}" , params: { access_token: rider_user_token.token }
                 expect(response).to have_http_status(200)
@@ -189,7 +189,7 @@ RSpec.describe Api::LocationsController , type: :request do
         end
 
         context "when authenticated rider_user access delete with invalid location id" do
-            let(:location_6) { create(:location , rider: rider_2) }
+            let!(:location_6) { create(:location , rider: rider_2) }
             it "returns status 403" do
                 delete "/api/locations/#{location_6.id}" , params: { access_token: rider_user_token.token }
                 expect(response).to have_http_status(403)

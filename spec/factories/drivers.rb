@@ -3,6 +3,6 @@ FactoryBot.define do
     liscense_no { "CTFPR1048K" }
     driver_rating { 5 }
     standby_city { "Coimbatore" }
-    primary_vehicle_id { 1 }
+    primary_vehicle_id { 21 }
   end
 end

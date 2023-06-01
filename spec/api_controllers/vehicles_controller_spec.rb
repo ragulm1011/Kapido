@@ -3,20 +3,20 @@ require 'rails_helper'
 RSpec.describe Api::VehiclesController , type: :request do
 
 
-    let(:rider) { create(:rider) }
-    let(:rider_user) {  create(:user , :for_rider , userable: rider) }
+    let!(:rider) { create(:rider) }
+    let!(:rider_user) {  create(:user , :for_rider , userable: rider) }
 
-    let(:driver) { create(:driver) }
-    let(:driver_user) { create(:user , :for_driver , userable: driver) }
+    let!(:driver) { create(:driver) }
+    let!(:driver_user) { create(:user , :for_driver , userable: driver) }
 
-    let(:driver_2) { create(:driver) }
+    let!(:driver_2) { create(:driver) }
 
     # let(:customer_token) {create(:doorkeeper_access_token , resource_owner_id: customer_user.id)}
 
-    let(:rider_user_token) { create(:doorkeeper_access_token , resource_owner_id: rider_user.id)}
-    let(:driver_user_token) { create(:doorkeeper_access_token , resource_owner_id: driver_user.id)}
+    let!(:rider_user_token) { create(:doorkeeper_access_token , resource_owner_id: rider_user.id)}
+    let!(:driver_user_token) { create(:doorkeeper_access_token , resource_owner_id: driver_user.id)}
 
-    let(:vehicle) { create(:vehicle) }
+    let!(:vehicle) { create(:vehicle) }
 
     describe "get /vehicles#index" do
         
@@ -60,7 +60,7 @@ RSpec.describe Api::VehiclesController , type: :request do
         end
 
         context "when authenticated driver_user accesses show with valid vehicle_id" do
-            let(:vehicle) { create(:vehicle) }
+            let!(:vehicle) { create(:vehicle) }
            
 
             it "returns status 200" do
@@ -74,7 +74,7 @@ RSpec.describe Api::VehiclesController , type: :request do
         end
 
         context "when authenticated driver_user accesses show with invalid vehicle_id" do
-            let(:vehicle) { create(:vehicle) }
+            let!(:vehicle) { create(:vehicle) }
            
 
             it "returns status 403" do
@@ -181,7 +181,7 @@ RSpec.describe Api::VehiclesController , type: :request do
         end
 
         context "when authenticated driver_user accesses destroy action with valid params but with invalid vehicle_id" do
-            let(:vehicle_4) { create(:vehicle) }
+            let!(:vehicle_4) { create(:vehicle) }
             it "return status 403 " do
                 delete "/api/vehicles/#{vehicle_4.id}" , params: { access_token: driver_user_token.token }
                 expect(response).to have_http_status(403)

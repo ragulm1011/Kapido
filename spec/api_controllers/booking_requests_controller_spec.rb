@@ -3,22 +3,22 @@ require 'rails_helper'
 RSpec.describe Api::BookingRequestsController , type: :request do
     
 
-    let(:rider) { create(:rider) }
-    let(:rider_user) {  create(:user , :for_rider , userable: rider) }
+    let!(:rider) { create(:rider) }
+    let!(:rider_user) {  create(:user , :for_rider , userable: rider) }
 
-    let(:driver) { create(:driver) }
-    let(:driver_user) { create(:user , :for_driver , userable: driver) }
+    let!(:driver) { create(:driver) }
+    let!(:driver_user) { create(:user , :for_driver , userable: driver) }
 
     # let(:customer_token) {create(:doorkeeper_access_token , resource_owner_id: customer_user.id)}
 
-    let(:rider_user_token) { create(:doorkeeper_access_token , resource_owner_id: rider_user.id)}
-    let(:driver_user_token) { create(:doorkeeper_access_token , resource_owner_id: driver_user.id)}
+    let!(:rider_user_token) { create(:doorkeeper_access_token , resource_owner_id: rider_user.id)}
+    let!(:driver_user_token) { create(:doorkeeper_access_token , resource_owner_id: driver_user.id)}
 
-    let(:booking_request) { create(:booking_request , rider: rider) }
-    let(:ride) { create(:ride , rider: rider , driver: driver , booking_request: booking_request)}
+    let!(:booking_request) { create(:booking_request , rider: rider) }
+    let!(:ride) { create(:ride , rider: rider , driver: driver , booking_request: booking_request)}
 
-    let(:rider_2) { create(:rider)}
-    let(:booking_request_1) { create(:booking_request , rider: rider_2)}
+    let!(:rider_2) { create(:rider)}
+    let!(:booking_request_1) { create(:booking_request , rider: rider_2)}
     
     describe "get /booking_requests#index" do
 
@@ -229,6 +229,8 @@ RSpec.describe Api::BookingRequestsController , type: :request do
         end
 
         context "when authenticated driver_user access get your_booking_request" do
+           
+            let!(:booking_request1) { create(:booking_request , rider: rider)}
             it "return status 200" do
                 get "/api/booking_requests/your_booking_requests" , params: { access_token: driver_user_token.token }
                 expect(response).to have_http_status(200)

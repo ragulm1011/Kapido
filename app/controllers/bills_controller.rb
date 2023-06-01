@@ -17,6 +17,8 @@ class BillsController < ApplicationController
       return 
     end
 
+    current_user.userable.update(riding_status: "off_ride")
+
     @rideId = params[:rideId]
     @bill = Bill.new
 

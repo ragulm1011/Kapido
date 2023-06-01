@@ -1,14 +1,14 @@
 
 
  <div style = "float:left;width:10px;height:10px;">
-  <img src = "<%=image_path('Mobile-login.jpg')%>" width=950px style = "position:absolute;">
+  <img src = "<%=image_path('Mobile-login.jpg')%>" width=950px height = 750px style = "position:fixed;">
 </div> 
 
 
 
 
 <div style="float:right;margin-right:200px;" >
-<h2>Sign up</h2>
+<h2 class = "display-6 lead">SIGN UP</h2>
 
 <br>
 
@@ -17,30 +17,49 @@
 
   
   <fieldset>
-  <legend><b>Credentials</b></legend>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" , class: "form-control" , required: true %>
-  </div>
+  <h1 class = "display-7 lead"><b>CREDENTIALS</b></h1>
+  <br>
+  
+
+   <div class="card shadow shadow-md" style="width: 30rem;">
+  <div class="card-body">
+
 
   <div class="field">
-    <%= f.label :password %>
+    <%= f.label :email , class: "display-8 lead"%><br />
+    <%= f.email_field :email, autofocus: true, autocomplete: "email" , class: "form-control" , required: true %>
+  </div>
+  <br>
+
+  <div class="field">
+    <%= f.label :password , class: "display-8 lead"%>
     <% if @minimum_password_length %>
     <em>(<%= @minimum_password_length %> characters minimum)</em>
     <% end %><br />
     <%= f.password_field :password, autocomplete: "new-password" , class: "form-control" , required: true %>
   </div>
+  <br>
 
   <div class="field">
-    <%= f.label :password_confirmation %><br />
+    <%= f.label :password_confirmation , class: "display-8 lead"%><br />
     <%= f.password_field :password_confirmation, autocomplete: "new-password" , class: "form-control" , required: true %>
   </div>
+  <br>
 
   <div class="field">
-    <%= f.label :role %><br />
-    <%=  f.select :role ,[['Driver','Driver'],['Rider','Rider']] , class: "form-control", required: true %>
+    <%= f.label :role , class: "display-8 lead"%><br />
+    <%
+=begin%>
+ <%=  f.select :role , , class: "form-control", required: true %> 
+<%
+=end%>
+     <%= f.select :role, options_for_select([['Driver','Driver'],['Rider','Rider']]), { :multiple => false, include_blank: 'Select'}, {class: "form-select shadow shadow-sm ", required: true}  %>
   </div>
     <h1> <%= %><h1>
+
+     </div>
+     </div>
+
   </fieldset>
 
   <br>
@@ -49,24 +68,37 @@
 
   <!--Personal Details-->
   <fieldset>
-  <legend><b>Personal Details</b></legend>
+  <h1 class = "display-7 lead"><b>PERSONAL DETAILS</b></h1>
+  <br>
+
+   <div class="card shadow shadow-md" style="width: 30rem;">
+  <div class="card-body">
+
   <%= fields_for :details do |d| %>
   <div class="field">
-    <%= d.label :name %><br />
+    <%= d.label :name , class: "display-8 lead"%><br />
     <%= d.text_field :name, autocomplete: "name" , class: "form-control", required: true %>
   </div>
+  <br>
 
   <div class = "field">
-    <%= d.label :age %><br />
+    <%= d.label :age , class: "display-8 lead"%><br />
     <%= d.number_field :age, autocomplete: "email" , class: "form-control" , required: true %>
   </div>
+  <br>
 
   <div class = "field">
-    <%= d.label :mobile_no %><br />
+    <%= d.label :mobile_no , class: "display-8 lead"%><br />
     <%= d.text_field :mobile_no, autocomplete: "email" , class: "form-control" , required: true %>
   </div>
+  <br>
 
   <%end%>
+
+  </div>
+  </div>
+
+
   </fieldset>
 
   <br><br>
@@ -74,36 +106,41 @@
 
   <!--Address Details-->
   <fieldset>
-  <legend><b>Address</b></legend>
+   <h1 class = "display-7 lead"><b>ADDRESS</b></h1>
+   <br>
+    <div class="card shadow shadow-md" style="width: 30rem;">
+  <div class="card-body">
   <%= fields_for :address do |a| %>
       
-      <%=a.label :door_no %><br>
+      <%=a.label :door_no , class: "display-8 lead"%><br>
       <%=a.text_field :door_no , class: "form-control" , required: true %>
       <br>
 
 
-      <%=a.label :street %><br>
+      <%=a.label :street , class: "display-8 lead"%><br>
       <%=a.text_field :street,  class: "form-control"  , required: true %>
       <br>
 
-      <%=a.label :city %><br>
+      <%=a.label :city , class: "display-8 lead"%><br>
       <%=a.text_field :city ,  class: "form-control"  , required: true %>
       <br>
 
 
-      <%=a.label :district %><br>
+      <%=a.label :district, class: "display-8 lead" %><br>
       <%=a.text_field :district  ,  class: "form-control" , required: true %>
       <br>
 
-      <%=a.label :state %><br>
+      <%=a.label :state , class: "display-8 lead"%><br>
       <%=a.text_field :state  ,  class: "form-control" , required: true %>
       <br>
 
-      <%=a.label :pincode %><br>
+      <%=a.label :pincode , class: "display-8 lead"%><br>
       <%=a.number_field :pincode ,  class: "form-control" , required: true %>
       <br>
 
   <%end%>
+  </div>
+  </div>
   </fieldset>
 
   <br><br>
@@ -111,40 +148,52 @@
 
   <!--Vehicle Details With Liscense Number-->
   <fieldset>
-  <legend><b>Driver Details</b>(Only if you are a driver)</legend>
+   <h1 class = "display-7 lead"><b>DRIVER DETAILS</b>(Only if you are a driver)</h1>
+   <br>
+    <div class="card shadow shadow-md" style="width: 30rem;">
+  <div class="card-body">
   <%= fields_for :driver_details do |dd|%>
-    <%=dd.label :liscense_no%><br>
+    <%=dd.label :liscense_no , class: "display-8 lead"%><br>
     <%=dd.text_field :liscense_no ,  class: "form-control" %>
     <br>
 
     <div class="field">
-   <b> <%= f.label :liscense_image , "Attach your liscense" %> </b> <br>
+   <b> <%= f.label :liscense_image , "Attach your liscense" , class: "display-8 lead"%> </b> <br>
     <%= f.file_field :liscense_image %>
   </div>
 
   <%end%>
+  </div></div>
 
   </fieldset>
 
   <br> <br>
 
     <fieldset>
-  <legend><b>Rider Details</b>(Only if you are a rider)</legend>
+  <h1 class = "display-7 lead"><b>RIDER DETAILS</b>(Only if you are a rider)</h1>
+  <br>
+   <div class="card shadow shadow-md" style="width: 30rem;">
+  <div class="card-body">
   <%=fields_for :rider_details do |rd|%>
-    <%=rd.label :gender%><br>
+    <%=rd.label :gender , class: "display-8 lead"%><br>
     
 
     <%gender_type_array = ["Male" ,"Female"]%>
-  <%=rd.select :gender , gender_type_array , class: "form-control"%>
-    <br> <br>
+  <%
+=begin%>
+ <%=rd.select :gender , gender_type_array , class: "form-control"%> 
+<%
+=end%>
+  <%= rd.select :gender, options_for_select(gender_type_array), { :multiple => false, include_blank: 'Select'}, {class: "form-select shadow shadow-sm "}  %>
+    <br>
 
-    <%=rd.label :aadhar_no%><br>
+    <%=rd.label :aadhar_no , class: "display-8 lead"%><br>
     <%=rd.text_field :aadhar_no ,  class: "form-control" %>
 
     <br>
 
     <div class = "field">
-    <b><%= rd.label :aadhar_card_image , "Attach your aadhar" %></b> <br>
+    <b><%= rd.label :aadhar_card_image , "Attach your aadhar" , class: "display-8 lead"%></b> <br>
     <%= rd.file_field :aadhar_card_image%>
     </div>
 
@@ -152,30 +201,46 @@
 
 
   <%end%>
+  </div>
+  </div>
   </fieldset>
 
   <br><br>
 
 
   <fieldset>
-  <legend><b>Vehicle Details</b>(Only if you are a driver)</legend>
+   <h1 class = "display-7 lead"><b>VEHICLE DETAILS</b>(Only if you are a driver)</h1>
+   <br>
+    <div class="card shadow shadow-md" style="width: 30rem;">
+  <div class="card-body">
 
 
   <%=fields_for :vehicle_details do |vd|%>
-  <%=vd.label :vehicle_name%><br>
+  <%=vd.label :vehicle_name, class: "display-8 lead"%><br>
   <%=vd.text_field :vehicle_name ,  class: "form-control" %>
   <br>
 
-  <%=vd.label :vehicle_type%><br>
+  <%=vd.label :vehicle_type, class: "display-8 lead"%><br>
   <%vehicle_type_array = ["Bike" ,"Auto" ,  "Mini-Car" , "Sedan-Car" , "SUV-Car"]%>
-  <%=vd.select :vehicle_type , vehicle_type_array , class: "form-control"%>
-  <br><br>
+  <%
+=begin%>
+ <%=vd.select :vehicle_type , vehicle_type_array , class: "form-control"%> 
+<%
+=end%>
+  <%= vd.select :vehicle_type, options_for_select(vehicle_type_array), { :multiple => false, include_blank: 'Select'}, {class: "form-select shadow shadow-sm "}  %>
+  <br>
 
-  <%=vd.label :no_of_seats%><br>
+  <%= vd.label :vehicle_no , "Vehicle No : ", class: "display-8 lead"%>
+  <%= vd.text_field :vehicle_no , class: "form-control" %>
+  <br>
+
+
+  <%=vd.label :no_of_seats, class: "display-8 lead"%><br>
   <%=vd.number_field :no_of_seats ,  class: "form-control" %>
   <br>
 
   <%end%>
+  </div></div>
   </fieldset>
 
   <br>

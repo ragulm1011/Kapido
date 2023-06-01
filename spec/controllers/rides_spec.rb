@@ -66,7 +66,7 @@ RSpec.describe RidesController, type: :controller do
         context "when driver_user signed in" do
             it "renders new template" do
                 sign_in driver_user
-                get :new , params: {id: 1}
+                get :new , params: {id: 2844}
                 expect(flash[:notice]).to eq("You are on the ride")
             end
         end

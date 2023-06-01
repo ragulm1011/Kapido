@@ -1,21 +1,21 @@
 
-<div style = "float:left;width:10px;height:10px;margin-left:300px">
+<div style = "float:left;width:10px;height:10px;margin-left:150px;">
   <img src = "<%=image_path('rider_dash.jpg')%>"  height=650px style = "position:absolute;">
 </div> 
 
 
 
-<div style = "float:right;margin-right:300px;margin-top:170px">
-<h1> RIDER DASHBOARD </h1>
+<div style = "float:right;margin-right:250px;margin-top:170px">
+<h1 class = "display-5 lead"> RIDER DASHBOARD </h1>
 <br>
-<h4> View your analytics here </h4>
+<h3 class = "display-6 lead"> View your analytics here </h3>
 <br>
 
     <div style = "display : flex ; justify-content : space-around;">
-    <div class="card  bg-light mb-3" style="max-width: 10rem;">
-  <div class="card-header"><b>Total Rides</b></div>
+    <div class="card  bg-light mb-3 shadow shadow-md" style="max-width: 10rem;">
+  <div class="card-header"> <p class = "display-7 lead"> <b>Total Rides</b> </p> </div>
   <div class="card-body">
-    <h5 class="card-title"><%= @rides.length %></h5>
+    <h5 class="card-title"><p class = "display-6 lead"> <b> <%= @rides.length %> </b>  </p> </h5>
     <%
 =begin%>
  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> 
@@ -27,10 +27,10 @@
 
 
 
-<div class="card  bg-light mb-3" style="max-width: 10rem;">
-  <div class="card-header"><b>Total Expenses</b></div>
+<div class="card  bg-light mb-3 shadow shadow-md" style="max-width: 25rem;">
+  <div class="card-header"><p class = "display-7 lead"> <b>Total Expenses</b></p></div>
   <div class="card-body">
-    <h5 class="card-title"><%= @expenses %></h5>
+    <h5 class="card-title"><p class = "display-6 lead"><b>  <%= @expenses %> </b> </h5>
     <%
 =begin%>
  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> 

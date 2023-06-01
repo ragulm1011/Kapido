@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :booking_request do
-    city { "San Francisco" }
+    city { "Coimbatore" }
     booking_status { "available" }
     vehicle_type { "Sedan-Car" }
     from_location_id { 4 }

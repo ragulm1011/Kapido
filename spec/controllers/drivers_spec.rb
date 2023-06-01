@@ -198,7 +198,7 @@ RSpec.describe DriversController, type: :controller do
         context "when driver signed in with valid params" do
             it "redirects to driver dashboard page" do
                 sign_in driver_user
-                get :rating_change , params: { driver: { id: 1}}
+                get :rating_change , params: { driver: { id: 885}}
                 expect(flash[:alert]).to eq("Unauthorized action")
             end
         end
@@ -206,7 +206,7 @@ RSpec.describe DriversController, type: :controller do
         context "when rider_user signed in with valid params" do
             it "redirects to rider_dash_path" do
                 sign_in rider_user
-                get :rating_change , params: {driver: {id: 1}}
+                get :rating_change , params: {driver: {id: 885}}
                 expect(response).to redirect_to(rider_dash_path)
             end
         end

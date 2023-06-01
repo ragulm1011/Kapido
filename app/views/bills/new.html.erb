@@ -8,16 +8,24 @@
 <br>
 
 <fieldset>
-<legend><b>Billing Details</b></legend>
+<h1 class = "display-6 lead"> BILLING DETAILS </h1>
+<br>
+
+<div class="card shadow shadow-md" style="width: 18rem;">
+  <div class="card-body">
 <%= form_for @bill , action: :create do |f|%>
 
-    <%=f.label :bill_amount , "Amount for ride : "%>
+    <%=f.label :bill_amount , "AMOUNT: " , class: "display-8 lead"%>
     <%=f.number_field :bill_amount , class: "form-control" , required: true%>
 
     <%= f.hidden_field :ride_id , value: @rideId %>
     
 
     <br>
+  </div>
+</div>
+
+<br>
 
     
 
