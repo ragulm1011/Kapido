@@ -18,9 +18,9 @@
             <div class="card bg-light mb-3 shadow shadow-md" style="max-width: 25rem;">
   <div class="card-header" style = "text-align:center"> <p class = "display-7 lead" > <b> VEHICLE <%=@vehicles.find_index(i)+1%> </b> </p> </div>
   <div class="card-body">
-    <h6 class="card-title"> <p class = "display-8 lead"> <b> <%="Vehicle name : #{i.vehicle_name}"%> </b> </p> </h6>
-    <h6 class="card-title"> <p class = "display-8 lead"> <b> <%="Vehicle Type : #{i.vehicle_type}"%> </b> </h6>
-    <h6 class="card-title"> <p class = "display-8 lead"> <b> <%="Vehicle Number : #{i.vehicle_no}"%> </b> </h6>
+    <h6 class="card-title"> <p class = "display-8 lead"> <b> <%="VEHICLE NAME:  #{i.vehicle_name}"%> </b> </p> </h6>
+    <h6 class="card-title"> <p class = "display-8 lead"> <b> <%="VEHICLE TYPE:  #{i.vehicle_type}"%> </b> </h6>
+    <h6 class="card-title"> <p class = "display-8 lead"> <b> <%="VEHICLE NUMBER:  #{i.vehicle_no}"%> </b> </h6>
   
     <% unless current_user.userable.primary_vehicle_id == i.id%>
     <%= link_to "Make as primary", set_primary_vehicle_path(id: i.id) , class: "btn btn-primary btn-sm" %>

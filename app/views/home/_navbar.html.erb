@@ -75,7 +75,7 @@
 
       <%if user_signed_in?%>
       
-        <%= link_to "Signout", destroy_user_session_path ,data: { turbo_method: :delete }  , class: "nav-link"%>
+        <%= link_to "Signout", destroy_user_session_path ,data: { turbo_method: :delete , turbo_confirm: "Are you sure to sign out ? " }  , class: "nav-link"%>
       
       <%end%>
 

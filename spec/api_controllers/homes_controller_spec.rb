@@ -1,4 +1,7 @@
-require 'rails_helper'
+
+
+
+    require 'rails_helper'
 
 RSpec.describe Api::HomesController , type: :request do
 
@@ -27,30 +30,42 @@ RSpec.describe Api::HomesController , type: :request do
         
 
         context "when user is not authenticated" do
-            it "returns status 401" do
+            before do
                 get "/api"
+            end
+            it "returns status 401" do
+                
                 expect(response).to have_http_status(401)
             end
         end
 
         context "when user is authenticated with client credentials grant flow" do
-            it "returns status 200" do
+            before do
                 get "/api" , params: { access_token: token.token }
+            end
+            it "returns status 200" do
+                
                 expect(response).to have_http_status(200)
             end
         end
 
 
         context "when authenticated driver_user acess index" do
-            it "returns status 200" do
+            before do
                 get "/api" , params: { access_token:driver_user_token.token}
+            end
+            it "returns status 200" do
+               
                 expect(response).to have_http_status(200)
             end
         end
 
         context "when authenticated rider_user acess index" do
-            it "returns status 200" do
+            before do
                 get "/api" , params: { access_token: rider_user_token.token}
+            end
+            it "returns status 200" do
+                
                 expect(response).to have_http_status(200)
             end
         end

@@ -17,22 +17,31 @@ RSpec.describe Api::RidersController , type: :request do
     describe "get /riders#index" do
         
         context "when user is not authenticated" do
+          before do
+            get '/api/riders'
+          end
             it "returns status 401" do
-              get '/api/riders'
+             
               expect(response).to have_http_status(401)
             end
           end
 
           context "when driver_user is authenticated" do
+            before do
+              get "/api/riders" , params: { access_token: driver_user_token.token}
+            end
             it "returns status 200" do
-                get "/api/riders" , params: { access_token: driver_user_token.token}
+               
                 expect(response).to have_http_status(200)
             end
           end
 
           context "when rider_user is authenticated" do
+            before do
+              get "/api/riders" , params: { access_token: rider_user_token.token}
+            end
             it "returns status 200" do
-                get "/api/riders" , params: { access_token: rider_user_token.token}
+                
                 expect(response).to have_http_status(200)
             end
           end
@@ -43,22 +52,31 @@ RSpec.describe Api::RidersController , type: :request do
       
       
       context "when user is not authenticated" do
-        it "returns status 401" do
+        before do
           get '/api/riders/32'
+        end
+        it "returns status 401" do
+          
           expect(response).to have_http_status(401)
         end
       end
 
       context "when authnticated driver_user accesses show" do
-        it "returns status 403" do
+        before do
           get '/api/riders/32' , params: { access_token: driver_user_token.token }
+        end
+        it "returns status 403" do
+          
           expect(response).to have_http_status(403)
         end
       end
 
       context "when authenticated rider_user accesses show" do
-        it "returns status 200" do
+        before do
           get "/api/riders/#{rider.id}" , params: { access_token: rider_user_token.token}
+        end
+        it "returns status 200" do
+          
           expect(response).to have_http_status(200)
         end
       end
@@ -70,30 +88,42 @@ RSpec.describe Api::RidersController , type: :request do
     describe "patch /riders#update" do
 
       context "when user is not authenticated" do
-        it "returns status 401" do
+        before do
           patch '/api/riders/32'
+        end
+        it "returns status 401" do
+         
           expect(response).to have_http_status(401)
         end
       end
 
       context "when authnticated driver_user accesses update" do
-        it "return status code 403" do
+        before do
           patch '/api/riders/32' , params: { access_token: driver_user_token.token}
+        end
+        it "return status code 403" do
+          
           expect(response).to have_http_status(403)
         end
       end
 
       context "when authenticated rider_user accesses update with invalid params" do
-        it "return status 422" do
+        before do
           patch "/api/riders/#{rider.id}" , params: {access_token: rider_user_token.token , aadhar_no: nil}
+        end
+        it "return status 422" do
+          
           expect(response).to have_http_status(422)
         end
 
       end
 
       context "when authenticated rider_user accesses update with valid params" do
-        it "return status 202" do
+        before do
           patch "/api/riders/#{rider.id}" , params: {access_token: rider_user_token.token , aadhar_no: 539555819012}
+        end
+        it "return status 202" do
+          
           expect(response).to have_http_status(202)
         end
 

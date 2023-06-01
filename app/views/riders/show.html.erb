@@ -70,7 +70,8 @@
         <%= image_tag @rider.aadhar_card_image , style: 'height:500px;width:900px;'%>    
         </div>
     <% else %>
-        <p> No aadhar card image was attached with this profile </p>
+      <p class = "lead"> No Aadhar card image was attached with this profile </p>
+       <img src = "<%=image_path('identification.png')%>" width=900px height = 500px height= style = "position:absolute;">
     <% end%>
 
     </fieldset>
