@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_31_033838) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_02_081246) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -111,6 +111,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_31_033838) do
     t.datetime "updated_at", null: false
     t.integer "primary_vehicle_id"
     t.string "riding_status"
+    t.integer "current_ride_id"
   end
 
   create_table "drivers_vehicles", force: :cascade do |t|
@@ -176,6 +177,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_31_033838) do
     t.string "aadhar_no"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "current_ride_id"
   end
 
   create_table "rides", force: :cascade do |t|

@@ -83,6 +83,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
         userable.liscense_image.attach(params[:user][:liscense_image])        
         userable.save
       end
+
+     
     
 
 

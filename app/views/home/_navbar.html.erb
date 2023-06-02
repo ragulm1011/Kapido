@@ -71,69 +71,62 @@
         </li>
       <% end %>
     <% end %>
+
+    <% if user_signed_in? && current_user.userable.current_ride_id %>
+        <li class = "nav-item active">
+        <%= link_to "Current Ride", riding_path(id: current_user.userable.current_ride_id ) , class: "nav-link" %>  
+        </li>
+
+    <% end %>
     
 
-      <%if user_signed_in?%>
-      
+      <%if user_signed_in? && current_user.driver? %>
+
+        <div style = "display:inline ; margin-left : 400px"> 
         <%= link_to "Signout", destroy_user_session_path ,data: { turbo_method: :delete , turbo_confirm: "Are you sure to sign out ? " }  , class: "nav-link"%>
-      
-      <%end%>
-
-     
-     
-      
-      
-
-      <%
-=begin%>
- <li class="nav-item">
-        <a class="nav-link" href="#">Link</a>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Dropdown
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">Action</a>
-          <a class="dropdown-item" href="#">Another action</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#">Something else here</a>
         </div>
-      </li> 
-<%
-=end%>
-      
- <%
-=begin%>
- <li><p>&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
-      &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
-      &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
-      &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
-      &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
-      &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp</p></li>  
-<%
-=end%>
-      <% if user_signed_in? && current_user.driver? %>
-      <div style = "float:right ; margin-left:620px ; display:inline">
-      <li class="nav-item">
-        <a class="nav-link disabled">Your Ride , Your Right</a>
-      </li>
-      </div>
+
+
+        <div style = "display:inline">
+
+          <li class="nav-item">
+          <a class="nav-link disabled">Your Ride , Your Right</a>
+        </li>
+        </div>
+
       <% elsif user_signed_in? && current_user.rider? %>
-      <div style = "float:right ; margin-left:1050px ; display : inline">
-      <li class="nav-item">
+
+      <div style = "display:inline ; margin-left : 800px"> 
+      <%= link_to "Signout", destroy_user_session_path ,data: { turbo_method: :delete , turbo_confirm: "Are you sure to sign out ? " }  , class: "nav-link"%>
+      </div>
+
+
+      <div style = "display:inline">
+
+        <li class="nav-item">
         <a class="nav-link disabled">Your Ride , Your Right</a>
       </li>
       </div>
 
       <% else %>
-      <div style = "float:right ; margin-left:1300px ; display : inline">
-      <li class="nav-item">
-        <a class="nav-link disabled">Your Ride , Your Right</a>
-      </li>
-      </div>
 
-      <% end %> 
+      <div style = "display:inline ; margin-left: 1250px">
+
+      <li class="nav-item">
+      <a class="nav-link disabled">Your Ride , Your Right</a>
+    </li>
+    </div>
+      
+
+      <%end%>
+
+
+      
+
+     
+
+      
+     
     </ul>
     <%2
 =begin%>

@@ -39,6 +39,8 @@ class PaymentsController < ApplicationController
       @driver = Driver.new
       @paymentId = params[:paymentId].to_i
     end
+
+    current_user.userable.update(current_ride_id: nil)
   end
 
   private

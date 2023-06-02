@@ -1,6 +1,6 @@
 <div class="row">
 <div style = "float:left;width:10px;height:10px;" class="col">
-  <img src = "<%=image_path('rides.jpg')%>" width=700px height=500 style = "position:fixed;">
+  <img src = "<%=image_path('rides.jpg')%>" width=700px height=500px style = "position:fixed;">
 </div> 
 
 
@@ -14,10 +14,11 @@
         <legend class = "display-6 lead"><b><i>YOUR RIDES</i></b></legend>
         <br> <br>
         
-        
+        <div class = "rides_container" >
         <% @rides.each do |i| %>
-             <div class="card bg-light mb-3 shadow shadow-md" style="max-width: 18rem; height:18rem ; display: inline-block;">
-  <div class="card-header" style = "text-align:center"><p class = "display-7 lead"><b>Ride <%=@rides.find_index(i)+1%></b></p></div>
+             <div class="card bg-light border-success mb-3 shadow shadow-md" style="width: 18rem; height:18rem ; display: inline-block;">
+             <br>
+  <div class="card-title" style = "text-align:center"><p class = "display-7 lead"><b>RIDE <%=@rides.find_index(i)+1%></b></p></div>
   <div class="card-body">
     <% @booking = BookingRequest.find_by(id: i.booking_request_id) %>
     <% if @booking %>
@@ -33,11 +34,12 @@
     <h6 class = "card-title"> <p class = "lead" > <%= "Ride amount : #{@bill.bill_amount}" %> </p> </h6>
     <% end %>
     
-  </div>
-</div> &nbsp &nbsp &nbsp
+  </div> 
+      </div> &nbsp &nbsp &nbsp
             
         
     <%end%>
+    </div>
     
     <% else %>
         <h1> No rides found </h1>
@@ -45,31 +47,40 @@
         
     <% else %>
 
-    <% unless @rides.length == 0%>
-       <legend class = "display-6 lead"><b><i>YOUR RIDES</i></b></legend>
-        <br> <br>
-        <% @rides.each do |i| %>
-             <div class="card bg-light mb-3 shadow shadow-md" style="width: 15rem; height:18rem ; display: inline-block;">
-   <div class="card-header" style = "text-align:center"><p class = "display-7 lead"><b>Ride <%=@rides.find_index(i)+1%></b></p></div>
-  <div class="card-body">
-    <% @booking = BookingRequest.find(i.booking_request_id) %>
-    <h6 class="card-title"> <p class = "lead"> <%="From : #{@booking.from_location_name}"%> </p> </h6>
-    <h6 class="card-title"> <p class = "lead"> <%="To : #{@booking.to_location_name}"%> <p> </h6>
-    <% @driver = User.find_by(userable_id: i.driver_id) %>
-    <h6 class = "card-title"><p class = "lead"> <%= "Driver Name : #{@driver.name}" %></p> </h6>
-    <h6 class = "card-title"><p class = "lead"> <%= "Ride date : #{i.ride_date}" %></h6>
-    <% @bill = Bill.find_by(ride_id: i.id) %>
 
-    <% if @bill %>
-    <h6 class = "card-title"> <p class = "lead"><%= "Ride amount : #{@bill.bill_amount}" %></p> </h6>
-    <%end%>
-    
-    
-  </div>
+
+<% unless @rides.empty?%>
+<legend class = "display-6 lead"><b><i>YOUR RIDES</i></b></legend>
+<br> <br>
+
+<div class = "rides_container" >
+<% @rides.each do |i| %>
+     <div class="card bg-light border-success mb-3 shadow shadow-md" style="width: 18rem; height:18rem ; display: inline-block;">
+     <br>
+<div class="card-title" style = "text-align:center"><p class = "display-7 lead"><b>RIDE <%=@rides.find_index(i)+1%></b></p></div>
+<div class="card-body">
+<% @booking = BookingRequest.find_by(id: i.booking_request_id) %>
+<% if @booking %>
+<h6 class="card-title"><p class = "lead"> <%="From : #{@booking.from_location_name}"%> </p> </h6>
+<h6 class="card-title"><p class = "lead">  <%="To : #{@booking.to_location_name}"%> </p> </h6>
+<% end %>
+<% @driver = User.find_by(userable_id: i.driver_id) %>
+<h6 class = "card-title"> <p class = "lead">  <%= "Rider Name : #{@driver.name}" %> </p> </h6>
+<h6 class = "card-title"><p class = "lead"> <%= "Ride date : #{i.ride_date}" %></p> </h6>
+<% @bill = Bill.find_by(ride_id: i.id) %>
+
+<% if @bill %>
+<h6 class = "card-title"> <p class = "lead" > <%= "Ride amount : #{@bill.bill_amount}" %> </p> </h6>
+<% end %>
+
+</div> 
 </div> &nbsp &nbsp &nbsp
-            
-        
-    <%end%>
+    
+
+<%end%>
+</div>
+
+
     <% else %>
         <h1> No rides found </h1>
     <%end %>

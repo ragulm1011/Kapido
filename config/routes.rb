@@ -32,6 +32,7 @@ Rails.application.routes.draw do
   get "/drivers/edit" => "drivers#edit"
   patch "/drivers/update" => "drivers#update"
   get "/riders/show" => "riders#show"
+  get "/homes/check" => "homes#check"
 
   resources :drivers
   resources :riders , only: [:show]

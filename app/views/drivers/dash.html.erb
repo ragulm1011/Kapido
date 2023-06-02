@@ -34,7 +34,7 @@
 <% end %>
 <div style = "display : flex ; justify-content : space-around;">
     
-    <div class="card bg-light mb-3 shadow shadow-md" style="max-width: 10rem;">
+    <div class="card bg-light mb-3 border-info shadow shadow-md" style="max-width: 10rem;">
   <div class="card-header"> <p class = "display-7 lead"> <b>Total Rides</b> </p> </div>
   <div class="card-body">
     <h5 class="card-title"><p class = "display-6 lead"> <b> <%= @rides.length %> </b> </p> </h5>
@@ -50,7 +50,7 @@
 
 
 
-<div class="card bg-light mb-3 shadow shadow-md" style="max-width: 25rem;margin-left:30px">
+<div class="card bg-light mb-3 border-info shadow shadow-md" style="max-width: 25rem;margin-left:30px">
   <div class="card-header"> <p class = "display-7 lead"> <b>Total Earnings</b> </p> </div>
   <div class="card-body">
     <h5 class="card-title"> <p class = "display-6 lead"><b> <%= @earnings %> </b> </p> </h5>
@@ -63,7 +63,7 @@
 </div>
 
 
-<div class="card bg-light mb-3 shadow shadow-md" style="max-width: 25rem; margin-left : 30px">
+<div class="card bg-light mb-3 border-info shadow shadow-md" style="max-width: 25rem; margin-left : 30px">
   <div class="card-header"><p class = "display-7 lead"><b>Driver Rating</b></p></div>
   <div class="card-body">
     <h5 class="card-title"><p class = "display-6 lead"><b><%= @rating.round(2) %></b></p></h5>

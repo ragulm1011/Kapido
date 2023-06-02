@@ -38,7 +38,8 @@ class RidesController < ApplicationController
     @ride = Ride.new(booking_request_id: params[:id].to_i, driver_id: current_user.userable.id , rider_id: booking.rider_id , ride_date: Date.today())
     @ride.save
     booking.update(booking_status: 'booked')
-    flash[:notice] = "You are on the ride"    
+    flash[:notice] = "You are on the ride" 
+    current_user.userable.update(current_ride_id: @ride.id)  
     redirect_to riding_path(id: @ride.id)
   end
 
@@ -90,6 +91,7 @@ class RidesController < ApplicationController
     
     if ride.save
       flash[:notice] = "You are moved to ride"
+      current_user.userable.update(current_ride_id: ride.id)
       redirect_to riding_path(id: ride.id)
     else
       render :finish_waiting_path
