@@ -24,13 +24,23 @@ ActiveAdmin.register User do
 
     column "Email" , :email
 
-    column "Name" , :name
+    column "Name" , :name  do |i|
+      link_to i.name , admin_user_path(i.id)
+    end
 
     column "Age" , :age
 
     column "Mobile No" , :mobile_no
 
-    column "Role" , :role
+    column "Userable_Type" , :userable_type
+
+    column "Userable_ID" , :userable_id do |i|
+      if i.role == "Driver"
+        link_to i.userable_id , admin_driver_path(i.userable_id)
+      else
+        link_to i.userable_id , admin_rider_path(i.userable_id)
+      end
+    end
 
     column "Door No" , :door_no
 
