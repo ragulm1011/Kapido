@@ -5,7 +5,7 @@ FactoryBot.define do
     credentials { "8778846924" }
     remarks { "Done for a Ride" }
     payment_date { "2023-05-24" }
-    bill_no { 1 }
+    bill_no { 161 }
     
     rider
     driver

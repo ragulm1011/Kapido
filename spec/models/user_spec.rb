@@ -278,6 +278,7 @@ RSpec.describe User, type: :model do
     
   end
 
+  #Rspec Testcases for methods
   describe "methods" do
 
     context "when rider is created" do

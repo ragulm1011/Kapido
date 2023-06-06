@@ -43,19 +43,7 @@ RSpec.describe DriversController, type: :controller do
             end
         end
 
-        # context "when driver_user signed in with valid params" do
-            
-        #     it "renders show template" do
-                
-
-        #         sign_in driver_user
-
-               
-                
-        #         get :show  , params: {id: driver.id}
-        #         expect(:response).to render_template(:show)
-        #     end
-        # end
+   
 
     end
 
@@ -98,14 +86,7 @@ RSpec.describe DriversController, type: :controller do
         end
 
 
-        # context "when ddriver_user signed in with valid params" do
-        #     it "renders edit template" do
-        #         sign_in driver_user
-        #         get :show , params: {id: driver_user.userable.id}
-        #         expect(response).to render_template(:edit)
-        #     end
-        # end
-
+       
     end
 
     describe "patch /drivers#update" do
@@ -261,9 +242,10 @@ RSpec.describe DriversController, type: :controller do
         end
 
         context "when rider_user signed in with valid params" do
+            let(:payment_100) { create(:payment) }
             before do
                 sign_in rider_user
-                get :rating_change , params: {driver: {id: 885}}
+                get :rating_change , params: {driver: {id: payment_100.id}}
             end
             it "redirects to rider_dash_path" do
                 

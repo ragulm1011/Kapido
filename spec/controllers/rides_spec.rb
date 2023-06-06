@@ -79,9 +79,10 @@ RSpec.describe RidesController, type: :controller do
         end
 
         context "when driver_user signed in" do
+            let(:booking_request_1) { create(:booking_request , rider: rider) }
             before do
                 sign_in driver_user
-                get :new , params: {id: 2844}
+                get :new , params: {id: booking_request_1.id}
             end
             it "renders new template" do
                

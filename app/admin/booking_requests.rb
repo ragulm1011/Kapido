@@ -52,9 +52,45 @@ ActiveAdmin.register BookingRequest do
   filter :from_location_name , as: :select , collection: BookingRequest.all.map(&:from_location_name).sort.uniq
   filter :to_location_name , as: :select , collection: BookingRequest.all.map(&:to_location_name).sort.uniq
     
+
+  form do |f|
+    f.semantic_errors
+  
+    f.inputs do
+      f.input :rider , as: :select , collection: Rider.all.collect{|rider| [rider.user.name , rider.id]}
+      f.input :city
+      f.input :booking_status , as: :select , collection: [['available','available'] , ['booked','booked']]
+
+      
+
+
+
+
+      f.input :vehicle_type , as: :select , collection: ["Bike" ,"Auto" ,  "Mini-Car" , "Sedan-Car" , "SUV-Car"]
+      f.input :from_location_name
+      f.input :to_location_name
+    end
+    f.actions
   end
+end
 
   
+# form do |f|
+#       f.semantic_errors
+#       f.inputs
+#       f.inputs do
+#         f.has_many :user, heading: 'Account Details', allow_destroy: true do |a|
+#           a.input :email
+#           a.input :password
+#           a.input :password_confirmation
+#           a.input :role, as: :select, collection: %w[student teacher]
+#         end
+#       end
+#       f.actions
+#     end
+  
+  
+# filter :primary_vehicle_id , as: :select , collection: Vehicle.all.map{|vehicle| [vehicle.vehicle_name , vehicle.id]}
   
   
 

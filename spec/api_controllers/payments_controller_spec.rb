@@ -160,8 +160,9 @@ RSpec.describe Api::PaymentsController , type: :request do
         end
 
         context "when authenticated rider_user access create with valid params" do
+            let!(:driver_1) { create(:driver) }
             before do
-                post "/api/payments" ,  params: { access_token: rider_user_token.token , driver_id: 2290 , mode_of_payment: "Gpay" , amount: 100 , credentials: "Done for a ride" , remarks: "Nothing" , bill_no: 1 } 
+                post "/api/payments" ,  params: { access_token: rider_user_token.token , driver_id: driver_1.id , mode_of_payment: "Gpay" , amount: 100 , credentials: "Done for a ride" , remarks: "Nothing" , bill_no: 1 } 
             end
             it "returns status 201" do
                
@@ -273,13 +274,7 @@ RSpec.describe Api::PaymentsController , type: :request do
             end
         end
 
-        # context "when authenticated rider_user access delete with valid params" do
-        #     let(:payment_9) { create(:payment , driver: driver , rider: rider) } 
-        #     it "returns status 200" do
-        #         patch "/api/payments/#{payment_9.id}" ,  params: { access_token: rider_user_token.token }
-        #         expect(response).to have_http_status(200)
-        #     end
-        # end
+       
 
         context "when authenticated rider_user access update with invalid payment_id params" do
             before do

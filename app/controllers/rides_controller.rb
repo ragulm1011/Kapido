@@ -10,6 +10,8 @@ class RidesController < ApplicationController
     else
       @rides = Ride.where(rider_id: current_user.userable.id)
     end
+
+    @rides = @rides.reverse()
   end
 
   

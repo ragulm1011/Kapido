@@ -21,12 +21,17 @@ ActiveAdmin.register Rider do
       link_to i.id , admin_rider_path(i.id)
     end
 
+    
     column "Name" , :id do |i|
+      if i.user
       link_to i.user.name , admin_user_path(i.user.id)
+      end
     end
 
     column "Age" , :id do |i|
+      if i.user
       i.user.age
+      end
     end
 
     column "Gender" , :gender

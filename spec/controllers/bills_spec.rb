@@ -98,14 +98,7 @@ RSpec.describe BillsController, type: :controller do
             end
         end
 
-        # Add 25 payment records and uncomment it
-        # context "when driver_user is signed in with valid params" do
-        #     it "redirects to waiting payment path" do
-        #         sign_in driver_user
-        #         post :create , params: {bill: {ride_id: ride.id , bill_amount: 500}}
-        #         expect(flash[:notice]).to eq("Your bill was created and wait for the payment")
-        #     end
-        # end
+        
 
         context "when driver_user is signed in with invalid params" do
             before do  

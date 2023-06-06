@@ -18,7 +18,7 @@
         <% @rides.each do |i| %>
              <div class="card bg-light border-success mb-3 shadow shadow-md" style="width: 18rem; height:18rem ; display: inline-block;">
              <br>
-  <div class="card-title" style = "text-align:center"><p class = "display-7 lead"><b>RIDE <%=@rides.find_index(i)+1%></b></p></div>
+  <div class="card-title" style = "text-align:center"><p class = "display-7 lead"><b>RIDE <%=@rides.size - @rides.find_index(i)%></b></p></div>
   <div class="card-body">
     <% @booking = BookingRequest.find_by(id: i.booking_request_id) %>
     <% if @booking %>
@@ -57,7 +57,7 @@
 <% @rides.each do |i| %>
      <div class="card bg-light border-success mb-3 shadow shadow-md" style="width: 18rem; height:18rem ; display: inline-block;">
      <br>
-<div class="card-title" style = "text-align:center"><p class = "display-7 lead"><b>RIDE <%=@rides.find_index(i)+1%></b></p></div>
+<div class="card-title" style = "text-align:center"><p class = "display-7 lead"><b>RIDE <%=@rides.size - @rides.find_index(i)+1%></b></p></div>
 <div class="card-body">
 <% @booking = BookingRequest.find_by(id: i.booking_request_id) %>
 <% if @booking %>

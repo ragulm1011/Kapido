@@ -159,8 +159,12 @@
     <br>
 
     <div class="field">
-   <b> <%= f.label :liscense_image , "Attach your liscense" , class: "display-8 lead"%> <span class = "red_star">*</span>  </b> <br><br>
-    <%= f.file_field :liscense_image %>
+   <b> <%= f.label :liscense_image , "Attach your liscense" , class: "display-8 lead" %> <span class = "red_star">*</span>  </b> <br><br>
+    <%= f.file_field :liscense_image , id: "liscense_image" %>
+
+    <button id = "reset-button" type = "button" class = "btn btn-light"> Reset </button>
+
+
   </div>
 
   <%end%>
@@ -198,7 +202,9 @@
 
     <div class = "field">
     <b><%= rd.label :aadhar_card_image , "Attach your aadhar" , class: "display-8 lead"%></b> <span class = "red_star">*</span>  <br> <br> 
-    <%= rd.file_field :aadhar_card_image%>
+    <%= rd.file_field :aadhar_card_image , id: "aadhar_image" %>
+
+    <button id = "reset-button-1" type = "button" class = "btn btn-light" > Reset </button>
     </div>
 
     <br>

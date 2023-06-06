@@ -16,6 +16,10 @@ class User < ApplicationRecord
   validates :mobile_no , length: {is: 10} , numericality: { only_integer: true }
   validates :pincode , length: {is: 6} , numericality: { only_integer: true }
 
+  validates :city, format: {with: /[a-zA-Z]/}
+  validates :district, format: {with: /[a-zA-Z]/}
+  validates :state, format: {with: /[a-zA-Z]/}
+
   # Devise authentication 
   def self.authenticate(email, password)
     user = User.find_for_authentication(email: email)

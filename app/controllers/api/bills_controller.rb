@@ -88,7 +88,7 @@ class Api::BillsController < Api::ApiController
     bill = Bill.new()
 
     bill.ride_id = params[:ride_id]
-    bill.payment_id = 25
+    bill.payment_id = 61
     bill.bill_date = Date.today()
     bill.bill_amount = params[:bill_amount]
 

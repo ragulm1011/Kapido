@@ -77,10 +77,18 @@ class Api::DriversController < Api::ApiController
 
   
 
-  def drivers_with_rating_above_3
-    driver = Driver.where("driver_rating >= ?", 3)
+  def drivers_with_rating
+
+
+    if params[:rating].to_i < 0 || params[:rating].to_i > 5
+      render json: { message: "The rating must be within the range of 0-5" } , status: :bad_request
+      return 
+    end
+
+
+    driver = Driver.where("driver_rating >= ?", params[:rating].to_i)
     if driver.empty?
-      render json: { message: "No drivers available with rating greater than 3" } , status: :no_content
+      render json: { message: "No drivers available with the given rating #{params[:rating].to_i}" } , status: :no_content
     else
       render json: driver , status: :ok
     end

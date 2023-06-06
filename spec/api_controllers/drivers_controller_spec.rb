@@ -142,13 +142,7 @@ RSpec.describe Api::DriversController , type: :request do
                 end
         end
 
-        # context "when driver_user access available_ride with valid city params" do
-        #     let!(:booking_request_1) { create(:booking_request , rider: rider) }
-        #     it "returns status 200" do
-        #         get "/api/drivers/available_ride" , params: { access_token: driver_user_token.token , city: "San Francisco" }
-        #         expect(response).to have_http_status(200)
-        #     end
-        # end
+        
 
         context "when driver_user access available_ride with invalid city params" do
             let!(:booking_request_1) { create(:booking_request , rider: rider) }
